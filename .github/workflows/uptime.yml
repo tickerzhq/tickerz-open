@@ -1,0 +1,75 @@
+name: uptime
+
+# Every 15 minutes: ten tickerz.com pages and endpoints must each answer 200 within 5 seconds, and the board must be
+# fresh (not halted, newest reading 45 minutes old or less). A miss gets one more try after 5 seconds, so a page that is
+# rebuilding its cache right after a deploy does not open an issue. While anything fails there is one open issue
+# labelled "uptime" in this repository with a comment per failed run; the first clean run closes it. It runs here, in
+# the public repository, so the record of when the site was down is public too. No checkout, no install.
+
+on:
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+concurrency:
+  group: uptime
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Ten URLs, 200 within 5 seconds, and a fresh board
+        run: |
+          ua='tickerz-agent/uptime (+https://tickerz.com)'
+          get() { curl -s -o /dev/null -m 5 -A "$ua" -H 'x-tickerz-agent: uptime' -w '%{http_code} in %{time_total}s' "$@" || true; }
+          down=""
+          for path in / /x /x/gigs /terminal /machines /asset/btc /api/status /api/board /api/v1/indices /mcp; do
+            args=("https://tickerz.com$path")
+            if [ "$path" = /mcp ]; then
+              args+=(-X POST -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}')
+            fi
+            out=$(get "${args[@]}")
+            if [ "${out%% *}" != 200 ]; then sleep 5; out=$(get "${args[@]}"); fi
+            echo "$path $out"
+            if [ "${out%% *}" != 200 ]; then down="$down- \`$path\` answered $out\n"; fi
+          done
+          board=$(curl -s -m 10 -A "$ua" -H 'x-tickerz-agent: uptime' https://tickerz.com/api/board || true)
+          fresh=$(printf '%s' "$board" | python3 -c "
+          import sys, json
+          from datetime import datetime, timezone
+          try:
+              d = json.load(sys.stdin)
+              if d.get('halted'):
+                  print('the board reports halted')
+              elif not d.get('updated_at'):
+                  print('the board has no updated_at')
+              else:
+                  t = datetime.fromisoformat(d['updated_at'].replace('Z', '+00:00'))
+                  age = int((datetime.now(timezone.utc) - t).total_seconds() // 60)
+                  print('' if age <= 45 else 'the newest board reading is %d minutes old' % age)
+          except Exception:
+              print('the board did not answer with JSON')
+          ")
+          echo "board: ${fresh:-fresh}"
+          if [ -n "$fresh" ]; then down="$down- \`/api/board\`: $fresh\n"; fi
+          now=$(date -u +%FT%TZ)
+          issue=$(gh issue list --label uptime --state open --json number --jq '.[0].number // empty')
+          if [ -n "$down" ]; then
+            body=$(printf '**%s**\n\n%b\nEach URL must answer 200 within 5 seconds, two tries. 000 means no answer in time. Run: %s' "$now" "$down" "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID")
+            if [ -n "$issue" ]; then
+              gh issue comment "$issue" --body "$body"
+            else
+              gh label create uptime --color B60205 --description "Opened and closed by the uptime workflow" --force
+              gh issue create --title "tickerz.com is failing checks" --label uptime --body "$body"
+            fi
+            exit 1
+          elif [ -n "$issue" ]; then
+            gh issue close "$issue" --comment "Recovered $now: all ten checks answered 200 within 5 seconds and the board is fresh."
+          fi
