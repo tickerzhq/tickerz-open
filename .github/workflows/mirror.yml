@@ -1,0 +1,29 @@
+name: mirror
+
+# Twice a day: copy what Tickerz printed into prints/ and daily-proofs/. The run fails, and writes nothing, if a first print
+# already in this repo changed or a period disappeared. See scripts/mirror.py.
+on:
+  schedule:
+    - cron: "40 13 * * *"
+    - cron: "40 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mirror the prints
+        run: python3 scripts/mirror.py
+      - name: Commit
+        run: |
+          git config user.name "tickerz"
+          git config user.email "support@tickerz.com"
+          git add prints daily-proofs
+          git diff --cached --quiet && exit 0
+          git commit -m "Prints through $(date -u +%F)"
+          git push
