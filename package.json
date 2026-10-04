@@ -1,0 +1,25 @@
+{
+  "name": "tickerz-open",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The open parts of Tickerz: the $MINTS counter, the x402 $GIGS and $WAGE math, and a verifier for the daily Bitcoin-timestamped seal.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node scripts/test-all.mjs",
+    "typecheck": "tsc --noEmit",
+    "verify": "tsx scripts/verify-proof.ts",
+    "mints": "tsx scripts/count-mints.ts",
+    "gigs": "tsx scripts/recompute-gigs-wage.ts"
+  },
+  "dependencies": {
+    "viem": "2.56.8"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.1",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3"
+  }
+}
