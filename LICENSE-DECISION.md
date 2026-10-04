@@ -20,6 +20,6 @@ Either lets a judge clone, run `npm test` and `npm run verify`, and reuse the ve
 ## To publish
 
 1. Pick MIT or Apache-2.0 (or another license).
-2. Add `LICENSE` with the full text and the copyright line, and add THIRD-PARTY-NOTICES for x402scan.
+2. Add `LICENSE` with the full text and the copyright line. THIRD-PARTY-NOTICES for x402scan is already in place.
 3. Set `"license"` in `package.json` and drop `"private": true` if the package will be published to npm (not needed for GitHub).
 4. Delete this file.
