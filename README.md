@@ -139,4 +139,4 @@ The test fixture `test/fixtures/seal-2026-10-03.json` is Tickerz's public proof 
 
 ## License
 
-Not chosen yet: see [LICENSE-DECISION.md](LICENSE-DECISION.md).
+MIT, copyright Tickerz LLC (see LICENSE). The x402 facilitator list comes from Merit-Systems/x402scan under MIT (see THIRD-PARTY-NOTICES). The license covers this code; the published index values and the Tickerz name are not covered by it.
