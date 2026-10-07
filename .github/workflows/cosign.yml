@@ -1,0 +1,34 @@
+# The independent recount. Copy to tickerzhq/tickerz-open as .github/workflows/cosign.yml (public repo: free minutes).
+# Secrets in tickerz-open: TICKERZ_COSIGNER_KEY (a new Solana keypair made for this job only; its public address goes in
+# ORACLE_COSIGNERS on Vercel and COSIGNERS in src/lib/oracle/signer.ts) and SOLANA_RPC_URL (a Helius or dRPC endpoint).
+# The recount code is copied from tickerz (src/lib/oracle/{cosign,recount,report,canonical}.ts and their imports) into
+# tickerz-open's oracle/ folder, so anyone can read exactly what co-signs.
+name: cosign
+on:
+  schedule:
+    - cron: "40 16 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  cosign:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - name: Recount and co-sign
+        env:
+          TICKERZ_COSIGNER_KEY: ${{ secrets.TICKERZ_COSIGNER_KEY }}
+          SOLANA_RPC_URL: ${{ secrets.SOLANA_RPC_URL }}
+        run: npx tsx oracle/scripts/cosign.ts --out .
+      - name: Commit co-signatures
+        run: |
+          git config user.name "tickerz-open cosign"
+          git config user.email "desk@tickerz.com"
+          git add cosigns disputes
+          git diff --cached --quiet || git commit -m "cosign: $(date -u +%F)"
+          git push

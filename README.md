@@ -148,3 +148,7 @@ The test fixture `test/fixtures/seal-2026-10-03.json` is Tickerz's public proof 
 ## License
 
 MIT, copyright Tickerz LLC (see LICENSE). The x402 facilitator list comes from Merit-Systems/x402scan under MIT (see THIRD-PARTY-NOTICES). The license covers this code; the published index values and the Tickerz name are not covered by it.
+
+## The oracle recount
+
+`oracle/` holds the code that independently recounts every number the Tickerz oracle signs, copied from the product repo so anyone can read exactly what co-signs. `.github/workflows/cosign.yml` runs it every day at 16:40 UTC: it fetches each new signed report from tickerz.com, counts the period again from the source (the BLS API and flat file for $JOBS, $UNEMP, $CPI and $CORECPI; the Solana chain for $MINTS), and co-signs only when its count equals the signed value. Co-signatures land in `cosigns/`, disagreements in `disputes/`. The co-signing key is this repo's own (address 7TYVLzDyAGspQ2FSH1H4D8kzrocuQqSRMM48frr3EjZ3), separate from the publisher's. A number is final after 24 hours with a co-signature and no dispute. Run it yourself: `npx tsx oracle/scripts/cosign.ts --out .` with your own `TICKERZ_COSIGNER_KEY`.
