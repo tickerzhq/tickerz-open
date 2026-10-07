@@ -1,0 +1,4 @@
+numpy==2.5.3
+polars==2.0.0
+statsforecast==2.1.1
+lightgbm==4.7.0

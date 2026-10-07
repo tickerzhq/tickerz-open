@@ -138,6 +138,21 @@ The sample is fixed by the chain, so the recount lands on the same number and th
 
 Payer balancing stops one busy wallet from setting $WAGE. It does not stop many small wallets paying one service. On Oct 3 2026 one service's many $0.001 payers halved it: $WAGE printed $0.005, against $0.01 on Oct 2. A fix is open and is not yet in the rulebook or in this code. Until it lands, read $WAGE with that in mind.
 
+## Forecasts (Tickerz Forecast v1)
+
+Where each index's next number is likely to land, with a 10th to 90th percentile range, and how well that has worked. Display only: a forecast never touches a printed or settled number. Code: [models/forecast.py](models/forecast.py), run daily at 14:10 UTC by `.github/workflows/forecast.yml`.
+
+- **Backward.** Every candidate (last number, 7-period mean and median, 7-day seasonal, drift, exponential smoothing and Theta from statsforecast, gradient-boosted trees from LightGBM once a series has 60 periods, and the median of all of them) is walked forward over the numbers as first published: at each past period it sees only what came before. Scored by pinball loss and by how often the actual number fell inside the range (80% is right).
+- **Forward.** Each index uses the median of all candidates unless another model's loss over the last 14 periods is at least 10% lower. The next forecast is appended to `forecasts/log.csv` before the number is known; a row there is never rewritten, and only the first forecast for a period counts.
+- **Self-correcting.** The choice is made again every day from the newest prints and logged in `forecasts/selection.csv`.
+- **Honest numbers.** `forecasts/latest.json` gives, per index, the backtest of the whole procedure (picking the model the way the daily run does, from earlier periods only) against repeating the last number on the same periods. The default model and the 10% margin were chosen after looking at that backtest, so the clean test is the live record in `log.csv`.
+
+```bash
+pip install -r models/requirements.txt
+python3 models/test_forecast.py      # no network: no look-ahead, ranges, negative series, the live record
+python3 models/forecast.py --dry     # reads tickerz.com, writes forecasts/latest.json only
+```
+
 ## Sources and credits
 
 - pump.fun accounts: https://github.com/pump-fun/pump-public-docs
