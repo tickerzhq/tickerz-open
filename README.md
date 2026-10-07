@@ -1,5 +1,7 @@
 # Tickerz: the open parts
 
+[![$MINTS](https://tickerz.com/api/badge/mints.svg)](https://oracle.tickerz.com/mints) [![$GIGS](https://tickerz.com/api/badge/gigs.svg)](https://oracle.tickerz.com/gigs) [![$WAGE](https://tickerz.com/api/badge/wage.svg)](https://oracle.tickerz.com/wage) [![$JOBS](https://tickerz.com/api/badge/jobs.svg)](https://oracle.tickerz.com/jobs) [![$CPI](https://tickerz.com/api/badge/cpi.svg)](https://oracle.tickerz.com/cpi)
+
 Tickerz publishes indexes of real-world activity. Each index counts one thing, every day, from a named public source: coins created on pump.fun, paid API calls settled over x402, unemployment claims filed with the states. Once a day every new reading is hashed and timestamped in Bitcoin with OpenTimestamps, so anyone can check later that a number was not changed after it was printed. Because the first print of each day is fixed that way, a venue such as a prediction market can settle a contract on it.
 
 This repo is the part of Tickerz needed to check that claim: the code that counts three of the indexes from the chain, and a verifier for the daily Bitcoin proof. It runs on its own: no database, no keys, no account. Everything it fetches is public.
