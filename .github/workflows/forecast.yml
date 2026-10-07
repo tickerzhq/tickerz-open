@@ -1,0 +1,37 @@
+name: forecast
+
+# Once a day: Tickerz Forecast v1 (models/forecast.py). Backtests every candidate model on the numbers as first
+# published, picks one per index, forecasts the next print and appends it to forecasts/log.csv before the number is
+# known. Display only: nothing here touches a printed or settled number. Public repo, so the minutes are free.
+on:
+  schedule:
+    - cron: "10 14 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  forecast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: models/requirements.txt
+      - run: pip install -r models/requirements.txt
+      - name: Check the model code
+        run: python models/test_forecast.py
+      - name: Forecast
+        run: python models/forecast.py
+      - name: Commit
+        run: |
+          git config user.name "tickerz"
+          git config user.email "support@tickerz.com"
+          git add forecasts
+          git diff --cached --quiet && exit 0
+          git commit -m "Forecasts $(date -u +%F)"
+          git push
