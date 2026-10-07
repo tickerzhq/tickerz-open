@@ -30,7 +30,7 @@ jobs:
           ua='tickerz-agent/uptime (+https://tickerz.com)'
           get() { curl -s -o /dev/null -m 5 -A "$ua" -H 'x-tickerz-agent: uptime' -w '%{http_code} in %{time_total}s' "$@" || true; }
           down=""
-          for path in / /x /x/gigs /terminal /machines /asset/btc /api/status /api/board /api/v1/indices /mcp; do
+          for path in / /x /x/gigs /terminal /oracle /asset/btc /api/status /api/board /api/v1/indices /mcp; do
             args=("https://tickerz.com$path")
             if [ "$path" = /mcp ]; then
               args+=(-X POST -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}')
