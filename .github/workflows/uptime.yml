@@ -30,8 +30,9 @@ jobs:
           ua='tickerz-agent/uptime (+https://tickerz.com)'
           get() { curl -s -o /dev/null -m 5 -A "$ua" -H 'x-tickerz-agent: uptime' -w '%{http_code} in %{time_total}s' "$@" || true; }
           down=""
-          for path in / /x /x/gigs /terminal /oracle /asset/btc /api/status /api/board /api/v1/indices /mcp; do
-            args=("https://tickerz.com$path")
+          for path in / /x /x/gigs /terminal https://oracle.tickerz.com/ /asset/btc /api/status /api/board /api/v1/indices /mcp; do
+            # The oracle has its own host since Oct 7 (tickerz.com/oracle answers 308 there by decision).
+            case "$path" in http*) args=("$path") ;; *) args=("https://tickerz.com$path") ;; esac
             if [ "$path" = /mcp ]; then
               args+=(-X POST -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}')
             fi
