@@ -1,0 +1,37 @@
+name: x-idea
+# Email one post idea to the founder (founder, Oct 8 2026: "Please stop automatically posting on X" and "just email
+# me the post idea"). Nothing is posted: the email has the text, the card to attach and the link for his first reply.
+# Lives here, in the public repo, because its Actions minutes are free (the private repo ran out on Oct 8 2026).
+# Run: gh workflow run x-idea.yml -R tickerzhq/tickerz-open -f text="..." -f card=/api/card/page/oracle -f link=https://oracle.tickerz.com -f why="..."
+on:
+  workflow_dispatch:
+    inputs:
+      text:
+        description: The post, ready to copy
+        required: true
+      card:
+        description: "The share card to attach, e.g. /api/card/page/oracle or /api/card/x/mints?clean=1"
+        required: false
+      link:
+        description: "The link for his first reply (tickerz.com, oracle.tickerz.com or github.com/tickerzhq)"
+        required: false
+      why:
+        description: One line on why it is worth posting
+        required: false
+permissions: {}
+jobs:
+  email:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Email the idea
+        env:
+          NOTE_TOKEN: ${{ secrets.NOTE_TOKEN }}
+          TEXT: ${{ inputs.text }}
+          CARD: ${{ inputs.card }}
+          LINK: ${{ inputs.link }}
+          WHY: ${{ inputs.why }}
+        run: |
+          body=$(jq -n --arg t "$TEXT" --arg c "$CARD" --arg l "$LINK" --arg w "$WHY" '{text: $t, card: $c, link: $l, why: $w}')
+          curl -sS --fail-with-body --max-time 30 -A "tickerz-agent/x-idea" -H "Authorization: Bearer $NOTE_TOKEN" -H "content-type: application/json" \
+            -d "$body" https://tickerz.com/api/desk/idea -w "\nHTTP %{http_code}\n"
