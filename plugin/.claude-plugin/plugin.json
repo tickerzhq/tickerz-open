@@ -1,0 +1,11 @@
+{
+  "name": "tickerz",
+  "displayName": "Tickerz",
+  "version": "0.1.0",
+  "description": "Live indexes for data nobody else publishes: US jobless claims, payrolls, CPI, memecoin launches on Solana, prediction market volume and more. Each number with its rule, its period and a way to recount it. No key, no signup.",
+  "author": { "name": "Tickerz", "email": "desk@tickerz.com", "url": "https://tickerz.com" },
+  "homepage": "https://tickerz.com/connect",
+  "repository": "https://github.com/tickerzhq/tickerz-open",
+  "license": "MIT",
+  "keywords": ["data", "indexes", "prediction-markets", "economic-data", "solana", "mcp"]
+}

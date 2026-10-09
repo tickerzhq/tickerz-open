@@ -1,0 +1,17 @@
+{
+  "name": "tickerz",
+  "owner": {
+    "name": "Tickerz",
+    "email": "desk@tickerz.com"
+  },
+  "metadata": {
+    "description": "Tickerz plugins for Claude: live indexes for data nobody else publishes."
+  },
+  "plugins": [
+    {
+      "name": "tickerz",
+      "source": "./plugin",
+      "description": "Live Tickerz indexes in Claude: the MCP server and a skill for reading them."
+    }
+  ]
+}
