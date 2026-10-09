@@ -10,6 +10,10 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+# One run at a time: two runs started together both commit and the second push is refused (Oct 9).
+concurrency:
+  group: cosign
+  cancel-in-progress: false
 jobs:
   cosign:
     runs-on: ubuntu-latest
@@ -30,5 +34,8 @@ jobs:
           git config user.name "tickerz-open cosign"
           git config user.email "desk@tickerz.com"
           git add cosigns disputes
-          git diff --cached --quiet || git commit -m "cosign: $(date -u +%F)"
-          git push
+          git diff --cached --quiet && exit 0
+          git commit -m "cosign: $(date -u +%F)"
+          # Other jobs (prints, forecasts) push to main too: replay this commit on top of theirs, then push.
+          for i in 1 2 3; do git pull --rebase -X theirs origin main && git push && exit 0; sleep 5; done
+          exit 1
