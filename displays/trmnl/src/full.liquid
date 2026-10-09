@@ -1,0 +1,50 @@
+<div class="layout layout--col layout--stretch-x tz-wrap">
+{%- if tz_mode == "index" %}
+  <div class="tz-head">
+    <span class="tz-tick tz-f26"><span class="tz-bar"></span>${{ ticker }}</span>
+    <span class="tz-tick tz-f22">{{ tz_periods[0] }}</span>
+  </div>
+  <div>
+    <div class="value value--mega tz-num" data-value-fit="true">{{ tz_values[0] }}</div>
+    <div class="tz-mono tz-f22 tz-gap">{{ name }}</div>
+  </div>
+  {%- if tz_path != "" %}
+  <div>
+    <svg class="tz-chart" viewBox="0 0 1000 100" preserveAspectRatio="none">
+      <line x1="0" y1="99" x2="1000" y2="99"></line>
+      <path d="{{ tz_path }}"></path>
+    </svg>
+    <div class="tz-axis">
+      <span class="label label--small">Last {{ tz_span_words }}</span>
+      <span class="label label--small">{{ tz_periods[0] }}</span>
+    </div>
+  </div>
+  {%- endif %}
+  <div class="tz-rule tz-pad">
+    <span class="description tz-f18">Source: {{ source.name }}</span>
+  </div>
+{%- elsif tz_mode == "close" %}
+  <div class="tz-head">
+    <span class="tz-tick tz-f26"><span class="tz-bar"></span>The Tickerz Close</span>
+    <span class="tz-tick tz-f22">{{ tz_close_day }}</span>
+  </div>
+  <div class="title tz-line">{{ text }}</div>
+  <div class="tz-rule">
+    {%- for t in tz_tickers %}
+    <div class="tz-row">
+      <span class="tz-tick tz-f22 tz-col-t">${{ t }}</span>
+      <span class="tz-num tz-n32 tz-col-v">{{ tz_values[forloop.index0] }}</span>
+      <span class="tz-mono tz-f18 tz-col-p">{{ tz_periods[forloop.index0] }}</span>
+    </div>
+    {%- endfor %}
+  </div>
+{%- else %}
+  <div class="tz-tick tz-f26"><span class="tz-bar"></span>Tickerz</div>
+  <div class="title">No reading yet. Check the polling URL: https://tickerz.com/api/v1/indices/close</div>
+{%- endif %}
+</div>
+<div class="title_bar">
+  <img class="image" src="{{ tz_mark }}">
+  <span class="title">Tickerz</span>
+  <span class="instance">{% if tz_mode == "index" %}tickerz.com/x/{{ tz_slug }}{% else %}tickerz.com{% endif %}</span>
+</div>

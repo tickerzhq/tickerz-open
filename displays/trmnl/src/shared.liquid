@@ -1,0 +1,177 @@
+{%- comment -%}
+Tickerz for TRMNL. TRMNL puts this markup above every layout, so all the formatting happens here and the layouts only
+place it. One polling URL feeds it, no key:
+  The Close  https://tickerz.com/api/v1/indices/close     rows[], text, day
+  One index  https://tickerz.com/api/v1/indices/{slug}    ticker, name, unit, step, source, latest_complete, days[], url
+The number shown is always the newest complete reading (latest_complete), never a day still being counted.
+Formats follow the site (src/lib/indices/format.ts): counts in full with commas, dollars as $584.41M, $3.55M, $0.0100,
+percent to one decimal. Periods follow src/lib/periodWords.ts: "Oct 8", "Week to Oct 3", "Sep 2026".
+{%- endcomment -%}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=block">
+<style>
+  /* Words stay in the framework's fonts, drawn for e-paper. Numbers and tickers are Geist Mono, as on tickerz.com. */
+  .tz-num { font-family: "Geist Mono", ui-monospace, Menlo, monospace !important; font-weight: 500 !important; font-variant-numeric: tabular-nums; letter-spacing: -0.04em; line-height: 1 !important; color: #000; }
+  .tz-mono { font-family: "Geist Mono", ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; color: #000; }
+  .tz-tick { font-family: "Geist Mono", ui-monospace, Menlo, monospace; font-weight: 500; letter-spacing: 0.02em; text-transform: uppercase; color: #000; }
+  .tz-bar { display: inline-block; width: 18px; height: 4px; background: #000; margin-right: 10px; vertical-align: middle; }
+  .tz-wrap { justify-content: space-between; gap: 0; padding: 4px 6px 2px; }
+  .tz-wrap--mid { justify-content: center; }
+  .tz-wrap--top { justify-content: flex-start; }
+  .tz-head { display: flex; justify-content: space-between; align-items: center; }
+  .tz-rule { border-top: 2px solid #000; }
+  .tz-row { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px solid #000; padding: 6px 0 5px; }
+  .tz-row:last-child { border-bottom: 0; }
+  .tz-chart { display: block; width: 100%; height: 84px; }
+  .tz-chart--s { height: 64px; }
+  .tz-chart path { fill: none; stroke: #000; stroke-width: 3; stroke-linejoin: miter; stroke-linecap: square; vector-effect: non-scaling-stroke; }
+  .tz-chart line { stroke: #000; stroke-width: 1; stroke-dasharray: 2 4; vector-effect: non-scaling-stroke; }
+  .tz-axis { display: flex; justify-content: space-between; margin-top: 6px; }
+  .tz-f26 { font-size: 26px; } .tz-f24 { font-size: 24px; } .tz-f22 { font-size: 22px; } .tz-f20 { font-size: 20px; }
+  .tz-f18 { font-size: 18px; } .tz-f16 { font-size: 16px; } .tz-f14 { font-size: 14px; } .tz-f12 { font-size: 12px; }
+  .tz-n34 { font-size: 34px; } .tz-n32 { font-size: 32px; } .tz-n28 { font-size: 28px; } .tz-n20 { font-size: 20px; }
+  .tz-gap { margin-top: 10px; } .tz-gap-s { margin-top: 4px; } .tz-pad { padding-top: 8px; }
+  .tz-line { font-size: 28px; line-height: 1.25; margin: 6px 0 4px; }
+  .tz-col-t { width: 220px; } .tz-col-v { flex: 1; text-align: right; } .tz-col-p { width: 210px; text-align: right; }
+  .tz-split { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .tz-split > :first-child { flex: 0 0 auto; } .tz-split > :last-child { flex: 1; min-width: 0; text-align: right; }
+  .tz-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; column-gap: 24px; }
+  .tz-grid3 > div { padding-top: 8px; }
+  .tz-grid2 { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; row-gap: 4px; }
+  .tz-grid2 > div { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid #000; padding-top: 3px; }
+  .tz-mb { margin-bottom: 6px; }
+</style>
+{%- assign tz_months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," -%}
+{%- assign tz_mark = "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='105 315 980 570'%3E%3Cpath d='M160 320H580A50 50 0 0 1 630 370V830A50 50 0 0 1 530 830V420H160A50 50 0 0 1 160 320Z'/%3E%3Cpath d='M726.675 805.041L991.675 345.041A50 50 0 0 1 1078.325 394.959L813.325 854.959A50 50 0 0 1 726.675 805.041Z'/%3E%3C/svg%3E" -%}
+
+{%- comment -%} Which feed answered: the Close has rows, an index has a ticker. {%- endcomment -%}
+{%- assign tz_mode = "none" -%}
+{%- assign tz_n = 0 -%}
+{%- if rows and rows.size > 0 -%}
+  {%- assign tz_mode = "close" -%}
+  {%- assign tz_n = rows.size -%}
+{%- elsif ticker -%}
+  {%- assign tz_mode = "index" -%}
+  {%- assign tz_n = 1 -%}
+{%- endif -%}
+
+{%- comment -%}
+Format every reading once. Liquid has no functions, so one loop formats the Close's rows or the single index, and the
+results are kept as lists in the same order: tz_tickers, tz_values, tz_periods.
+{%- endcomment -%}
+{%- assign tz_tickers = "" -%}
+{%- assign tz_values = "" -%}
+{%- assign tz_periods = "" -%}
+{%- if tz_n > 0 -%}
+{%- for i in (1..tz_n) -%}
+  {%- if tz_mode == "close" -%}
+    {%- assign r = rows[forloop.index0] -%}
+    {%- assign ft = r.ticker -%}
+    {%- assign fv = r.value -%}
+    {%- assign fp = r.period -%}
+    {%- assign fs = 1 -%}
+    {%- if ft == "LAYOFFS" -%}{%- assign fs = 7 -%}{%- endif -%}
+    {%- assign fu = "count" -%}
+    {%- case ft -%}
+      {%- when "YESNO", "TRENCHES", "WAGE" -%}{%- assign fu = "dollars" -%}
+      {%- when "UNEMP", "CPI", "CORECPI" -%}{%- assign fu = "percent" -%}{%- assign fs = "month" -%}
+      {%- when "JOBS" -%}{%- assign fs = "month" -%}
+    {%- endcase -%}
+  {%- else -%}
+    {%- assign ft = ticker -%}
+    {%- assign fv = latest_complete.value -%}
+    {%- assign fp = latest_complete.period -%}
+    {%- assign fs = step -%}
+    {%- assign fu = unit -%}
+  {%- endif -%}
+
+  {%- capture f_val -%}
+    {%- if fv == nil -%}--
+    {%- else -%}
+      {%- assign a = fv | abs -%}
+      {%- if fv < 0 -%}-{%- endif -%}
+      {%- if fu == "dollars" or fu == "percent" -%}
+        {%- comment -%} Fixed decimals without float noise: scale to a whole number, round, then split. {%- endcomment -%}
+        {%- assign sf = "" -%}
+        {%- if fu == "percent" -%}{%- assign sc = 0.1 -%}{%- assign dg = 1 -%}{%- assign pw = 10 -%}{%- assign sf = "%" -%}
+        {%- elsif a >= 1000000000 -%}{%- assign sc = 10000000.0 -%}{%- assign dg = 2 -%}{%- assign pw = 100 -%}{%- assign sf = "B" -%}
+        {%- elsif a >= 1000000 -%}{%- assign sc = 10000.0 -%}{%- assign dg = 2 -%}{%- assign pw = 100 -%}{%- assign sf = "M" -%}
+        {%- elsif a >= 1000 -%}{%- assign sc = 100.0 -%}{%- assign dg = 1 -%}{%- assign pw = 10 -%}{%- assign sf = "K" -%}
+        {%- elsif a >= 1 or a == 0 -%}{%- assign sc = 1.0 -%}{%- assign dg = 0 -%}{%- assign pw = 1 -%}
+        {%- else -%}{%- assign sc = 0.0001 -%}{%- assign dg = 4 -%}{%- assign pw = 10000 -%}
+        {%- endif -%}
+        {%- assign whole_n = a | divided_by: sc | round -%}
+        {%- assign whole = whole_n | divided_by: pw | floor -%}
+        {%- if fu == "dollars" -%}${%- endif -%}{{ whole }}
+        {%- if dg > 0 -%}
+          {%- assign neg = dg | times: -1 -%}
+          {%- assign frac = whole_n | modulo: pw | floor | prepend: "0000" | slice: neg, dg -%}.{{ frac }}
+        {%- endif -%}{{ sf }}
+      {%- else -%}
+        {{- a | round | number_with_delimiter -}}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture f_per -%}
+    {%- assign pp = fp | default: "" | split: "-" -%}
+    {%- if pp.size == 3 -%}
+      {%- assign mi = pp[1] | plus: 0 | minus: 1 -%}
+      {%- if fs == "month" -%}{{ tz_months[mi] }} {{ pp[0] }}
+      {%- else -%}{%- if fs == 7 -%}Week to {% endif -%}{{ tz_months[mi] }} {{ pp[2] | plus: 0 }}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- assign tz_tickers = tz_tickers | append: ft | append: "|" -%}
+  {%- assign tz_values = tz_values | append: f_val | append: "|" -%}
+  {%- assign tz_periods = tz_periods | append: f_per | append: "|" -%}
+{%- endfor -%}
+{%- endif -%}
+{%- assign tz_tickers = tz_tickers | split: "|" -%}
+{%- assign tz_values = tz_values | split: "|" -%}
+{%- assign tz_periods = tz_periods | split: "|" -%}
+
+{%- comment -%} The Close's own day, in words. {%- endcomment -%}
+{%- capture tz_close_day -%}
+  {%- assign pp = day | default: "" | split: "-" -%}
+  {%- if pp.size == 3 -%}{%- assign mi = pp[1] | plus: 0 | minus: 1 -%}{{ tz_months[mi] }} {{ pp[2] | plus: 0 }}{%- endif -%}
+{%- endcapture -%}
+
+{%- comment -%} One index: its unit word beside the number (dollars and percent carry theirs in the number). {%- endcomment -%}
+{%- assign tz_unit = "" -%}
+{%- if tz_mode == "index" and unit != "dollars" and unit != "percent" -%}{%- assign tz_unit = unit -%}{%- endif -%}
+{%- assign tz_slug = ticker | default: "" | downcase -%}
+
+{%- comment -%}
+One index: a stepped line through its last 30 complete readings, as the site's embed card draws it (src/lib/embed.ts,
+stepPath): each reading holds flat until the next, scaled to the readings' own range. Drawn in a 1000 by 100 box.
+{%- endcomment -%}
+{%- assign tz_path = "" -%}
+{%- assign tz_points = 0 -%}
+{%- if tz_mode == "index" and days -%}
+  {%- assign tz_done = days | where: "provisional", false -%}
+  {%- assign tz_off = tz_done.size | minus: 30 -%}
+  {%- if tz_off < 0 -%}{%- assign tz_off = 0 -%}{%- endif -%}
+  {%- assign tz_points = tz_done.size | minus: tz_off -%}
+  {%- if tz_points > 1 -%}
+    {%- assign lo = tz_done[tz_off].value -%}
+    {%- assign hi = lo -%}
+    {%- for d in tz_done offset: tz_off -%}
+      {%- if d.value < lo -%}{%- assign lo = d.value -%}{%- endif -%}
+      {%- if d.value > hi -%}{%- assign hi = d.value -%}{%- endif -%}
+    {%- endfor -%}
+    {%- assign span = hi | minus: lo -%}
+    {%- capture tz_path -%}
+      {%- for d in tz_done offset: tz_off -%}
+        {%- assign x = forloop.index0 | times: 1000.0 | divided_by: tz_points | round: 1 -%}
+        {%- if span == 0 -%}{%- assign y = 50 -%}
+        {%- else -%}{%- assign y = hi | minus: d.value | times: 92.0 | divided_by: span | plus: 4 | round: 1 -%}
+        {%- endif -%}
+        {%- if forloop.first -%}M{{ x }} {{ y }}{%- else -%} H{{ x }} V{{ y }}{%- endif -%}
+      {%- endfor -%} H1000
+    {%- endcapture -%}
+  {%- endif -%}
+{%- endif -%}
+{%- capture tz_span_words -%}
+  {%- if step == 7 -%}{{ tz_points }} weeks{%- elsif step == "month" -%}{{ tz_points }} months{%- else -%}{{ tz_points }} days{%- endif -%}
+{%- endcapture -%}

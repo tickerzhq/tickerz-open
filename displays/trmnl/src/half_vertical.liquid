@@ -1,0 +1,40 @@
+<div class="layout layout--col layout--stretch-x tz-wrap">
+{%- if tz_mode == "index" %}
+  <div class="tz-tick tz-f24"><span class="tz-bar"></span>${{ ticker }}</div>
+  <div>
+    <div class="value value--xxlarge tz-num" data-value-fit="true">{{ tz_values[0] }}</div>
+    <div class="tz-mono tz-f20 tz-gap">{{ tz_periods[0] }}</div>
+    {%- if tz_unit != "" %}<div class="tz-mono tz-f18 tz-gap-s">{{ tz_unit }}</div>{% endif %}
+  </div>
+  {%- if tz_path != "" %}
+  <div>
+    <svg class="tz-chart tz-chart--s" viewBox="0 0 1000 100" preserveAspectRatio="none">
+      <line x1="0" y1="99" x2="1000" y2="99"></line>
+      <path d="{{ tz_path }}"></path>
+    </svg>
+    <div class="tz-axis"><span class="label label--small">Last {{ tz_span_words }}</span></div>
+  </div>
+  {%- endif %}
+  <div class="tz-rule tz-pad"><span class="description">{{ name }}</span></div>
+{%- elsif tz_mode == "close" %}
+  <div>
+    <div class="tz-tick tz-f20"><span class="tz-bar"></span>The Close</div>
+    <div class="tz-tick tz-f18 tz-gap-s">{{ tz_close_day }}</div>
+    <div class="description tz-gap">{{ text }}</div>
+  </div>
+  <div class="tz-rule">
+    {%- for t in tz_tickers %}
+    <div class="tz-row">
+      <span class="tz-tick tz-f16">${{ t }}</span>
+      <span class="tz-num tz-n28">{{ tz_values[forloop.index0] }}</span>
+    </div>
+    {%- endfor %}
+  </div>
+{%- else %}
+  <div class="title">No reading yet</div>
+{%- endif %}
+</div>
+<div class="title_bar">
+  <img class="image" src="{{ tz_mark }}">
+  <span class="title">Tickerz</span>
+</div>

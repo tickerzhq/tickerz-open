@@ -1,0 +1,42 @@
+#
+# Tickerz for TRMNL. Import this folder as a private plugin (TRMNL: Plugins > Private Plugin > Import), or paste the
+# polling URL and markup by hand (see ../README.md).
+#
+# Docs: https://help.trmnl.com/en/articles/10542599-importing-and-exporting-private-plugins
+#
+---
+name: Tickerz
+description: The Tickerz Close or one index
+strategy: polling
+polling_verb: get
+polling_url: "{% if index == blank or index == 'close' %}https://tickerz.com/api/v1/indices/close{% else %}https://tickerz.com/api/v1/indices/{{ index }}{% endif %}"
+polling_headers: ''
+static_data: ''
+no_screen_padding: 'no'
+dark_mode: 'no'
+framework_version: latest
+refresh_interval: 60
+custom_fields:
+- keyname: index
+  field_type: select
+  name: Index
+  description: "The Close is the day's six daily numbers. Or pick one index."
+  default: close
+  options:
+  - The Tickerz Close: close
+  - "$LAYOFFS: US jobless claims, weekly": layoffs
+  - "$MINTS: memecoin launches on Solana, daily": mints
+  - "$GIGS: paid AI agent calls on Base, daily": gigs
+  - "$WAGE: median price of one of those calls, daily": wage
+  - "$TRENCHES: memecoin launchpad fees, daily": trenches
+  - "$YESNO: prediction market volume, daily": yesno
+  - "$JOBS: US nonfarm payrolls, monthly": jobs
+  - "$UNEMP: US unemployment rate, monthly": unemp
+  - "$CPI: US consumer prices, month over month": cpi
+  - "$CORECPI: core consumer prices, month over month": corecpi
+- keyname: about
+  field_type: author_bio
+  name: About
+  description: "Tickerz publishes indexes of real-world activity, each counted from a named source and kept as first published. This plugin reads the free public API at tickerz.com, no key. Questions: desk@tickerz.com"
+  github_url: https://github.com/tickerzhq/tickerz-open/tree/main/displays
+  learn_more_url: https://tickerz.com
