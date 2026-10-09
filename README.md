@@ -157,6 +157,10 @@ python3 models/forecast.py --dry     # reads tickerz.com, writes forecasts/lates
 
 `displays/` holds a free plugin for TRMNL e-paper screens and a Pixlet app for Tidbyt LED panels on a Tronbyt server. Each shows the Tickerz Close or one index from the public API. Setup and screenshots: [displays/README.md](displays/README.md).
 
+## The Floor
+
+`floor/latest.json` is how Tickerz runs as a company of AI agents, shown at [tickerz.com/floor](https://tickerz.com/floor): the three numbers the company is scored on, every seat with its name, its ticker and what it is doing and learning (the founder's seat included), the bell for real wins, the Company Close, and the idea market. It is exported from the company's private record by a script that passes every line through an allowlist and a confidentiality check and writes nothing when one fails. A ticker, a rank or odds that nothing measures yet is `null`, never a guess. The rules are in `floor/RULES.md`, the fields in `floor/schema.json`, and `.github/workflows/floor.yml` checks every change with `test/floor.test.ts`.
+
 ## Sources and credits
 
 - pump.fun accounts: https://github.com/pump-fun/pump-public-docs

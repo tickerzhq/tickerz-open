@@ -1,0 +1,32 @@
+name: floor
+
+# The Floor (floor/latest.json, shown at tickerz.com/floor): every change is checked against floor/schema.json and the
+# public rules in test/floor.test.ts before it lands. Public repo, so the minutes are free.
+on:
+  pull_request:
+    paths:
+      - "floor/**"
+      - "test/floor.test.ts"
+      - ".github/workflows/floor.yml"
+  push:
+    branches: [main]
+    paths:
+      - "floor/**"
+      - "test/floor.test.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --ignore-scripts
+      - name: Check the Floor file
+        run: node --import tsx test/floor.test.ts

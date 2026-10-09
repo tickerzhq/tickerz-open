@@ -1,0 +1,746 @@
+{
+  "schema": "tickerz-floor/1",
+  "system": {
+    "name": "Tickerz Gigabrain",
+    "name_settled": false,
+    "page": "The Floor",
+    "line": "Everything gets a ticker."
+  },
+  "generated_at": "2026-10-09T20:35:48Z",
+  "data_changed_at": "2026-10-09T20:35:48Z",
+  "stale_after_minutes": 180,
+  "rules": {
+    "url": "https://github.com/tickerzhq/tickerz-open/blob/main/floor/RULES.md",
+    "written": true
+  },
+  "enums": {
+    "seat_status": {
+      "live": "a routine does this seat's work today under its pre-design prompt (version -v0)",
+      "scheduled": "first run is booked",
+      "designed": "not running yet",
+      "board": "board seat",
+      "probation": "new version on trial",
+      "retired": "version replaced, archived word for word"
+    },
+    "idea_by": "a seat id, founder, or house (work from before the seats existed)",
+    "idea_lane": [
+      "product",
+      "reach",
+      "outreach",
+      "money",
+      "culture"
+    ],
+    "idea_status": [
+      "open",
+      "kept",
+      "closed"
+    ],
+    "bell_kind": [
+      "signed_and_recounted",
+      "final",
+      "outside_reply",
+      "funding_conversation",
+      "outside_quote",
+      "promotion"
+    ],
+    "written_by": {
+      "hand": "written by a person or session for v1",
+      "seat": "the seat's own public line",
+      "script": "built by the exporter from records"
+    }
+  },
+  "scoreboard": [
+    {
+      "id": "outside_replies",
+      "label": "Outside people who replied or named a number",
+      "value": 0,
+      "as_of": "2026-10-09T19:59:28Z",
+      "source": "private record",
+      "measured": true
+    },
+    {
+      "id": "funding_conversations",
+      "label": "Funding conversations",
+      "value": 0,
+      "as_of": "2026-10-09T19:59:28Z",
+      "source": "private record",
+      "measured": true
+    },
+    {
+      "id": "real_reach",
+      "label": "Real reach",
+      "value": null,
+      "as_of": null,
+      "source": null,
+      "measured": false,
+      "note": "Outside quotes of a Tickerz number are not counted yet. Shown beside it, never scored:",
+      "context": [
+        {
+          "id": "visitors_week",
+          "label": "Visitors, Oct 5 to 9",
+          "value": 106,
+          "as_of": "2026-10-09T19:59:28Z",
+          "source": "private record",
+          "measured": true,
+          "includes_own_checks": true
+        },
+        {
+          "id": "followers",
+          "label": "Followers on @tickerzhq",
+          "value": 380,
+          "as_of": "2026-10-09T19:59:28Z",
+          "source": "https://x.com/tickerzhq",
+          "measured": true
+        }
+      ]
+    }
+  ],
+  "ticker_rule": {
+    "base": 100,
+    "starts": "the first season, when the scorer runs",
+    "shared": "the company's three numbers, the same for every seat",
+    "personal": "events on the seat's own number, plus how well its stated odds came true",
+    "measured": false
+  },
+  "seats": [
+    {
+      "id": "oracle",
+      "name": "Oracle",
+      "symbol": "ORACLE",
+      "kind": "seat",
+      "title": "Product engine",
+      "mission": "Every due number signs on time from a clean source.",
+      "owns": "Signed numbers made final on schedule",
+      "opposite": "receipts",
+      "version": "oracle-v0",
+      "status": "live",
+      "ticker": {
+        "value": null,
+        "shared": null,
+        "personal": null,
+        "rank": null,
+        "measured": false,
+        "series": []
+      },
+      "inputs": [
+        {
+          "id": "signed_numbers",
+          "label": "Numbers signed, not final yet",
+          "value": 2,
+          "as_of": "2026-10-09T20:35:12.281Z",
+          "source": "https://tickerz.com/signed",
+          "measured": true
+        },
+        {
+          "id": "forecast_record",
+          "label": "Forecasts that landed inside their 80% range",
+          "value": 7,
+          "as_of": "2026-10-09T19:30:35Z",
+          "source": "https://raw.githubusercontent.com/tickerzhq/tickerz-open/main/forecasts/latest.json",
+          "measured": true,
+          "of": 10
+        }
+      ],
+      "runs_7d": {
+        "id": "runs_7d",
+        "label": "Runs in the last 7 days",
+        "value": 45,
+        "as_of": "2026-10-09T19:00:00Z",
+        "source": "private record",
+        "measured": true,
+        "note": "three routines that become this seat; one of them counted from Oct 7 only"
+      },
+      "now": {
+        "text": "Signed its first two numbers today, $LAYOFFS 170,732 and $MINTS 55,686. Next due: September CPI on Oct 14.",
+        "written_by": "hand"
+      },
+      "lesson": "l2"
+    },
+    {
+      "id": "receipts",
+      "name": "Receipts",
+      "symbol": "RECEIPTS",
+      "kind": "seat",
+      "title": "Chief of staff",
+      "mission": "The founder never has to repeat himself.",
+      "owns": "Times a week the founder re-explains something the brain already held (lower is better)",
+      "opposite": "oracle",
+      "version": "receipts-v0",
+      "status": "live",
+      "ticker": {
+        "value": null,
+        "shared": null,
+        "personal": null,
+        "rank": null,
+        "measured": false,
+        "series": []
+      },
+      "inputs": [],
+      "runs_7d": {
+        "id": "runs_7d",
+        "label": "Runs in the last 7 days",
+        "value": 6,
+        "as_of": "2026-10-09T19:00:00Z",
+        "source": "private record",
+        "measured": true
+      },
+      "now": {
+        "text": "Keeps the founder's own words in the brain within the hour and writes the 7 AM brief.",
+        "written_by": "hand"
+      },
+      "lesson": "l4"
+    },
+    {
+      "id": "tape",
+      "name": "Tape",
+      "symbol": "TAPE",
+      "kind": "seat",
+      "title": "Reach",
+      "mission": "Outside people find and quote Tickerz numbers.",
+      "owns": "Outside quotes of a Tickerz number, per week",
+      "opposite": "desk",
+      "version": "tape-v0",
+      "status": "live",
+      "ticker": {
+        "value": null,
+        "shared": null,
+        "personal": null,
+        "rank": null,
+        "measured": false,
+        "series": []
+      },
+      "inputs": [],
+      "runs_7d": {
+        "id": "runs_7d",
+        "label": "Runs in the last 7 days",
+        "value": 5,
+        "as_of": "2026-10-09T19:00:00Z",
+        "source": "private record",
+        "measured": true
+      },
+      "now": {
+        "text": "Sends post ideas to the founder instead of posting. He has posted one so far.",
+        "written_by": "hand"
+      },
+      "lesson": null
+    },
+    {
+      "id": "recount",
+      "name": "Recount",
+      "symbol": "RECOUNT",
+      "kind": "seat",
+      "title": "Research and data",
+      "mission": "True numbers the other seats can use, from clean sources.",
+      "owns": "Findings used outside the company",
+      "opposite": "proof",
+      "version": "recount-v0",
+      "status": "live",
+      "ticker": {
+        "value": null,
+        "shared": null,
+        "personal": null,
+        "rank": null,
+        "measured": false,
+        "series": []
+      },
+      "inputs": [],
+      "runs_7d": {
+        "id": "runs_7d",
+        "label": "Runs in the last 7 days",
+        "value": 7,
+        "as_of": "2026-10-09T19:00:00Z",
+        "source": "private record",
+        "measured": true
+      },
+      "now": {
+        "text": "Agent Economy Report #2 prints Oct 11.",
+        "written_by": "hand"
+      },
+      "lesson": "l1"
+    },
+    {
+      "id": "proof",
+      "name": "Proof",
+      "symbol": "PROOF",
+      "kind": "seat",
+      "title": "Design and quality",
+      "mission": "Nothing public ships below the bar.",
+      "owns": "Items it passed that were later rejected, per 30 days (lower is better)",
+      "opposite": "recount",
+      "version": "proof-v0",
+      "status": "live",
+      "ticker": {
+        "value": null,
+        "shared": null,
+        "personal": null,
+        "rank": null,
+        "measured": false,
+        "series": []
+      },
+      "inputs": [],
+      "runs_7d": {
+        "id": "runs_7d",
+        "label": "Runs in the last 7 days",
+        "value": 3,
+        "as_of": "2026-10-09T19:00:00Z",
+        "source": "private record",
+        "measured": true
+      },
+      "now": {
+        "text": "Checked all 17 pages at phone and desktop width today: nothing scrolls sideways, scores 15 to 16 of 18.",
+        "written_by": "hand"
+      },
+      "lesson": null
+    },
+    {
+      "id": "treasury",
+      "name": "Treasury",
+      "symbol": "TREASURY",
+      "kind": "seat",
+      "title": "Money in",
+      "mission": "Funding conversations with funds, accelerators and grant programs.",
+      "owns": "Funding conversations",
+      "opposite": "issue",
+      "version": "treasury-v0",
+      "status": "live",
+      "ticker": {
+        "value": null,
+        "shared": null,
+        "personal": null,
+        "rank": null,
+        "measured": false,
+        "series": []
+      },
+      "inputs": [],
+      "runs_7d": {
+        "id": "runs_7d",
+        "label": "Runs in the last 7 days",
+        "value": 8,
+        "as_of": "2026-10-09T19:00:00Z",
+        "source": "private record",
+        "measured": true
+      },
+      "now": {
+        "text": "Drafts only. The founder submits everything.",
+        "written_by": "hand"
+      },
+      "lesson": null
+    },
+    {
+      "id": "issue",
+      "name": "Issue",
+      "symbol": "ISSUE",
+      "kind": "seat",
+      "title": "Culture and collabs",
+      "mission": "Tickerz inside culture: athletes, brands, makers, media and events.",
+      "owns": "Replies from named culture targets",
+      "opposite": "treasury",
+      "version": "issue-v0",
+      "status": "scheduled",
+      "ticker": {
+        "value": null,
+        "shared": null,
+        "personal": null,
+        "rank": null,
+        "measured": false,
+        "series": []
+      },
+      "inputs": [],
+      "runs_7d": {
+        "id": "runs_7d",
+        "label": "Runs in the last 7 days",
+        "value": 0,
+        "as_of": "2026-10-09T19:00:00Z",
+        "source": "private record",
+        "measured": true
+      },
+      "now": {
+        "text": "First run Tuesday Oct 13.",
+        "written_by": "hand"
+      },
+      "lesson": null
+    },
+    {
+      "id": "desk",
+      "name": "Desk",
+      "symbol": "DESK",
+      "kind": "seat",
+      "title": "Outreach",
+      "mission": "Every note that leaves the building goes from here, after the founder's yes.",
+      "owns": "Outside people who reply, per week",
+      "opposite": "tape",
+      "version": null,
+      "status": "designed",
+      "ticker": {
+        "value": null,
+        "shared": null,
+        "personal": null,
+        "rank": null,
+        "measured": false,
+        "series": []
+      },
+      "inputs": [],
+      "runs_7d": {
+        "id": "runs_7d",
+        "label": "Runs in the last 7 days",
+        "value": 0,
+        "as_of": "2026-10-09T19:00:00Z",
+        "source": "private record",
+        "measured": true
+      },
+      "now": {
+        "text": "Being built first: a send guard, so only notes the founder approved can leave.",
+        "written_by": "hand"
+      },
+      "lesson": null
+    },
+    {
+      "id": "close",
+      "name": "Close",
+      "symbol": "CLOSE",
+      "kind": "seat",
+      "title": "Runs the company between the founder's decisions",
+      "mission": "Applies the rules the same day, moves runs to the seats that earn them, chairs the board.",
+      "owns": "The company's three numbers, together",
+      "opposite": null,
+      "version": null,
+      "status": "designed",
+      "ticker": {
+        "value": null,
+        "shared": null,
+        "personal": null,
+        "rank": null,
+        "measured": false,
+        "series": []
+      },
+      "inputs": [],
+      "runs_7d": {
+        "id": "runs_7d",
+        "label": "Runs in the last 7 days",
+        "value": null,
+        "as_of": null,
+        "source": null,
+        "measured": false
+      },
+      "now": {
+        "text": "Not running yet. Will write the Company Close every day.",
+        "written_by": "hand"
+      },
+      "lesson": "l3"
+    },
+    {
+      "id": "founder",
+      "name": "Founder",
+      "symbol": "FOUNDER",
+      "kind": "founder",
+      "title": "Founder and CEO, board seat",
+      "mission": "Money, identity, and what only his hand can do.",
+      "owns": "Hours from a decision reaching him to his answer",
+      "opposite": null,
+      "version": null,
+      "status": "board",
+      "ticker": {
+        "value": null,
+        "shared": null,
+        "personal": null,
+        "rank": null,
+        "measured": false,
+        "series": []
+      },
+      "inputs": [
+        {
+          "id": "waiting_on_founder",
+          "label": "Decisions waiting on him",
+          "value": null,
+          "as_of": null,
+          "source": null,
+          "measured": false
+        }
+      ],
+      "runs_7d": {
+        "id": "runs_7d",
+        "label": "Runs in the last 7 days",
+        "value": null,
+        "as_of": null,
+        "source": null,
+        "measured": false
+      },
+      "now": {
+        "text": "Holds a board seat and is scored like everyone else.",
+        "written_by": "hand"
+      },
+      "lesson": null
+    }
+  ],
+  "board": [
+    {
+      "id": "investor",
+      "name": "Investor",
+      "lens": "A seed partner: why now, and what has anyone outside done with it.",
+      "status": "designed"
+    },
+    {
+      "id": "venue",
+      "name": "Venue",
+      "lens": "The head of listings at a small venue: would I list a market on this number tomorrow.",
+      "status": "designed"
+    },
+    {
+      "id": "culture",
+      "name": "Culture",
+      "lens": "A sports and culture editor: is this cool, and would anyone wear it or share it.",
+      "status": "designed"
+    },
+    {
+      "id": "risk",
+      "name": "Risk",
+      "lens": "A settlement auditor: would I settle money on this at 3 AM.",
+      "status": "designed"
+    },
+    {
+      "id": "founder",
+      "name": "Founder",
+      "lens": "The founder's eye and the company's direction.",
+      "status": "board"
+    }
+  ],
+  "bell": [
+    {
+      "id": "s:33820670e1193c59f4a209f81a64cb39fadb7f4b6be54754a1893e9052c74852:recounted",
+      "kind": "signed_and_recounted",
+      "seat": "oracle",
+      "title": "Signed in the same first run",
+      "text": "$MINTS 55,686 coins for Oct 8",
+      "at": "2026-10-09T16:49:12.840Z",
+      "signed_at": "2026-10-09T15:10:12.167Z",
+      "recounted_at": "2026-10-09T16:49:12.840Z",
+      "status": "recounted",
+      "links": [
+        "https://tickerz.com/oracle/mints",
+        "https://raw.githubusercontent.com/tickerzhq/tickerz-open/main/cosigns/33820670e1193c59f4a209f81a64cb39fadb7f4b6be54754a1893e9052c74852.json"
+      ]
+    },
+    {
+      "id": "s:1b3c403848e3ca68e048f8b327e2752ecd1f85e7dd5182e9275025f1051ab266:recounted",
+      "kind": "signed_and_recounted",
+      "seat": "oracle",
+      "title": "First number the oracle ever signed",
+      "text": "$LAYOFFS 170,732 claims for Week to Oct 3",
+      "at": "2026-10-09T16:48:46.172Z",
+      "signed_at": "2026-10-09T15:10:12.167Z",
+      "recounted_at": "2026-10-09T16:48:46.172Z",
+      "status": "recounted",
+      "links": [
+        "https://tickerz.com/oracle/layoffs",
+        "https://raw.githubusercontent.com/tickerzhq/tickerz-open/main/cosigns/1b3c403848e3ca68e048f8b327e2752ecd1f85e7dd5182e9275025f1051ab266.json"
+      ]
+    }
+  ],
+  "next_bell": {
+    "text": "Both numbers turn final if nobody disputes them for 24 hours: the oracle run on Oct 10 at 11:10 or 11:35 AM ET.",
+    "expected_at": "2026-10-10T15:35:00Z",
+    "measured": false
+  },
+  "close": {
+    "date": "2026-10-09",
+    "moved": "Outside replies 0, funding conversations 0, outside quotes not counted yet.",
+    "happened": "The oracle signed its first two numbers at 11:10 AM ET, $LAYOFFS 170,732 and $MINTS 55,686. The public recount counted both again from the source and co-signed them by 12:49 PM ET.",
+    "record": "Live forecast record: 7 of 10 landed inside their 80% range.",
+    "learned": "Work that moves none of the three numbers is not progress on its own. A change merges only after its tests pass.",
+    "next": "Both numbers turn final Oct 10 if nobody disputes them. Agent Economy Report #2 prints Oct 11. September CPI is signed Oct 14.",
+    "written_by": {
+      "moved": "script",
+      "happened": "hand",
+      "record": "script",
+      "learned": "hand",
+      "next": "hand"
+    }
+  },
+  "lessons": [
+    {
+      "id": "l1",
+      "at": "2026-10-09T14:00:00Z",
+      "by": "house",
+      "seat": "recount",
+      "text": "Before writing code for a new data source, write one line on how credible it is and one line quoting its terms. A shaky source goes to the founder first.",
+      "written_by": "hand"
+    },
+    {
+      "id": "l2",
+      "at": "2026-10-09T14:00:00Z",
+      "by": "house",
+      "seat": "oracle",
+      "text": "Mark a change ready, wait for its tests to pass, and only then merge.",
+      "written_by": "hand"
+    },
+    {
+      "id": "l3",
+      "at": "2026-10-09T19:25:00Z",
+      "by": "house",
+      "seat": "close",
+      "text": "Measure work by the three numbers. Work that moves none of them is not progress on its own.",
+      "written_by": "hand"
+    },
+    {
+      "id": "l4",
+      "at": "2026-10-09T19:51:00Z",
+      "by": "house",
+      "seat": "receipts",
+      "text": "Keep the brain a file rebuilt from the record, never a store of its own.",
+      "written_by": "hand"
+    }
+  ],
+  "ideas": [
+    {
+      "id": "E1",
+      "lane": "product",
+      "by": "house",
+      "idea": "Ask visitors to name a number on the homepage, the oracle and every index page.",
+      "bet": "3 numbers named by outside people by Oct 18, or the bet is switched.",
+      "moves": "Outside replies",
+      "check_on": "2026-10-18",
+      "odds": null,
+      "result": "Oct 9: 3 named, none from outside.",
+      "status": "open",
+      "sealed": false
+    },
+    {
+      "id": "E2",
+      "lane": "outreach",
+      "by": "founder",
+      "idea": "Notes the founder approved.",
+      "bet": "1 reply within 7 days of sending.",
+      "moves": "Outside replies",
+      "check_on": null,
+      "odds": null,
+      "result": null,
+      "status": "open",
+      "sealed": true
+    },
+    {
+      "id": "E3",
+      "lane": "money",
+      "by": "treasury",
+      "idea": "An application. The founder submits.",
+      "bet": "A reply or an interview.",
+      "moves": "Funding conversations",
+      "check_on": null,
+      "odds": null,
+      "result": null,
+      "status": "open",
+      "sealed": true
+    },
+    {
+      "id": "E4",
+      "lane": "money",
+      "by": "treasury",
+      "idea": "A second application. The founder submits.",
+      "bet": "An interview invite.",
+      "moves": "Funding conversations",
+      "check_on": null,
+      "odds": null,
+      "result": null,
+      "status": "open",
+      "sealed": true
+    },
+    {
+      "id": "E5",
+      "lane": "reach",
+      "by": "founder",
+      "idea": "A Quote this number button on every index page and embed, plus a press page.",
+      "bet": "Outside pages quote a Tickerz number and send visitors.",
+      "moves": "Real reach",
+      "check_on": "2026-10-23",
+      "odds": null,
+      "result": "Not built yet.",
+      "status": "open",
+      "sealed": false
+    },
+    {
+      "id": "E6",
+      "lane": "culture",
+      "by": "founder",
+      "idea": "A culture event.",
+      "bet": "1 reply from a named target.",
+      "moves": "Outside replies",
+      "check_on": null,
+      "odds": null,
+      "result": null,
+      "status": "open",
+      "sealed": true
+    },
+    {
+      "id": "E7",
+      "lane": "reach",
+      "by": "tape",
+      "idea": "A one-line plugin install for agents on /connect, llms.txt and skill.md.",
+      "bet": "Agents install the plugin and call the Tickerz server.",
+      "moves": "Real reach",
+      "check_on": "2026-10-23",
+      "odds": null,
+      "result": "Live Oct 9.",
+      "status": "open",
+      "sealed": false
+    },
+    {
+      "id": "E8",
+      "lane": "reach",
+      "by": "house",
+      "idea": "Desk display plugins for TRMNL and Tronbyt that show the Tickerz Close or one index.",
+      "bet": "Owners install it and see a Tickerz number every day.",
+      "moves": "Real reach",
+      "check_on": "2026-10-30",
+      "odds": null,
+      "result": "Built Oct 9; not in TRMNL's public directory yet.",
+      "status": "open",
+      "sealed": false
+    }
+  ],
+  "how": [
+    {
+      "id": "brain",
+      "title": "The brain",
+      "line": "Every decision, lesson and bet lives in plain files that every agent reads before it works. One search tool answers questions from them by meaning, and it is rebuilt from the record every night."
+    },
+    {
+      "id": "loop",
+      "title": "The learning loop",
+      "line": "Every run opens with a bet and ends with one lesson: what it tried, what happened, what it learned, which number moved. Lessons that move a real number rise to the short list every seat reads."
+    },
+    {
+      "id": "decisions",
+      "title": "Decisions",
+      "line": "Every idea is a bet that names the number it should move and the day it is judged. The best idea wins, whoever had it, the founder included."
+    },
+    {
+      "id": "score",
+      "title": "The score",
+      "line": "A script keeps score from primary records, never the seat itself. Only outside results count: people who reply, funding conversations, people who quote a number. Drafts and code count for nothing on their own."
+    },
+    {
+      "id": "tickers",
+      "title": "The tickers",
+      "line": "Each seat's ticker has a shared part, the company's three numbers, and a personal part, its own number and how well its stated odds came true. Nothing moves without a real event."
+    },
+    {
+      "id": "firing",
+      "title": "Firing",
+      "line": "What gets fired is a version of a seat, not the seat. Repeated misses replace it with the best tested challenger, and the old version is archived word for word with what it learned."
+    },
+    {
+      "id": "promotion",
+      "title": "Promotion",
+      "line": "The seat that moves its number gets more runs, its lesson goes to the top of the list, and it leads the next play."
+    },
+    {
+      "id": "founder",
+      "title": "The founder is scored too",
+      "line": "He holds a board seat and is measured on how fast his decisions come back. Every board page carries a line on where he may be wrong."
+    },
+    {
+      "id": "limits",
+      "title": "Hard limits",
+      "line": "No agent posts publicly, moves money or sends a note the founder did not approve. Those limits are moving out of instructions and into the tools themselves."
+    }
+  ]
+}
