@@ -8,7 +8,7 @@
  */
 import { createHash } from "node:crypto";
 import { pctChange1dp } from "../indices/bls";
-import { SIGS_PAGE, emptyTally, tallySigs, type SigInfo } from "../indices/fetchers";
+import { SIGS_PAGE, emptyTally, parseDolClaims, tallySigs, type SigInfo } from "../indices/fetchers";
 
 export type RawRead = { value: number | null; bytes: Buffer; rows: number; error?: string };
 export type Fetcher = typeof fetch;
@@ -181,4 +181,23 @@ export function blsValue(levels: Record<string, number>, month: string, transfor
   if (b == null) return null;
   if (transform === "change_x1000") return Math.round((a - b) * 1000);
   return pctChange1dp(a, b);
+}
+
+/** The Labor Department's weekly claims file, every state row since 2015 (about 13 MB). */
+export const DOL_CLAIMS_FILE = "https://oui.doleta.gov/unemploy/csv/ar539.csv";
+
+/**
+ * $LAYOFFS from the Labor Department's own file: initial claims (c3) summed over every jurisdiction, by the week's
+ * Saturday, with parseDolClaims (the live reader's own parser, which drops a week missing a state). `weeks` is empty
+ * and `error` set when the file cannot be read.
+ */
+export async function readDolClaims(opts: { fetchImpl?: Fetcher; since?: string } = {}): Promise<{ weeks: Map<string, number>; bytes: Buffer; error?: string }> {
+  try {
+    const r = await (opts.fetchImpl ?? fetch)(DOL_CLAIMS_FILE, { headers: { "user-agent": "tickerz-agent/oracle (desk@tickerz.com)" }, signal: AbortSignal.timeout(60_000) });
+    if (r.status !== 200) return { weeks: new Map(), bytes: Buffer.alloc(0), error: `http_${r.status}` };
+    const bytes = Buffer.from(await r.arrayBuffer());
+    return { weeks: parseDolClaims(bytes.toString("utf8"), opts.since ?? "2000-01-01"), bytes };
+  } catch (e) {
+    return { weeks: new Map(), bytes: Buffer.alloc(0), error: String(e).slice(0, 80) };
+  }
 }

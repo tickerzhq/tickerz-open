@@ -18,7 +18,7 @@ import type { ReportEnvelope } from "../src/lib/oracle/report";
 const arg = (n: string, d?: string) => { const i = process.argv.indexOf(`--${n}`); return i > 0 ? process.argv[i + 1] : d; };
 const out = arg("out", ".")!;
 const base = arg("base", "https://tickerz.com")!;
-const TICKERS = ["JOBS", "UNEMP", "CPI", "CORECPI", "MINTS"];
+const TICKERS = ["JOBS", "UNEMP", "CPI", "CORECPI", "LAYOFFS", "MINTS"];
 
 async function main() {
   const secret = process.env.TICKERZ_COSIGNER_KEY;

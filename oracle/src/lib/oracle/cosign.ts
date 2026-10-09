@@ -8,12 +8,12 @@
  */
 import { indexByTicker } from "../indices/registry";
 import { scaled } from "./canonical";
-import { blsValue, BLS_FLAT_FILE, countSolanaDay, FRED_ID, readBlsFlatFile, readBlsSeries, readFredSeries } from "./recount";
+import { blsValue, BLS_FLAT_FILE, countSolanaDay, FRED_ID, readBlsFlatFile, readBlsSeries, readDolClaims, readFredSeries } from "./recount";
 import { cosign, verifyEnvelope, type ReportEnvelope, type Signed } from "./report";
 
 export type RecountResult = { value: string | null; how: string; error?: string };
 
-/** Count a report's period again from its public source. Supports the Solana signature counts and the BLS series. */
+/** Count a report's period again from its public source. Supports the Solana signature counts, the BLS series and the Labor Department claims file. */
 export async function recount(r: ReportEnvelope["report"], opts: { solanaRpc?: string; solanaHeaders?: Record<string, string>; fetchImpl?: typeof fetch } = {}): Promise<RecountResult> {
   const def = indexByTicker(r.ticker);
   if (!def) return { value: null, how: "unknown_ticker", error: "unknown_ticker" };
@@ -42,6 +42,12 @@ export async function recount(r: ReportEnvelope["report"], opts: { solanaRpc?: s
       how = `FRED ${FRED_ID[f.series]}`;
     }
     return { value: v == null ? null : scaled(v, r.decimals), how, error: v == null ? bls.error ?? "month_missing" : undefined };
+  }
+  if (f.kind === "dol_claims") {
+    const since = new Date(Date.parse(`${r.period}T00:00:00Z`) - 70 * 864e5).toISOString().slice(0, 10);
+    const dol = await readDolClaims({ fetchImpl: opts.fetchImpl, since });
+    const v = dol.weeks.get(r.period);
+    return { value: v == null ? null : scaled(v, r.decimals), how: "Labor Department ar539.csv, initial claims summed over the states", error: v == null ? dol.error ?? "week_missing" : undefined };
   }
   return { value: null, how: f.kind, error: "recount_not_supported" };
 }
