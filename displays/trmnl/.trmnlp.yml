@@ -1,0 +1,14 @@
+# Local preview with TRMNL's trmnlp (https://github.com/usetrmnl/trmnlp). Not uploaded to TRMNL.
+---
+watch:
+  - .trmnlp.yml
+  - src
+
+# The index to preview: close, or an index slug such as layoffs or mints.
+custom_fields:
+  index: "{{ env.TICKERZ_INDEX | default: 'close' }}"
+
+time_zone: America/New_York
+
+variables:
+  trmnl: {}

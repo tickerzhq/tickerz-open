@@ -153,6 +153,10 @@ python3 models/test_forecast.py      # no network: no look-ahead, ranges, negati
 python3 models/forecast.py --dry     # reads tickerz.com, writes forecasts/latest.json only
 ```
 
+## Desk displays
+
+`displays/` holds a free plugin for TRMNL e-paper screens and a Pixlet app for Tidbyt LED panels on a Tronbyt server. Each shows the Tickerz Close or one index from the public API. Setup and screenshots: [displays/README.md](displays/README.md).
+
 ## Sources and credits
 
 - pump.fun accounts: https://github.com/pump-fun/pump-public-docs

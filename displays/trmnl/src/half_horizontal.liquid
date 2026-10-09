@@ -1,0 +1,32 @@
+<div class="layout layout--col layout--stretch-x tz-wrap tz-wrap--mid">
+{%- if tz_mode == "index" %}
+  <div class="tz-split">
+    <div>
+      <div class="tz-tick tz-f24"><span class="tz-bar"></span>${{ ticker }}</div>
+      <div class="tz-mono tz-f20 tz-gap">{{ tz_periods[0] }}</div>
+      {%- if tz_unit != "" %}<div class="tz-mono tz-f18 tz-gap-s">{{ tz_unit }}</div>{% endif %}
+    </div>
+    <div><span class="value value--xxxlarge tz-num" data-value-fit="true">{{ tz_values[0] }}</span></div>
+  </div>
+{%- elsif tz_mode == "close" %}
+  <div class="tz-head tz-mb">
+    <span class="tz-tick tz-f20"><span class="tz-bar"></span>The Tickerz Close</span>
+    <span class="tz-tick tz-f18">{{ tz_close_day }}</span>
+  </div>
+  <div class="tz-rule tz-grid3">
+    {%- for t in tz_tickers %}
+    <div>
+      <div class="tz-tick tz-f14">${{ t }}</div>
+      <div class="tz-num tz-n28 tz-gap-s">{{ tz_values[forloop.index0] }}</div>
+    </div>
+    {%- endfor %}
+  </div>
+{%- else %}
+  <div class="title">No reading yet</div>
+{%- endif %}
+</div>
+<div class="title_bar">
+  <img class="image" src="{{ tz_mark }}">
+  <span class="title">Tickerz</span>
+  <span class="instance">{% if tz_mode == "index" %}tickerz.com/x/{{ tz_slug }}{% else %}tickerz.com{% endif %}</span>
+</div>

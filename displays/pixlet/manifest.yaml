@@ -1,0 +1,14 @@
+---
+id: tickerz
+name: Tickerz
+summary: Tickerz index numbers
+desc: The newest Tickerz number, from the daily Close or one index such as $LAYOFFS or $MINTS. Free public data from tickerz.com, no key.
+author: Tickerz
+fileName: tickerz.star
+packageName: tickerz
+recommendedInterval: 15
+category: finance
+tags:
+  - finance
+  - tickers
+  - data
