@@ -17,6 +17,10 @@ Or add only the server: `claude mcp add --transport http tickerz https://tickerz
 
 $LAYOFFS (US initial jobless claims), $JOBS (nonfarm payrolls), $UNEMP (unemployment rate), $CPI and $CORECPI (as first published), $MINTS (memecoin launches on Solana), $TRENCHES (memecoin launchpad fees), $YESNO (prediction market volume), $GIGS and $WAGE (paid AI agent calls on Base and their median price). Methodology: https://tickerz.com/methodology. Recounts: this repository.
 
+## What it connects to and sends
+
+The plugin has no hooks, scripts or local code. It adds one remote MCP server, `https://tickerz.com/mcp`, run by Tickerz, and one skill (text only). When Claude calls a Tickerz tool, the tool's arguments (for example a ticker such as `MINTS`) go to tickerz.com over HTTPS. Read tools only read public data. Two tools write: `name_a_number` sends the number you ask Tickerz to publish, and the Arena tool sends the forecast you enter. Nothing else is sent, and no key or account is needed.
+
 ## Privacy
 
 The server reads public data and stores nothing about you. `name_a_number` and the Arena tools write only what you send them. Policy: https://tickerz.com/privacy
