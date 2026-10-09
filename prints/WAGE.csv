@@ -22,4 +22,4 @@ WAGE,2026-10-04,0.005,0.005,false,,Quiet,-0.8,2026-10-05,970022,https://tickerz.
 WAGE,2026-10-05,0.01,0.01,false,,Quiet,0.2,2026-10-06,970174,https://tickerz.com/api/indices/proof?day=2026-10-06
 WAGE,2026-10-06,0.0126,0.0126,false,,Quiet,0.4,2026-10-07,970345,https://tickerz.com/api/indices/proof?day=2026-10-07
 WAGE,2026-10-07,0.02,0.02,false,,Normal,1.6,2026-10-08,970491,https://tickerz.com/api/indices/proof?day=2026-10-08
-WAGE,2026-10-08,0.01,,false,,Quiet,0,,,
+WAGE,2026-10-08,0.01,0.01,false,,Quiet,0,2026-10-09,970631,https://tickerz.com/api/indices/proof?day=2026-10-09
