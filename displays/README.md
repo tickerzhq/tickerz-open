@@ -9,6 +9,8 @@ Each one shows either:
 
 The number is always the newest complete reading (`latest_complete` in the API), never a day still being counted. Numbers are written as on tickerz.com: 170,732; $584.41M; $0.0100; 4.2%. Periods too: "Oct 8", "Week to Oct 3", "Sep 2026".
 
+The Close is the record of what Tickerz printed that day and does not change. One index shows its current reading, which can differ for the same day when its source revises it: on Oct 9 the Close had $YESNO for Oct 7 at $571.43M and the $YESNO index had $584.41M.
+
 | TRMNL, one index | TRMNL, the Close |
 |---|---|
 | ![$LAYOFFS on a TRMNL](screenshots/trmnl-layoffs.png) | ![The Tickerz Close on a TRMNL](screenshots/trmnl-close.png) |

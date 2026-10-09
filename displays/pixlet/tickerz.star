@@ -133,7 +133,7 @@ def main(config):
     slug = config.str("index", "close")
     data = fetch(slug)
     if data == None:
-        return render.Root(child = reading("TICKERZ", "--", "No reading"))
+        return render.Root(child = reading("TKRZ", "--", "No reading"))
 
     if slug == "close":
         # The Close: each of its numbers in turn, two and a half seconds each.
@@ -142,7 +142,7 @@ def main(config):
             t = row.get("ticker", "")
             frames.append(reading(t, fmt_value(row.get("value"), kind_of(t, None)), fmt_period(row.get("period"), step_of(t))))
         if not frames:
-            return render.Root(child = reading("TICKERZ", "--", "No reading"))
+            return render.Root(child = reading("TKRZ", "--", "No reading"))
         return render.Root(delay = 2500, child = render.Animation(children = frames))
 
     # One index: its newest complete reading, never a day still being counted.
