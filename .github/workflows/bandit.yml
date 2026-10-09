@@ -1,0 +1,29 @@
+name: bandit
+
+# The decision model (models/bandit.py): a Thompson-sampling bandit over a table of experiments. Checks the code on
+# every change and ranks the made-up sample. The real table is private, so the real ranking runs where it lives.
+# Public repo, so the minutes are free. Standard library only: nothing to install.
+on:
+  push:
+    branches: [main]
+    paths: ["models/bandit*", "models/test_bandit.py", ".github/workflows/bandit.yml"]
+  pull_request:
+    paths: ["models/bandit*", "models/test_bandit.py", ".github/workflows/bandit.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bandit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check the model code
+        run: python models/test_bandit.py
+      - name: Rank the sample
+        run: python models/bandit.py models/bandit_sample.md
