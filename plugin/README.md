@@ -19,8 +19,8 @@ $LAYOFFS (US initial jobless claims), $JOBS (nonfarm payrolls), $UNEMP (unemploy
 
 ## What it connects to and sends
 
-The plugin has no hooks, scripts or local code. It adds one remote MCP server, `https://tickerz.com/mcp`, run by Tickerz, and one skill (text only). When Claude calls a Tickerz tool, the tool's arguments (for example a ticker such as `MINTS`) go to tickerz.com over HTTPS. Read tools only read public data. Two tools write: `name_a_number` sends the number you ask Tickerz to publish, and the Arena tool sends the forecast you enter. Nothing else is sent, and no key or account is needed.
+The plugin has no hooks, scripts or local code. It adds one remote MCP server, `https://tickerz.com/mcp`, run by Tickerz, and one skill (text only). When Claude calls a Tickerz tool, the tool's arguments (for example a ticker such as `MINTS`) go to tickerz.com over HTTPS. Read tools only read public data. Two tools write: `name_a_number` sends the number you ask Tickerz to publish, and `submit_forecast` sends the forecast you enter in the Arena. Nothing else is sent, and no key or account is needed.
 
 ## Privacy
 
-The server reads public data and stores nothing about you. `name_a_number` and the Arena tools write only what you send them. Policy: https://tickerz.com/privacy
+The server reads public data and stores nothing about you. `name_a_number` and `submit_forecast` write only what you send them. Policy: https://tickerz.com/privacy
