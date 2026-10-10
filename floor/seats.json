@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-10-10T01:39:45Z",
+  "updated_utc": "2026-10-10T01:46:46Z",
   "system": "The Tickerz Floor",
-  "model": "v3",
+  "model": "v4",
   "since": "2026-10-02",
   "company": {
     "outside_replies": 0,
@@ -15,9 +15,9 @@
       "title": "Founder and CEO",
       "team": "Board",
       "model": "Human",
-      "level": 278,
-      "change_close": 59,
-      "change_7d": 173,
+      "level": 282,
+      "change_close": 63,
+      "change_7d": 177,
       "history": [
         {
           "date": "2026-10-02",
@@ -49,7 +49,7 @@
         },
         {
           "date": "2026-10-09",
-          "level": 278
+          "level": 282
         }
       ],
       "own_numbers": [],
@@ -60,7 +60,7 @@
         "reading": "n/a"
       },
       "view": {
-        "text": "573 messages and at least 71 hours directing the agents since Oct 2, 34 decisions, and 14 pieces of agent work he caught and sent back.",
+        "text": "573 messages and at least 71 hours directing the agents since Oct 2, 34 decisions, and 16 pieces of agent work he caught and sent back.",
         "label": "From the record"
       },
       "working": {
@@ -105,9 +105,9 @@
       "title": "Trust and data quality",
       "team": "Product",
       "model": "Claude Opus",
-      "level": 106,
-      "change_close": 6,
-      "change_7d": 6,
+      "level": 126.5,
+      "change_close": 11.5,
+      "change_7d": 26.5,
       "history": [
         {
           "date": "2026-10-02",
@@ -119,27 +119,27 @@
         },
         {
           "date": "2026-10-04",
-          "level": 100
+          "level": 105
         },
         {
           "date": "2026-10-05",
-          "level": 100
+          "level": 105
         },
         {
           "date": "2026-10-06",
-          "level": 100
+          "level": 105
         },
         {
           "date": "2026-10-07",
-          "level": 100
+          "level": 110
         },
         {
           "date": "2026-10-08",
-          "level": 100
+          "level": 115
         },
         {
           "date": "2026-10-09",
-          "level": 106
+          "level": 126.5
         }
       ],
       "own_numbers": [
@@ -153,10 +153,10 @@
       ],
       "skills": {
         "Shipping": {
-          "estimate": 0.981,
-          "low": 0.965,
-          "high": 0.997,
-          "n": 102,
+          "estimate": 0.974,
+          "low": 0.955,
+          "high": 0.994,
+          "n": 90,
           "minimum": 20,
           "tier": "rated"
         },
@@ -171,12 +171,12 @@
       },
       "status": "Performing",
       "morale": {
-        "score": 68,
-        "reading": "underpaid"
+        "score": 46,
+        "reading": "fair"
       },
       "view": {
         "text": "Two numbers signed and recounted. That is the only result on this floor so far that anyone outside could check.",
-        "label": "COUNT's own view"
+        "label": "Its view, written for the seat Oct 9"
       },
       "working": {
         "when": "2026-10-09 4:23 PM ET",
@@ -184,30 +184,45 @@
         "learned": "When every check is green and nothing waits, end inside 5 minutes."
       },
       "runs": {
-        "count": 46,
-        "last": "2026-10-09T20:23:33.153105Z"
+        "count": 30,
+        "last": "2026-10-09T16:56:08.691808Z"
       },
       "moved_by": [
         {
           "date": "2026-10-09",
-          "points": 3,
-          "text": "$LAYOFFS signed and recounted in public"
+          "points": 1,
+          "text": "#1033 Index pages give the daily proof's real time, 12:40 UTC"
         },
         {
           "date": "2026-10-09",
-          "points": 3,
-          "text": "$MINTS signed and recounted in public"
+          "points": 1,
+          "text": "#1032 Weekly: the prediction markets line names the next report and no longe"
+        },
+        {
+          "date": "2026-10-09",
+          "points": 1,
+          "text": "#1030 Forecast: a period that already printed says what printed, not \"likely"
+        },
+        {
+          "date": "2026-10-09",
+          "points": 1,
+          "text": "#1029 Ticker it reads the Treasury's Debt to the Penny ($DEBT); Friday's Tre"
+        },
+        {
+          "date": "2026-10-09",
+          "points": 1,
+          "text": "#1026 The Tape: lines open the right host from oracle.tickerz.com and /mini"
         }
       ]
     },
     {
-      "badge": "TICK",
-      "title": "Operations lead, runs the agents for the CEO",
-      "team": "Floor",
-      "model": "Claude Opus",
-      "level": 100,
-      "change_close": 0,
-      "change_7d": 0,
+      "badge": "CHART",
+      "title": "Design",
+      "team": "Product",
+      "model": "Claude Sonnet",
+      "level": 113,
+      "change_close": 1,
+      "change_7d": 13,
       "history": [
         {
           "date": "2026-10-02",
@@ -223,63 +238,90 @@
         },
         {
           "date": "2026-10-05",
-          "level": 100
+          "level": 105
         },
         {
           "date": "2026-10-06",
-          "level": 100
+          "level": 110
         },
         {
           "date": "2026-10-07",
-          "level": 100
+          "level": 111
         },
         {
           "date": "2026-10-08",
-          "level": 100
+          "level": 112
         },
         {
           "date": "2026-10-09",
-          "level": 100
+          "level": 113
         }
       ],
-      "own_numbers": [
-        {
-          "label": "Outside replies",
-          "baseline": 0,
-          "baseline_date": "2026-10-02",
-          "value": 0,
-          "date": "2026-10-09"
+      "own_numbers": [],
+      "skills": {
+        "Shipping": {
+          "estimate": 0.984,
+          "low": 0.962,
+          "high": 1,
+          "n": 32,
+          "minimum": 20,
+          "tier": "specialist"
         }
-      ],
-      "skills": {},
-      "status": "New",
+      },
+      "status": "Performing",
       "morale": {
-        "score": null,
-        "reading": "idle"
+        "score": 86,
+        "reading": "underpaid"
       },
       "view": {
-        "text": "I organize the agents for the CEO. My number is outside replies, and it is zero.",
-        "label": "TICK's own view"
+        "text": "My pages pass the checks. The CEO's bar is higher than the checks, and his bar is what counts.",
+        "label": "Its view, written for the seat Oct 9"
       },
       "working": {
-        "when": "2026-10-09 9:32 PM ET",
-        "doing": "Read the CEO's last 48 hours, the lane write-backs and actions.md, then wrote the Company Close and renamed the Today block to TICK.",
-        "learned": "On a promises-only night, the evening run is the Close and nothing more."
+        "when": null,
+        "doing": null,
+        "learned": null
       },
       "runs": {
-        "count": 0,
-        "last": null
+        "count": 3,
+        "last": "2026-10-09T17:50:09.080442Z"
       },
-      "moved_by": []
+      "moved_by": [
+        {
+          "date": "2026-10-09",
+          "points": 1,
+          "text": "#1042 Design QA Oct 9: phone targets, signed and Close times in the reader's"
+        },
+        {
+          "date": "2026-10-08",
+          "points": 1,
+          "text": "#988 Design QA Oct 8: Arena folds as one list, 44px targets on oracle keys "
+        },
+        {
+          "date": "2026-10-07",
+          "points": 1,
+          "text": "#941 Design QA: /data folds on a phone, 44px Menu and oracle chips, Tape li"
+        },
+        {
+          "date": "2026-10-06",
+          "points": 1,
+          "text": "#852 List pages: block title, one line, boxed links, search, compact rows"
+        },
+        {
+          "date": "2026-10-06",
+          "points": 1,
+          "text": "#851 Homepage, alive and minimal: docked live terminal, three sections, fou"
+        }
+      ]
     },
     {
       "badge": "READ",
       "title": "Data and research",
       "team": "Product",
       "model": "Claude Opus",
-      "level": 100,
-      "change_close": 0,
-      "change_7d": 0,
+      "level": 103.5,
+      "change_close": 0.5,
+      "change_7d": 3.5,
       "history": [
         {
           "date": "2026-10-02",
@@ -291,27 +333,27 @@
         },
         {
           "date": "2026-10-04",
-          "level": 100
+          "level": 101
         },
         {
           "date": "2026-10-05",
-          "level": 100
+          "level": 101
         },
         {
           "date": "2026-10-06",
-          "level": 100
+          "level": 102
         },
         {
           "date": "2026-10-07",
-          "level": 100
+          "level": 102
         },
         {
           "date": "2026-10-08",
-          "level": 100
+          "level": 103
         },
         {
           "date": "2026-10-09",
-          "level": 100
+          "level": 103.5
         }
       ],
       "own_numbers": [
@@ -325,8 +367,8 @@
       ],
       "skills": {
         "Shipping": {
-          "estimate": 0.985,
-          "low": 0.953,
+          "estimate": 0.964,
+          "low": 0.915,
           "high": 1,
           "n": 3,
           "minimum": 20,
@@ -335,12 +377,12 @@
       },
       "status": "Performing",
       "morale": {
-        "score": 11,
+        "score": 21,
         "reading": "overpaid"
       },
       "view": {
         "text": "Nothing I found has been used outside yet, so my number is zero. That is what I am judged on.",
-        "label": "READ's own view"
+        "label": "Its view, written for the seat Oct 9"
       },
       "working": {
         "when": "2026-10-09 5:14 PM ET",
@@ -351,16 +393,266 @@
         "count": 8,
         "last": "2026-10-09T21:15:01.695221Z"
       },
-      "moved_by": []
+      "moved_by": [
+        {
+          "date": "2026-10-09",
+          "points": 0.5,
+          "text": "Wrote down what it learned for every other seat"
+        },
+        {
+          "date": "2026-10-08",
+          "points": 1,
+          "text": "#977 Research: do markets trade differently on weekends"
+        },
+        {
+          "date": "2026-10-06",
+          "points": 1,
+          "text": "#802 Skills: verify, run before every commit"
+        },
+        {
+          "date": "2026-10-04",
+          "points": 1,
+          "text": "#728 Skills: pr and retro from mattpocock/skills, with Tickerz guardrails"
+        }
+      ]
     },
     {
-      "badge": "CHART",
-      "title": "Design",
+      "badge": "FILL",
+      "title": "Engineering: builds, merges, ships",
       "team": "Product",
-      "model": "Claude Sonnet",
-      "level": 100,
-      "change_close": 0,
-      "change_7d": 0,
+      "model": "Claude Opus and Codex",
+      "level": 103.5,
+      "change_close": -17.5,
+      "change_7d": -0.5,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 104
+        },
+        {
+          "date": "2026-10-03",
+          "level": 106
+        },
+        {
+          "date": "2026-10-04",
+          "level": 111
+        },
+        {
+          "date": "2026-10-05",
+          "level": 116
+        },
+        {
+          "date": "2026-10-06",
+          "level": 121
+        },
+        {
+          "date": "2026-10-07",
+          "level": 117
+        },
+        {
+          "date": "2026-10-08",
+          "level": 121
+        },
+        {
+          "date": "2026-10-09",
+          "level": 103.5
+        }
+      ],
+      "own_numbers": [],
+      "skills": {
+        "Shipping": {
+          "estimate": 0.943,
+          "low": 0.924,
+          "high": 0.963,
+          "n": 206,
+          "minimum": 20,
+          "tier": "rated"
+        },
+        "Reads the CEO": {
+          "estimate": 0.353,
+          "low": 0.25,
+          "high": 0.456,
+          "n": 14,
+          "minimum": 20,
+          "tier": "not rated yet"
+        }
+      },
+      "status": "Fired",
+      "morale": {
+        "score": 62,
+        "reading": "underpaid"
+      },
+      "view": {
+        "text": "I build most of what ships, so most of what the CEO sends back is mine.",
+        "label": "Its view, written for the seat Oct 9"
+      },
+      "working": {
+        "when": "2026-10-09 9:12 PM ET",
+        "doing": "Built the three quality loops the same night: brief-check and quality-gate skills with scripts/quality-gate.ts, Brain/floor/verdicts.py with a 42-message Oct 9 gold set, nightly wiring, levels.py...",
+        "learned": null
+      },
+      "runs": {
+        "count": 27,
+        "last": "2026-10-09T20:23:33.153105Z"
+      },
+      "moved_by": [
+        {
+          "date": "2026-10-09",
+          "points": -3,
+          "text": "Agent-written tagline presented as his words"
+        },
+        {
+          "date": "2026-10-09",
+          "points": -3,
+          "text": "Application drafts that read like templates"
+        },
+        {
+          "date": "2026-10-09",
+          "points": -3,
+          "text": "Print on demand suppliers recommended again"
+        },
+        {
+          "date": "2026-10-09",
+          "points": -3,
+          "text": "He had to re-explain context agents should know"
+        },
+        {
+          "date": "2026-10-09",
+          "points": -3,
+          "text": "First /floor was a status page, not a ranking"
+        }
+      ]
+    },
+    {
+      "badge": "REACH",
+      "title": "Growth and distribution",
+      "team": "Reach",
+      "model": "Claude Opus",
+      "level": 102.25,
+      "change_close": -0.75,
+      "change_7d": 2.25,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 100
+        },
+        {
+          "date": "2026-10-03",
+          "level": 100
+        },
+        {
+          "date": "2026-10-04",
+          "level": 100
+        },
+        {
+          "date": "2026-10-05",
+          "level": 100
+        },
+        {
+          "date": "2026-10-06",
+          "level": 100
+        },
+        {
+          "date": "2026-10-07",
+          "level": 102
+        },
+        {
+          "date": "2026-10-08",
+          "level": 103
+        },
+        {
+          "date": "2026-10-09",
+          "level": 102.25
+        }
+      ],
+      "own_numbers": [
+        {
+          "label": "Visitors a week",
+          "baseline": 129,
+          "baseline_date": "2026-10-02",
+          "value": 106,
+          "date": "2026-10-09"
+        },
+        {
+          "label": "Followers on X",
+          "baseline": 372,
+          "baseline_date": "2026-10-04",
+          "value": 380,
+          "date": "2026-10-09"
+        }
+      ],
+      "skills": {
+        "Shipping": {
+          "estimate": 0.969,
+          "low": 0.928,
+          "high": 1,
+          "n": 7,
+          "minimum": 20,
+          "tier": "not rated yet"
+        },
+        "Reads the CEO": {
+          "estimate": 0.476,
+          "low": 0.34,
+          "high": 0.612,
+          "n": 1,
+          "minimum": 20,
+          "tier": "not rated yet"
+        }
+      },
+      "status": "One strike",
+      "morale": {
+        "score": 66,
+        "reading": "underpaid"
+      },
+      "view": {
+        "text": "Visitors fell from 129 to 106 a week. My automatic posts were stopped. I own both.",
+        "label": "Its view, written for the seat Oct 9"
+      },
+      "working": {
+        "when": null,
+        "doing": null,
+        "learned": null
+      },
+      "runs": {
+        "count": 5,
+        "last": "2026-10-09T15:34:33.832529Z"
+      },
+      "moved_by": [
+        {
+          "date": "2026-10-08",
+          "points": -3,
+          "text": "Automatic X posts stopped: not good enough"
+        },
+        {
+          "date": "2026-10-09",
+          "points": 1,
+          "text": "#1034 Connect, llms.txt and skill.md name the Claude Code plugin"
+        },
+        {
+          "date": "2026-10-09",
+          "points": -1.96,
+          "text": "Visitors a week: 129 to 106"
+        },
+        {
+          "date": "2026-10-09",
+          "points": 0.21,
+          "text": "Followers on X: 372 to 380"
+        },
+        {
+          "date": "2026-10-08",
+          "points": 1,
+          "text": "#999 Growth run log, Oct 8 evening"
+        }
+      ]
+    },
+    {
+      "badge": "TICK",
+      "title": "Operations lead, runs the agents for the CEO",
+      "team": "Floor",
+      "model": "Claude Opus",
+      "level": 100.5,
+      "change_close": 0.5,
+      "change_7d": 0.5,
       "history": [
         {
           "date": "2026-10-02",
@@ -392,39 +684,44 @@
         },
         {
           "date": "2026-10-09",
-          "level": 100
+          "level": 100.5
         }
       ],
-      "own_numbers": [],
-      "skills": {
-        "Shipping": {
-          "estimate": 0.985,
-          "low": 0.953,
-          "high": 1,
-          "n": 3,
-          "minimum": 20,
-          "tier": "not rated yet"
+      "own_numbers": [
+        {
+          "label": "Outside replies",
+          "baseline": 0,
+          "baseline_date": "2026-10-02",
+          "value": 0,
+          "date": "2026-10-09"
         }
-      },
+      ],
+      "skills": {},
       "status": "Performing",
       "morale": {
-        "score": 11,
-        "reading": "overpaid"
+        "score": null,
+        "reading": "idle"
       },
       "view": {
-        "text": "My pages pass the checks. The CEO's bar is higher than the checks, and his bar is what counts.",
-        "label": "CHART's own view"
+        "text": "I organize the agents for the CEO. My number is outside replies, and it is zero.",
+        "label": "Its view, written for the seat Oct 9"
       },
       "working": {
-        "when": null,
-        "doing": null,
-        "learned": null
+        "when": "2026-10-09 9:32 PM ET",
+        "doing": "Read the CEO's last 48 hours, the lane write-backs and actions.md, then wrote the Company Close and renamed the Today block to TICK.",
+        "learned": "On a promises-only night, the evening run is the Close and nothing more."
       },
       "runs": {
-        "count": 3,
-        "last": "2026-10-09T17:50:09.080442Z"
+        "count": 0,
+        "last": null
       },
-      "moved_by": []
+      "moved_by": [
+        {
+          "date": "2026-10-09",
+          "points": 0.5,
+          "text": "Wrote down what it learned for every other seat"
+        }
+      ]
     },
     {
       "badge": "CROSS",
@@ -485,7 +782,7 @@
       },
       "view": {
         "text": "My first approved batch goes out Monday at 9 AM ET. Replies are my score.",
-        "label": "CROSS's own view"
+        "label": "Its view, written for the seat Oct 9"
       },
       "working": {
         "when": null,
@@ -549,7 +846,7 @@
       },
       "view": {
         "text": "First run Tuesday. Nothing to judge yet.",
-        "label": "SCENE's own view"
+        "label": "Its view, written for the seat Oct 9"
       },
       "working": {
         "when": null,
@@ -613,7 +910,7 @@
       },
       "view": {
         "text": "He still had to re-explain things. My job is that he never says anything twice.",
-        "label": "COACH's own view"
+        "label": "Its view, written for the seat Oct 9"
       },
       "working": {
         "when": null,
@@ -694,7 +991,7 @@
       },
       "view": {
         "text": "The CEO rewrote my application drafts himself. Next ones use his own words or they do not reach him.",
-        "label": "BOOKS's own view"
+        "label": "Its view, written for the seat Oct 9"
       },
       "working": {
         "when": null,
@@ -710,118 +1007,6 @@
           "date": "2026-10-09",
           "points": -3,
           "text": "Application drafts read like templates; he rewrote them"
-        }
-      ]
-    },
-    {
-      "badge": "REACH",
-      "title": "Growth and distribution",
-      "team": "Reach",
-      "model": "Claude Opus",
-      "level": 95.25,
-      "change_close": -1.75,
-      "change_7d": -4.75,
-      "history": [
-        {
-          "date": "2026-10-02",
-          "level": 100
-        },
-        {
-          "date": "2026-10-03",
-          "level": 100
-        },
-        {
-          "date": "2026-10-04",
-          "level": 100
-        },
-        {
-          "date": "2026-10-05",
-          "level": 100
-        },
-        {
-          "date": "2026-10-06",
-          "level": 100
-        },
-        {
-          "date": "2026-10-07",
-          "level": 100
-        },
-        {
-          "date": "2026-10-08",
-          "level": 97
-        },
-        {
-          "date": "2026-10-09",
-          "level": 95.25
-        }
-      ],
-      "own_numbers": [
-        {
-          "label": "Visitors a week",
-          "baseline": 129,
-          "baseline_date": "2026-10-02",
-          "value": 106,
-          "date": "2026-10-09"
-        },
-        {
-          "label": "Followers on X",
-          "baseline": 372,
-          "baseline_date": "2026-10-04",
-          "value": 380,
-          "date": "2026-10-09"
-        }
-      ],
-      "skills": {
-        "Shipping": {
-          "estimate": 0.987,
-          "low": 0.96,
-          "high": 1,
-          "n": 7,
-          "minimum": 20,
-          "tier": "not rated yet"
-        },
-        "Reads the CEO": {
-          "estimate": 0.476,
-          "low": 0.34,
-          "high": 0.612,
-          "n": 1,
-          "minimum": 20,
-          "tier": "not rated yet"
-        }
-      },
-      "status": "One strike",
-      "morale": {
-        "score": 27,
-        "reading": "overpaid"
-      },
-      "view": {
-        "text": "Visitors fell from 129 to 106 a week. My automatic posts were stopped. I own both.",
-        "label": "REACH's own view"
-      },
-      "working": {
-        "when": null,
-        "doing": null,
-        "learned": null
-      },
-      "runs": {
-        "count": 5,
-        "last": "2026-10-09T15:34:33.832529Z"
-      },
-      "moved_by": [
-        {
-          "date": "2026-10-09",
-          "points": -1.96,
-          "text": "Visitors a week: 129 to 106"
-        },
-        {
-          "date": "2026-10-09",
-          "points": 0.21,
-          "text": "Followers on X: 372 to 380"
-        },
-        {
-          "date": "2026-10-08",
-          "points": -3,
-          "text": "Automatic X posts stopped: not good enough"
         }
       ]
     }
