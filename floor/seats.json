@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-10T00:01:03Z",
+  "updated_utc": "2026-10-10T00:02:34Z",
   "system": "The Tickerz Floor",
   "since": "2026-10-02",
   "company": {
@@ -17,62 +17,64 @@
       "model": "Human",
       "owns": "Every decision, idea and account",
       "status": "active",
-      "level": 177.0,
-      "change_close": 23.0,
-      "change_7d": 77.0,
+      "level": 270.0,
+      "change_close": 53.0,
+      "change_7d": 165.0,
       "history": [
         {
           "date": "2026-10-02",
-          "level": 100
+          "level": 105.0
         },
         {
           "date": "2026-10-03",
-          "level": 100
+          "level": 105.0
         },
         {
           "date": "2026-10-04",
-          "level": 114.0
+          "level": 130.0
         },
         {
           "date": "2026-10-05",
-          "level": 124.0
-        },
-        {
-          "date": "2026-10-06",
-          "level": 134.0
-        },
-        {
-          "date": "2026-10-07",
-          "level": 152.0
-        },
-        {
-          "date": "2026-10-08",
           "level": 154.0
         },
         {
+          "date": "2026-10-06",
+          "level": 172.0
+        },
+        {
+          "date": "2026-10-07",
+          "level": 212.0
+        },
+        {
+          "date": "2026-10-08",
+          "level": 217.0
+        },
+        {
           "date": "2026-10-09",
-          "level": 177.0
+          "level": 270.0
         }
       ],
       "skills": {
-        "taste": 1815
+        "taste": 2020
       },
       "morale": {
         "score": null,
         "reading": "n/a"
       },
       "opinion": {
-        "text": "The record cannot see most of what he does: his own emails, applications and accounts are not read yet, so this level undercounts him.",
+        "text": "526 messages and at least 69 hours directing the agents since Oct 2, every decision on the company, and 12 pieces of agent work he caught and sent back.",
         "label": "The scorer's note"
       },
       "work": {
         "decision": 32,
         "idea_kept": 3,
-        "founder_action": 2
+        "founder_action": 2,
+        "directing": 69,
+        "caught": 12
       },
       "record": {
         "complete": false,
-        "note": "His own sent mail, submissions and sign-ups are not read yet, so this level undercounts him."
+        "note": "His sent mail and application receipts are not read yet; everything he typed is."
       }
     },
     {
@@ -674,6 +676,8 @@
     "strike": -5,
     "decision": 2,
     "idea_kept": 3,
-    "founder_action": 2
+    "founder_action": 2,
+    "directing": 1,
+    "caught": 2
   }
 }
