@@ -130,11 +130,20 @@ def _sf(model_cls, **kw):
     return f
 
 
+class NotReady(Exception):
+    """A model that needs more history than a backtest step has. Only lgbm raises it, during its warm-up."""
+
+
+LGBM_WARMUP = 10  # training rows lgbm needs; before that a backtest step uses drift8 and counts it as warm-up
+
+
 def _lgbm(y):
     """Gradient-boosted trees on lags 1, 2, 7 and the 7-period mean, predicting the change from the last value."""
     import lightgbm as lgb
     y = np.asarray(y, dtype=float)
     L = 7
+    if len(y) - L < LGBM_WARMUP:
+        raise NotReady
     X, T = [], []
     for t in range(L, len(y)):
         X.append([y[t - 1], y[t - 2], y[t - 7], np.mean(y[t - 7:t])])
@@ -154,8 +163,22 @@ def candidates(n: int, period: str) -> dict:
     if n >= LGBM_MIN:
         c["lgbm"] = _lgbm
     parts = dict(c)
-    # The middle of every candidate's forecast: rarely the best, rarely the worst.
-    c["ensemble"] = lambda y: float(np.median([f(y) for f in parts.values()]))
+    # The middle of every candidate's forecast: rarely the best, rarely the worst. A candidate that fails is left out
+    # of the middle, never replaced by the last number (until Oct 10 2026 a missing scikit-learn made lgbm fail, and
+    # the whole ensemble fell back to the last number without saying so).
+    def ensemble(y):
+        mids = []
+        for f in parts.values():
+            try:
+                v = f(y)
+            except Exception:
+                continue
+            if math.isfinite(v):
+                mids.append(v)
+        if len(mids) < 3:
+            raise RuntimeError("fewer than three candidates ran")
+        return float(np.median(mids))
+    c["ensemble"] = ensemble
     return c
 
 
@@ -190,18 +213,25 @@ def quantiles(mid: float, resid: list[float], hist, space: Space) -> dict:
     return {0.1: space.back(m + lo), 0.5: space.back(m), 0.9: space.back(m + hi)}
 
 
+class ModelFailed(Exception):
+    pass
+
+
 def walk_forward(y: np.ndarray, fn) -> list[dict]:
-    """Forecast every period from MIN_TRAIN on, each from the periods before it only."""
+    """Forecast every period from MIN_TRAIN on, each from the periods before it only. A model that fails or returns
+    nothing usable at any step is out for this series (ModelFailed): it is never scored as the last number."""
     space = Space(y)
     out, resid = [], []
     for t in range(MIN_TRAIN, len(y)):
         hist = y[:t]
         try:
             mid = fn(hist)
-        except Exception:
-            mid = float(hist[-1])
+        except NotReady:
+            mid = m_drift(hist)  # declared warm-up, not a failure: see LGBM_WARMUP
+        except Exception as e:
+            raise ModelFailed(f"{type(e).__name__}: {e}"[:200]) from e
         if not math.isfinite(mid):
-            mid = float(hist[-1])
+            raise ModelFailed("not a finite number")
         q = quantiles(mid, resid, hist, space)
         out.append({"t": t, "y": float(y[t]), "q": q})
         resid.append(float(space.fwd(y[t]) - space.fwd(max(mid, 1e-12) if space.log else mid)))
@@ -237,10 +267,18 @@ def run_series(ticker: str, period: str, df: pl.DataFrame) -> dict | None:
     # Scale for comparing series: the mean absolute period-to-period change over the backtest window.
     scale = float(np.mean(np.abs(np.diff(y[MIN_TRAIN - 1:])))) or 1.0
     models = candidates(len(y), period)
-    bt = {}
-    for name, fn in models.items():
-        rows = walk_forward(y, fn)
+    bt, failed = {}, {}
+    for name, fn in list(models.items()):
+        try:
+            rows = walk_forward(y, fn)
+        except ModelFailed as e:
+            failed[name] = str(e)
+            print(f"{ticker:8s} model {name} failed and is left out: {e}", file=sys.stderr)
+            del models[name]
+            continue
         bt[name] = {"rows": rows, "score": summarize(rows, scale)}
+    if DEFAULT not in models:
+        return {"ticker": ticker, "period": period, "status": "model_failed", "failed_models": failed, "n": int(len(y))}
     def choose(score_of) -> str:
         """The default model, unless another's recent loss is at least MARGIN lower (switching costs: see the backtest)."""
         best = min(models, key=score_of)
@@ -279,6 +317,7 @@ def run_series(ticker: str, period: str, df: pl.DataFrame) -> dict | None:
         "last": {"period": last.isoformat(), "value": float(y[-1])},
         "next": {"period": nxt.isoformat(), "p10": q[0.1], "p50": q[0.5], "p90": q[0.9]},
         "model": chosen,
+        "failed_models": failed,
         "n_history": int(len(y)),
         "backtest": {k: v["score"] for k, v in bt.items()},
         # The procedure, walked forward with no look-ahead, against repeating the last number on the same periods.
