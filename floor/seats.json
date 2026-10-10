@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-10T01:46:46Z",
+  "updated_utc": "2026-10-10T01:51:45Z",
   "system": "The Tickerz Floor",
   "model": "v4",
   "since": "2026-10-02",
@@ -71,6 +71,15 @@
       "runs": {
         "count": 0,
         "last": null
+      },
+      "week": {
+        "shipped": 0,
+        "reverted": 0,
+        "signed": 0,
+        "lesson": 0,
+        "message": 0,
+        "ceo_yes": 0,
+        "ceo_no": 0
       },
       "moved_by": [
         {
@@ -187,6 +196,15 @@
         "count": 30,
         "last": "2026-10-09T16:56:08.691808Z"
       },
+      "week": {
+        "shipped": 20,
+        "reverted": 0,
+        "signed": 2,
+        "lesson": 1,
+        "message": 0,
+        "ceo_yes": 0,
+        "ceo_no": 0
+      },
       "moved_by": [
         {
           "date": "2026-10-09",
@@ -285,6 +303,15 @@
       "runs": {
         "count": 3,
         "last": "2026-10-09T17:50:09.080442Z"
+      },
+      "week": {
+        "shipped": 13,
+        "reverted": 0,
+        "signed": 0,
+        "lesson": 0,
+        "message": 0,
+        "ceo_yes": 0,
+        "ceo_no": 0
       },
       "moved_by": [
         {
@@ -393,6 +420,15 @@
         "count": 8,
         "last": "2026-10-09T21:15:01.695221Z"
       },
+      "week": {
+        "shipped": 3,
+        "reverted": 0,
+        "signed": 0,
+        "lesson": 1,
+        "message": 0,
+        "ceo_yes": 0,
+        "ceo_no": 0
+      },
       "moved_by": [
         {
           "date": "2026-10-09",
@@ -494,6 +530,15 @@
       "runs": {
         "count": 27,
         "last": "2026-10-09T20:23:33.153105Z"
+      },
+      "week": {
+        "shipped": 31,
+        "reverted": 0,
+        "signed": 0,
+        "lesson": 1,
+        "message": 0,
+        "ceo_yes": 2,
+        "ceo_no": 12
       },
       "moved_by": [
         {
@@ -617,6 +662,15 @@
         "count": 5,
         "last": "2026-10-09T15:34:33.832529Z"
       },
+      "week": {
+        "shipped": 7,
+        "reverted": 0,
+        "signed": 0,
+        "lesson": 0,
+        "message": 0,
+        "ceo_yes": 0,
+        "ceo_no": 1
+      },
       "moved_by": [
         {
           "date": "2026-10-08",
@@ -715,6 +769,15 @@
         "count": 0,
         "last": null
       },
+      "week": {
+        "shipped": 0,
+        "reverted": 0,
+        "signed": 0,
+        "lesson": 1,
+        "message": 0,
+        "ceo_yes": 0,
+        "ceo_no": 0
+      },
       "moved_by": [
         {
           "date": "2026-10-09",
@@ -793,6 +856,15 @@
         "count": 0,
         "last": null
       },
+      "week": {
+        "shipped": 0,
+        "reverted": 0,
+        "signed": 0,
+        "lesson": 0,
+        "message": 0,
+        "ceo_yes": 0,
+        "ceo_no": 0
+      },
       "moved_by": []
     },
     {
@@ -857,6 +929,15 @@
         "count": 0,
         "last": null
       },
+      "week": {
+        "shipped": 0,
+        "reverted": 0,
+        "signed": 0,
+        "lesson": 0,
+        "message": 0,
+        "ceo_yes": 0,
+        "ceo_no": 0
+      },
       "moved_by": []
     },
     {
@@ -920,6 +1001,15 @@
       "runs": {
         "count": 6,
         "last": "2026-10-09T13:05:05.974360Z"
+      },
+      "week": {
+        "shipped": 0,
+        "reverted": 0,
+        "signed": 0,
+        "lesson": 0,
+        "message": 0,
+        "ceo_yes": 0,
+        "ceo_no": 0
       },
       "moved_by": []
     },
@@ -1001,6 +1091,15 @@
       "runs": {
         "count": 9,
         "last": "2026-10-09T16:16:21.583652Z"
+      },
+      "week": {
+        "shipped": 0,
+        "reverted": 0,
+        "signed": 0,
+        "lesson": 0,
+        "message": 0,
+        "ceo_yes": 0,
+        "ceo_no": 1
       },
       "moved_by": [
         {
