@@ -1,0 +1,679 @@
+{
+  "updated_utc": "2026-10-09T23:59:42Z",
+  "system": "The Tickerz Floor",
+  "since": "2026-10-02",
+  "company": {
+    "outside_replies": 0,
+    "funding_conversations": 0,
+    "outside_quotes": 0,
+    "signed_numbers": 2
+  },
+  "seats": [
+    {
+      "badge": "FOUNDER",
+      "name": "Founder",
+      "title": "Founder and CEO",
+      "team": "Board",
+      "model": "Human",
+      "owns": "Every decision, idea and account",
+      "status": "active",
+      "level": 177.0,
+      "change_close": 23.0,
+      "change_7d": 77.0,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 100
+        },
+        {
+          "date": "2026-10-03",
+          "level": 100
+        },
+        {
+          "date": "2026-10-04",
+          "level": 114.0
+        },
+        {
+          "date": "2026-10-05",
+          "level": 124.0
+        },
+        {
+          "date": "2026-10-06",
+          "level": 134.0
+        },
+        {
+          "date": "2026-10-07",
+          "level": 152.0
+        },
+        {
+          "date": "2026-10-08",
+          "level": 154.0
+        },
+        {
+          "date": "2026-10-09",
+          "level": 177.0
+        }
+      ],
+      "skills": {
+        "taste": 1815
+      },
+      "morale": {
+        "score": null,
+        "reading": "n/a"
+      },
+      "opinion": {
+        "text": "The record cannot see most of what he does: his own emails, applications and accounts are not read yet, so this level undercounts him.",
+        "label": "FOUNDER's own view"
+      },
+      "work": {
+        "decision": 32,
+        "idea_kept": 3,
+        "founder_action": 2
+      },
+      "record": {
+        "complete": false,
+        "note": "His own sent mail, submissions and sign-ups are not read yet, so this level undercounts him."
+      }
+    },
+    {
+      "badge": "COUNT",
+      "name": "Count",
+      "title": "Trust and data quality",
+      "team": "Product",
+      "model": "Claude Opus",
+      "owns": "Numbers signed on time",
+      "status": "active",
+      "level": 155.97,
+      "change_close": 13.97,
+      "change_7d": 55.97,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 100
+        },
+        {
+          "date": "2026-10-03",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-04",
+          "level": 118.0
+        },
+        {
+          "date": "2026-10-05",
+          "level": 119.0
+        },
+        {
+          "date": "2026-10-06",
+          "level": 120.0
+        },
+        {
+          "date": "2026-10-07",
+          "level": 129.0
+        },
+        {
+          "date": "2026-10-08",
+          "level": 142.0
+        },
+        {
+          "date": "2026-10-09",
+          "level": 155.97
+        }
+      ],
+      "skills": {
+        "code": 1980,
+        "research": 1980
+      },
+      "morale": {
+        "score": 65,
+        "reading": "underpaid"
+      },
+      "opinion": {
+        "text": "Most of the shipped work this fortnight is mine and two numbers signed. None of it has reached anyone outside the company yet.",
+        "label": "COUNT's own view"
+      },
+      "work": {
+        "review_pass": 100,
+        "review_fail": 2,
+        "signed": 2
+      },
+      "record": {
+        "complete": true,
+        "note": ""
+      }
+    },
+    {
+      "badge": "CHART",
+      "name": "Chart",
+      "title": "Design",
+      "team": "Product",
+      "model": "Claude Sonnet",
+      "owns": "Page score",
+      "status": "active",
+      "level": 102.12,
+      "change_close": 1.12,
+      "change_7d": 2.12,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 100
+        },
+        {
+          "date": "2026-10-03",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-04",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-05",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-06",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-07",
+          "level": 100.5
+        },
+        {
+          "date": "2026-10-08",
+          "level": 101.0
+        },
+        {
+          "date": "2026-10-09",
+          "level": 102.12
+        }
+      ],
+      "skills": {
+        "design": 1546
+      },
+      "morale": {
+        "score": 32,
+        "reading": "overpaid"
+      },
+      "opinion": {
+        "text": "Pages pass the checks. The founder still had to send the floor page back three times, so the checks are not his bar yet.",
+        "label": "CHART's own view"
+      },
+      "work": {
+        "review_pass": 3
+      },
+      "record": {
+        "complete": true,
+        "note": ""
+      }
+    },
+    {
+      "badge": "READ",
+      "name": "Read",
+      "title": "Data and research",
+      "team": "Product",
+      "model": "Claude Opus",
+      "owns": "Findings used",
+      "status": "active",
+      "level": 101.5,
+      "change_close": 0.0,
+      "change_7d": 1.5,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 100
+        },
+        {
+          "date": "2026-10-03",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-04",
+          "level": 100.5
+        },
+        {
+          "date": "2026-10-05",
+          "level": 100.5
+        },
+        {
+          "date": "2026-10-06",
+          "level": 101.0
+        },
+        {
+          "date": "2026-10-07",
+          "level": 101.0
+        },
+        {
+          "date": "2026-10-08",
+          "level": 101.5
+        },
+        {
+          "date": "2026-10-09",
+          "level": 101.5
+        }
+      ],
+      "skills": {
+        "research": 1546
+      },
+      "morale": {
+        "score": 14,
+        "reading": "overpaid"
+      },
+      "opinion": {
+        "text": "Research shipped, but no finding of mine has been quoted outside yet. That is the bar.",
+        "label": "READ's own view"
+      },
+      "work": {
+        "review_pass": 3
+      },
+      "record": {
+        "complete": true,
+        "note": ""
+      }
+    },
+    {
+      "badge": "REACH",
+      "name": "Reach",
+      "title": "Growth and distribution",
+      "team": "Reach",
+      "model": "Claude Opus",
+      "owns": "Real reach",
+      "status": "active",
+      "level": 100.33,
+      "change_close": 0.33,
+      "change_7d": 0.33,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 100
+        },
+        {
+          "date": "2026-10-03",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-04",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-05",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-06",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-07",
+          "level": 101.0
+        },
+        {
+          "date": "2026-10-08",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-09",
+          "level": 100.33
+        }
+      ],
+      "skills": {
+        "writing": 1579,
+        "outreach": 1579
+      },
+      "morale": {
+        "score": 44,
+        "reading": "fair"
+      },
+      "opinion": {
+        "text": "My automatic posts were stopped for quality. Until a post idea of mine gets used, I am on notice.",
+        "label": "REACH's own view"
+      },
+      "work": {
+        "review_pass": 7,
+        "founder_no": 1
+      },
+      "record": {
+        "complete": true,
+        "note": ""
+      }
+    },
+    {
+      "badge": "TICK",
+      "name": "Tick",
+      "title": "CEO",
+      "team": "Leads the floor",
+      "model": "Claude Opus",
+      "owns": "Outside replies",
+      "status": "new",
+      "level": 100,
+      "change_close": 0,
+      "change_7d": 0,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 100
+        },
+        {
+          "date": "2026-10-03",
+          "level": 100
+        },
+        {
+          "date": "2026-10-04",
+          "level": 100
+        },
+        {
+          "date": "2026-10-05",
+          "level": 100
+        },
+        {
+          "date": "2026-10-06",
+          "level": 100
+        },
+        {
+          "date": "2026-10-07",
+          "level": 100
+        },
+        {
+          "date": "2026-10-08",
+          "level": 100
+        },
+        {
+          "date": "2026-10-09",
+          "level": 100
+        }
+      ],
+      "skills": {},
+      "morale": {
+        "score": null,
+        "reading": "idle"
+      },
+      "opinion": {
+        "text": "New seat. I start scoring from my first Company Close.",
+        "label": "TICK's own view"
+      },
+      "work": {},
+      "record": {
+        "complete": true,
+        "note": ""
+      }
+    },
+    {
+      "badge": "CROSS",
+      "name": "Cross",
+      "title": "Partnerships",
+      "team": "Reach",
+      "model": "Claude Opus",
+      "owns": "Outside replies",
+      "status": "new",
+      "level": 100,
+      "change_close": 0,
+      "change_7d": 0,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 100
+        },
+        {
+          "date": "2026-10-03",
+          "level": 100
+        },
+        {
+          "date": "2026-10-04",
+          "level": 100
+        },
+        {
+          "date": "2026-10-05",
+          "level": 100
+        },
+        {
+          "date": "2026-10-06",
+          "level": 100
+        },
+        {
+          "date": "2026-10-07",
+          "level": 100
+        },
+        {
+          "date": "2026-10-08",
+          "level": 100
+        },
+        {
+          "date": "2026-10-09",
+          "level": 100
+        }
+      ],
+      "skills": {},
+      "morale": {
+        "score": null,
+        "reading": "idle"
+      },
+      "opinion": {
+        "text": "New seat. My first approved batch goes out Monday at 9 AM ET; replies are my score.",
+        "label": "CROSS's own view"
+      },
+      "work": {},
+      "record": {
+        "complete": true,
+        "note": ""
+      }
+    },
+    {
+      "badge": "SCENE",
+      "name": "Scene",
+      "title": "Culture",
+      "team": "Culture",
+      "model": "Claude Opus",
+      "owns": "Culture moves",
+      "status": "new",
+      "level": 100,
+      "change_close": 0,
+      "change_7d": 0,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 100
+        },
+        {
+          "date": "2026-10-03",
+          "level": 100
+        },
+        {
+          "date": "2026-10-04",
+          "level": 100
+        },
+        {
+          "date": "2026-10-05",
+          "level": 100
+        },
+        {
+          "date": "2026-10-06",
+          "level": 100
+        },
+        {
+          "date": "2026-10-07",
+          "level": 100
+        },
+        {
+          "date": "2026-10-08",
+          "level": 100
+        },
+        {
+          "date": "2026-10-09",
+          "level": 100
+        }
+      ],
+      "skills": {},
+      "morale": {
+        "score": null,
+        "reading": "idle"
+      },
+      "opinion": {
+        "text": "New seat. First run Tuesday.",
+        "label": "SCENE's own view"
+      },
+      "work": {},
+      "record": {
+        "complete": true,
+        "note": ""
+      }
+    },
+    {
+      "badge": "COACH",
+      "name": "Coach",
+      "title": "Agent memory and briefs",
+      "team": "Office",
+      "model": "Claude Opus",
+      "owns": "Asks answered once",
+      "status": "active",
+      "level": 99.62,
+      "change_close": -0.38,
+      "change_7d": -0.38,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 100
+        },
+        {
+          "date": "2026-10-03",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-04",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-05",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-06",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-07",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-08",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-09",
+          "level": 99.62
+        }
+      ],
+      "skills": {},
+      "morale": {
+        "score": 11,
+        "reading": "overpaid"
+      },
+      "opinion": {
+        "text": "He still had to re-explain things this week. My job is that he never says anything twice.",
+        "label": "COACH's own view"
+      },
+      "work": {},
+      "record": {
+        "complete": true,
+        "note": ""
+      }
+    },
+    {
+      "badge": "BOOKS",
+      "name": "Books",
+      "title": "Finance and applications",
+      "team": "Office",
+      "model": "Claude Opus",
+      "owns": "Funding conversations",
+      "status": "active",
+      "level": 95.96,
+      "change_close": -4.04,
+      "change_7d": -4.04,
+      "history": [
+        {
+          "date": "2026-10-02",
+          "level": 100
+        },
+        {
+          "date": "2026-10-03",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-04",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-05",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-06",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-07",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-08",
+          "level": 100.0
+        },
+        {
+          "date": "2026-10-09",
+          "level": 95.96
+        }
+      ],
+      "skills": {
+        "writing": 1484
+      },
+      "morale": {
+        "score": 11,
+        "reading": "overpaid"
+      },
+      "opinion": {
+        "text": "He rewrote my application drafts himself. The next ones use his own words or they do not go to him.",
+        "label": "BOOKS's own view"
+      },
+      "work": {
+        "founder_no": 1
+      },
+      "record": {
+        "complete": true,
+        "note": ""
+      }
+    }
+  ],
+  "board": [
+    {
+      "badge": "LONG",
+      "title": "Investor director",
+      "status": "board"
+    },
+    {
+      "badge": "BUYER",
+      "title": "Customer director",
+      "status": "board"
+    },
+    {
+      "badge": "TASTE",
+      "title": "Brand director",
+      "status": "board"
+    },
+    {
+      "badge": "BEAR",
+      "title": "Risk director",
+      "status": "board"
+    }
+  ],
+  "points": {
+    "shipped_live": 1,
+    "review_pass": 0.5,
+    "review_fail": -1,
+    "founder_yes": 2,
+    "founder_no": -3,
+    "signed": 3,
+    "outside": 10,
+    "strike": -5,
+    "decision": 2,
+    "idea_kept": 3,
+    "founder_action": 2
+  }
+}
