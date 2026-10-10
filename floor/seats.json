@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-09T23:59:42Z",
+  "updated_utc": "2026-10-10T00:01:03Z",
   "system": "The Tickerz Floor",
   "since": "2026-10-02",
   "company": {
@@ -63,7 +63,7 @@
       },
       "opinion": {
         "text": "The record cannot see most of what he does: his own emails, applications and accounts are not read yet, so this level undercounts him.",
-        "label": "FOUNDER's own view"
+        "label": "The scorer's note"
       },
       "work": {
         "decision": 32,
@@ -195,7 +195,7 @@
         "reading": "overpaid"
       },
       "opinion": {
-        "text": "Pages pass the checks. The founder still had to send the floor page back three times, so the checks are not his bar yet.",
+        "text": "My pages pass the checks. Passing checks is not the same as meeting his bar, and that is what I am scored on now.",
         "label": "CHART's own view"
       },
       "work": {
