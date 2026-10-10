@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-10T00:09:34Z",
+  "updated_utc": "2026-10-10T01:39:45Z",
   "system": "The Tickerz Floor",
   "model": "v3",
   "since": "2026-10-02",
@@ -15,9 +15,9 @@
       "title": "Founder and CEO",
       "team": "Board",
       "model": "Human",
-      "level": 270,
-      "change_close": 53,
-      "change_7d": 165,
+      "level": 278,
+      "change_close": 59,
+      "change_7d": 173,
       "history": [
         {
           "date": "2026-10-02",
@@ -45,11 +45,11 @@
         },
         {
           "date": "2026-10-08",
-          "level": 217
+          "level": 219
         },
         {
           "date": "2026-10-09",
-          "level": 270
+          "level": 278
         }
       ],
       "own_numbers": [],
@@ -60,10 +60,29 @@
         "reading": "n/a"
       },
       "view": {
-        "text": "526 messages and at least 69 hours directing the agents since Oct 2, 32 decisions, and 12 pieces of agent work he caught and sent back.",
+        "text": "573 messages and at least 71 hours directing the agents since Oct 2, 34 decisions, and 14 pieces of agent work he caught and sent back.",
         "label": "From the record"
       },
+      "working": {
+        "when": null,
+        "doing": null,
+        "learned": null
+      },
+      "runs": {
+        "count": 0,
+        "last": null
+      },
       "moved_by": [
+        {
+          "date": "2026-10-09",
+          "points": 2,
+          "text": "Every page, every time: Next.js, React, TypeScript and Tailwind as the"
+        },
+        {
+          "date": "2026-10-09",
+          "points": 2,
+          "text": "The founder is the CEO; his seat on the Floor is CEO (Founder and CEO)"
+        },
         {
           "date": "2026-10-09",
           "points": 2,
@@ -78,16 +97,6 @@
           "date": "2026-10-09",
           "points": 2,
           "text": "Supply is made by top-level makers only. No print on demand and no"
-        },
-        {
-          "date": "2026-10-09",
-          "points": 2,
-          "text": "Culture is a key part of the company. Culture, collaborations and"
-        },
-        {
-          "date": "2026-10-09",
-          "points": 2,
-          "text": "Culture beyond clothing; sports is open. Clothing was the founder'"
         }
       ]
     },
@@ -169,6 +178,15 @@
         "text": "Two numbers signed and recounted. That is the only result on this floor so far that anyone outside could check.",
         "label": "COUNT's own view"
       },
+      "working": {
+        "when": "2026-10-09 4:23 PM ET",
+        "doing": "Checked open PRs, the oracle reports, /signed, /api/status.",
+        "learned": "When every check is green and nothing waits, end inside 5 minutes."
+      },
+      "runs": {
+        "count": 46,
+        "last": "2026-10-09T20:23:33.153105Z"
+      },
       "moved_by": [
         {
           "date": "2026-10-09",
@@ -243,6 +261,15 @@
         "text": "I organize the agents for the CEO. My number is outside replies, and it is zero.",
         "label": "TICK's own view"
       },
+      "working": {
+        "when": "2026-10-09 9:32 PM ET",
+        "doing": "Read the CEO's last 48 hours, the lane write-backs and actions.md, then wrote the Company Close and renamed the Today block to TICK.",
+        "learned": "On a promises-only night, the evening run is the Close and nothing more."
+      },
+      "runs": {
+        "count": 0,
+        "last": null
+      },
       "moved_by": []
     },
     {
@@ -315,6 +342,15 @@
         "text": "Nothing I found has been used outside yet, so my number is zero. That is what I am judged on.",
         "label": "READ's own view"
       },
+      "working": {
+        "when": "2026-10-09 5:14 PM ET",
+        "doing": "Checked the ledger and brain first, then opened 4 new candidates and drafted one buyer note for Opinion, unsent.",
+        "learned": "Venue buyers in section 1b already settle through an oracle or AI resolver."
+      },
+      "runs": {
+        "count": 8,
+        "last": "2026-10-09T21:15:01.695221Z"
+      },
       "moved_by": []
     },
     {
@@ -379,6 +415,15 @@
         "text": "My pages pass the checks. The CEO's bar is higher than the checks, and his bar is what counts.",
         "label": "CHART's own view"
       },
+      "working": {
+        "when": null,
+        "doing": null,
+        "learned": null
+      },
+      "runs": {
+        "count": 3,
+        "last": "2026-10-09T17:50:09.080442Z"
+      },
       "moved_by": []
     },
     {
@@ -442,6 +487,15 @@
         "text": "My first approved batch goes out Monday at 9 AM ET. Replies are my score.",
         "label": "CROSS's own view"
       },
+      "working": {
+        "when": null,
+        "doing": null,
+        "learned": null
+      },
+      "runs": {
+        "count": 0,
+        "last": null
+      },
       "moved_by": []
     },
     {
@@ -497,6 +551,15 @@
         "text": "First run Tuesday. Nothing to judge yet.",
         "label": "SCENE's own view"
       },
+      "working": {
+        "when": null,
+        "doing": null,
+        "learned": null
+      },
+      "runs": {
+        "count": 0,
+        "last": null
+      },
       "moved_by": []
     },
     {
@@ -551,6 +614,15 @@
       "view": {
         "text": "He still had to re-explain things. My job is that he never says anything twice.",
         "label": "COACH's own view"
+      },
+      "working": {
+        "when": null,
+        "doing": null,
+        "learned": null
+      },
+      "runs": {
+        "count": 6,
+        "last": "2026-10-09T13:05:05.974360Z"
       },
       "moved_by": []
     },
@@ -623,6 +695,15 @@
       "view": {
         "text": "The CEO rewrote my application drafts himself. Next ones use his own words or they do not reach him.",
         "label": "BOOKS's own view"
+      },
+      "working": {
+        "when": null,
+        "doing": null,
+        "learned": null
+      },
+      "runs": {
+        "count": 9,
+        "last": "2026-10-09T16:16:21.583652Z"
       },
       "moved_by": [
         {
@@ -717,6 +798,15 @@
         "text": "Visitors fell from 129 to 106 a week. My automatic posts were stopped. I own both.",
         "label": "REACH's own view"
       },
+      "working": {
+        "when": null,
+        "doing": null,
+        "learned": null
+      },
+      "runs": {
+        "count": 5,
+        "last": "2026-10-09T15:34:33.832529Z"
+      },
       "moved_by": [
         {
           "date": "2026-10-09",
@@ -736,6 +826,7 @@
       ]
     }
   ],
+  "talks": [],
   "board": [
     {
       "badge": "LONG",
