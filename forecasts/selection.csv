@@ -49,3 +49,13 @@ day,ticker,model,recent_pinball_scaled,runner_up,runner_up_score,version
 2026-10-11,UNEMP,naive,0.2691,drift8,0.3031,forecast-v1
 2026-10-11,CPI,ensemble,0.318,median7,0.3087,forecast-v1
 2026-10-11,CORECPI,ensemble,0.2641,median7,0.2402,forecast-v1
+2026-10-12,LAYOFFS,ensemble,0.2845,theta,0.2627,forecast-v1
+2026-10-12,YESNO,ensemble,0.2448,naive,0.2663,forecast-v1
+2026-10-12,TRENCHES,ensemble,0.5259,ets,0.4989,forecast-v1
+2026-10-12,MINTS,ensemble,0.3359,ets,0.3254,forecast-v1
+2026-10-12,GIGS,ensemble,0.1433,median7,0.145,forecast-v1
+2026-10-12,WAGE,ensemble,0.2643,median7,0.2492,forecast-v1
+2026-10-12,JOBS,ets,0.2191,mean7,0.2282,forecast-v1
+2026-10-12,UNEMP,naive,0.2691,drift8,0.3031,forecast-v1
+2026-10-12,CPI,ensemble,0.318,median7,0.3087,forecast-v1
+2026-10-12,CORECPI,ensemble,0.2641,median7,0.2402,forecast-v1
