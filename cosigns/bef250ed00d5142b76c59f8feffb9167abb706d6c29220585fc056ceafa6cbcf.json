@@ -1,0 +1,10 @@
+{
+  "report_hash": "bef250ed00d5142b76c59f8feffb9167abb706d6c29220585fc056ceafa6cbcf",
+  "ticker": "CPI",
+  "period": "2026-09-01",
+  "value": "6",
+  "by": "7TYVLzDyAGspQ2FSH1H4D8kzrocuQqSRMM48frr3EjZ3",
+  "signature": "2gW5sxJddGV1wutWdot67jh49bEchvwcBKJGWSjCvcogoe7RfX28Qij7tSAMcy8q5y52Mnkd5ETjMEdHZ3JDsSSp",
+  "how": "BLS API v1 CUSR0000SA0",
+  "at": "2026-10-14T20:18:58.737Z"
+}

@@ -1,0 +1,10 @@
+{
+  "report_hash": "91be5b524e354c11d183d4c753bdf9904ed2f5b41901cf8afe8230ad0dc6c3d6",
+  "ticker": "CORECPI",
+  "period": "2026-09-01",
+  "value": "3",
+  "by": "7TYVLzDyAGspQ2FSH1H4D8kzrocuQqSRMM48frr3EjZ3",
+  "signature": "2h8noF78muKoZr6SrHgjySUZD9bTMnzSvyC6NFH2LcYP3n5YwvF4jPb2iXZq5apKYtsFmssZwXVkjKQqNUy9eZTc",
+  "how": "BLS API v1 CUSR0000SA0L1E",
+  "at": "2026-10-14T20:18:59.202Z"
+}
