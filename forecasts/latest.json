@@ -1,6 +1,6 @@
 {
  "version": "forecast-v1",
- "generated_at": "2026-10-16T17:59:39Z",
+ "generated_at": "2026-10-17T17:05:34Z",
  "display_only": true,
  "note": "Forecasts of the next published number. Display only: never a settled number. Ranges are the 10th to 90th percentile.",
  "method": {
@@ -19,120 +19,113 @@
    "period": "week",
    "status": "ok",
    "last": {
-    "period": "2026-10-03",
-    "value": 170732.0
+    "period": "2026-10-10",
+    "value": 191033.0
    },
    "next": {
-    "period": "2026-10-10",
-    "p10": 142961.71542873155,
-    "p50": 166391.18528810565,
-    "p90": 183182.94569293852
+    "period": "2026-10-17",
+    "p10": 155440.18565107032,
+    "p50": 180741.4127178754,
+    "p90": 201354.11162638373
    },
    "model": "ensemble",
    "failed_models": {},
-   "n_history": 99,
+   "n_history": 100,
    "backtest": {
     "naive": {
-     "n": 91,
-     "pinball": 5707.217335,
-     "pinball_scaled": 0.3408,
-     "recent_pinball_scaled": 0.2639,
-     "coverage_80": 0.813,
-     "mae": 16745.89011,
-     "mape": 7.4
+     "n": 92,
+     "pinball": 5708.306053,
+     "pinball_scaled": 0.3401,
+     "recent_pinball_scaled": 0.2725,
+     "coverage_80": 0.804,
+     "mae": 16784.532609,
+     "mape": 7.43
     },
     "mean7": {
-     "n": 91,
-     "pinball": 7301.422932,
-     "pinball_scaled": 0.436,
-     "recent_pinball_scaled": 0.3618,
-     "coverage_80": 0.736,
-     "mae": 23706.042386,
-     "mape": 10.81
+     "n": 92,
+     "pinball": 7290.303573,
+     "pinball_scaled": 0.4343,
+     "recent_pinball_scaled": 0.3639,
+     "coverage_80": 0.728,
+     "mae": 23720.301242,
+     "mape": 10.84
     },
     "median7": {
-     "n": 91,
-     "pinball": 6943.373913,
-     "pinball_scaled": 0.4146,
+     "n": 92,
+     "pinball": 6926.65753,
+     "pinball_scaled": 0.4127,
      "recent_pinball_scaled": 0.344,
-     "coverage_80": 0.769,
-     "mae": 22278.428571,
-     "mape": 10.09
+     "coverage_80": 0.772,
+     "mae": 22274.717391,
+     "mape": 10.1
     },
     "drift8": {
-     "n": 91,
-     "pinball": 6348.133515,
-     "pinball_scaled": 0.3791,
-     "recent_pinball_scaled": 0.3038,
-     "coverage_80": 0.78,
-     "mae": 18397.483516,
-     "mape": 8.22
+     "n": 92,
+     "pinball": 6335.795467,
+     "pinball_scaled": 0.3775,
+     "recent_pinball_scaled": 0.3119,
+     "coverage_80": 0.772,
+     "mae": 18420.881988,
+     "mape": 8.25
     },
     "ets": {
-     "n": 91,
-     "pinball": 5965.472796,
-     "pinball_scaled": 0.3562,
-     "recent_pinball_scaled": 0.2793,
-     "coverage_80": 0.78,
-     "mae": 17938.391567,
-     "mape": 7.99
+     "n": 92,
+     "pinball": 6003.093284,
+     "pinball_scaled": 0.3577,
+     "recent_pinball_scaled": 0.3051,
+     "coverage_80": 0.772,
+     "mae": 18040.899075,
+     "mape": 8.06
     },
     "theta": {
-     "n": 91,
-     "pinball": 5847.350923,
-     "pinball_scaled": 0.3492,
-     "recent_pinball_scaled": 0.2627,
-     "coverage_80": 0.813,
-     "mae": 17510.009713,
-     "mape": 7.76
+     "n": 92,
+     "pinball": 5868.961792,
+     "pinball_scaled": 0.3497,
+     "recent_pinball_scaled": 0.278,
+     "coverage_80": 0.804,
+     "mae": 17596.553881,
+     "mape": 7.82
     },
     "lgbm": {
-     "n": 91,
-     "pinball": 6030.822918,
-     "pinball_scaled": 0.3601,
-     "recent_pinball_scaled": 0.3904,
-     "coverage_80": 0.747,
-     "mae": 17688.675905,
-     "mape": 8.14
+     "n": 92,
+     "pinball": 6046.709384,
+     "pinball_scaled": 0.3603,
+     "recent_pinball_scaled": 0.4064,
+     "coverage_80": 0.739,
+     "mae": 17764.253501,
+     "mape": 8.19
     },
     "ensemble": {
-     "n": 91,
-     "pinball": 5695.243438,
-     "pinball_scaled": 0.3401,
-     "recent_pinball_scaled": 0.2845,
-     "coverage_80": 0.791,
-     "mae": 17243.143129,
-     "mape": 7.68
+     "n": 92,
+     "pinball": 5720.994722,
+     "pinball_scaled": 0.3408,
+     "recent_pinball_scaled": 0.3026,
+     "coverage_80": 0.783,
+     "mae": 17323.563472,
+     "mape": 7.74
     }
    },
    "procedure": {
-    "n": 88,
-    "pinball": 5348.433503,
-    "pinball_scaled": 0.3194,
-    "recent_pinball_scaled": 0.2845,
-    "coverage_80": 0.784,
-    "mae": 15695.386784,
-    "mape": 7.17
+    "n": 89,
+    "pinball": 5378.949548,
+    "pinball_scaled": 0.3205,
+    "recent_pinball_scaled": 0.3026,
+    "coverage_80": 0.775,
+    "mae": 15795.908446,
+    "mape": 7.23
    },
    "naive_same_periods": {
-    "n": 88,
-    "pinball": 5403.399162,
-    "pinball_scaled": 0.3227,
-    "recent_pinball_scaled": 0.2639,
-    "coverage_80": 0.807,
-    "mae": 15375.909091,
-    "mape": 6.95
+    "n": 89,
+    "pinball": 5407.938266,
+    "pinball_scaled": 0.3222,
+    "recent_pinball_scaled": 0.2725,
+    "coverage_80": 0.798,
+    "mae": 15431.247191,
+    "mape": 6.99
    },
-   "skill_vs_naive": 0.01,
+   "skill_vs_naive": 0.005,
    "recent_window": 14,
    "_last_steps": [
-    {
-     "period": "2026-07-04",
-     "y": 225637.0,
-     "p10": 185011.71831318297,
-     "p50": 214098.00000000012,
-     "p90": 237091.93691745584
-    },
     {
      "period": "2026-07-11",
      "y": 245434.0,
@@ -223,6 +216,13 @@
      "p10": 135590.60388243984,
      "p50": 157881.01209093645,
      "p90": 174043.03044076808
+    },
+    {
+     "period": "2026-10-10",
+     "y": 191033.0,
+     "p10": 142961.71542873155,
+     "p50": 166391.18528810565,
+     "p90": 183182.94569293852
     }
    ],
    "unit": "claims"
@@ -232,14 +232,14 @@
    "period": "day",
    "status": "ok",
    "last": {
-    "period": "2026-10-14",
-    "value": 627738486.0
+    "period": "2026-10-15",
+    "value": 635096804.0
    },
    "next": {
-    "period": "2026-10-15",
-    "p10": 483084018.5472661,
-    "p50": 564733011.0000005,
-    "p90": 665900373.6957704
+    "period": "2026-10-16",
+    "p10": 541549732.6670809,
+    "p50": 633080373.9999995,
+    "p90": 746491615.3556631
    },
    "model": "seasonal_naive7",
    "failed_models": {},
@@ -247,204 +247,204 @@
    "backtest": {
     "naive": {
      "n": 121,
-     "pinball": 22863792.73298,
-     "pinball_scaled": 0.3276,
-     "recent_pinball_scaled": 0.3946,
-     "coverage_80": 0.752,
-     "mae": 69797428.429752,
-     "mape": 12.06
+     "pinball": 22868573.016764,
+     "pinball_scaled": 0.3306,
+     "recent_pinball_scaled": 0.3989,
+     "coverage_80": 0.744,
+     "mae": 69175871.545455,
+     "mape": 11.94
     },
     "mean7": {
      "n": 121,
-     "pinball": 21814803.05104,
-     "pinball_scaled": 0.3125,
-     "recent_pinball_scaled": 0.3704,
-     "coverage_80": 0.769,
-     "mae": 68541483.693211,
-     "mape": 11.69
+     "pinball": 21815320.505325,
+     "pinball_scaled": 0.3154,
+     "recent_pinball_scaled": 0.3713,
+     "coverage_80": 0.777,
+     "mae": 68396865.918536,
+     "mape": 11.65
     },
     "median7": {
      "n": 121,
-     "pinball": 21699841.955871,
-     "pinball_scaled": 0.3109,
-     "recent_pinball_scaled": 0.4159,
-     "coverage_80": 0.777,
-     "mae": 65411165.380165,
-     "mape": 10.93
+     "pinball": 21650128.604193,
+     "pinball_scaled": 0.313,
+     "recent_pinball_scaled": 0.4152,
+     "coverage_80": 0.769,
+     "mae": 64868062.272727,
+     "mape": 10.82
     },
     "drift8": {
      "n": 121,
-     "pinball": 24244349.611104,
-     "pinball_scaled": 0.3474,
-     "recent_pinball_scaled": 0.3975,
-     "coverage_80": 0.777,
-     "mae": 73550551.573235,
-     "mape": 12.73
+     "pinball": 24255972.224481,
+     "pinball_scaled": 0.3506,
+     "recent_pinball_scaled": 0.4002,
+     "coverage_80": 0.76,
+     "mae": 72519595.356375,
+     "mape": 12.54
     },
     "ets": {
      "n": 121,
-     "pinball": 22453144.457313,
-     "pinball_scaled": 0.3217,
-     "recent_pinball_scaled": 0.4157,
-     "coverage_80": 0.744,
-     "mae": 71108392.332722,
-     "mape": 12.22
+     "pinball": 22471737.817118,
+     "pinball_scaled": 0.3248,
+     "recent_pinball_scaled": 0.4047,
+     "coverage_80": 0.736,
+     "mae": 70633637.360054,
+     "mape": 12.12
     },
     "theta": {
      "n": 121,
-     "pinball": 23065467.704994,
-     "pinball_scaled": 0.3305,
-     "recent_pinball_scaled": 0.425,
-     "coverage_80": 0.719,
-     "mae": 71719114.899528,
-     "mape": 12.37
+     "pinball": 23270819.969215,
+     "pinball_scaled": 0.3364,
+     "recent_pinball_scaled": 0.4225,
+     "coverage_80": 0.727,
+     "mae": 71670416.471669,
+     "mape": 12.34
     },
     "seasonal_naive7": {
      "n": 121,
-     "pinball": 21602335.017191,
-     "pinball_scaled": 0.3095,
-     "recent_pinball_scaled": 0.2265,
+     "pinball": 21761968.28772,
+     "pinball_scaled": 0.3146,
+     "recent_pinball_scaled": 0.2326,
      "coverage_80": 0.843,
-     "mae": 63582898.942149,
-     "mape": 11.17
+     "mae": 63760455.082645,
+     "mape": 11.18
     },
     "lgbm": {
      "n": 121,
-     "pinball": 21423191.175524,
-     "pinball_scaled": 0.3069,
-     "recent_pinball_scaled": 0.2854,
-     "coverage_80": 0.802,
-     "mae": 67587065.573802,
-     "mape": 11.86
+     "pinball": 22365814.423405,
+     "pinball_scaled": 0.3233,
+     "recent_pinball_scaled": 0.2532,
+     "coverage_80": 0.793,
+     "mae": 67603973.975823,
+     "mape": 11.71
     },
     "ensemble": {
      "n": 121,
-     "pinball": 20038577.356146,
-     "pinball_scaled": 0.2871,
-     "recent_pinball_scaled": 0.3368,
-     "coverage_80": 0.802,
-     "mae": 62247625.621557,
-     "mape": 10.64
+     "pinball": 20203236.587193,
+     "pinball_scaled": 0.2921,
+     "recent_pinball_scaled": 0.3331,
+     "coverage_80": 0.793,
+     "mae": 61892385.345714,
+     "mape": 10.56
     }
    },
    "procedure": {
     "n": 118,
-    "pinball": 18931042.34307,
-    "pinball_scaled": 0.2712,
-    "recent_pinball_scaled": 0.2265,
-    "coverage_80": 0.831,
-    "mae": 57693525.023482,
-    "mape": 10.1
+    "pinball": 19561236.764503,
+    "pinball_scaled": 0.2828,
+    "recent_pinball_scaled": 0.2326,
+    "coverage_80": 0.805,
+    "mae": 59083816.204651,
+    "mape": 10.29
    },
    "naive_same_periods": {
     "n": 118,
-    "pinball": 22978465.495517,
-    "pinball_scaled": 0.3292,
-    "recent_pinball_scaled": 0.3946,
-    "coverage_80": 0.746,
-    "mae": 70164214.127119,
-    "mape": 12.12
+    "pinball": 22965513.315426,
+    "pinball_scaled": 0.332,
+    "recent_pinball_scaled": 0.3989,
+    "coverage_80": 0.737,
+    "mae": 69465316.0,
+    "mape": 11.98
    },
-   "skill_vs_naive": 0.176,
+   "skill_vs_naive": 0.148,
    "recent_window": 14,
    "_last_steps": [
     {
-     "period": "2026-10-01",
-     "y": 589986728.0,
-     "p10": 460091518.945733,
-     "p50": 541618086.0000006,
-     "p90": 641684151.1480058
-    },
-    {
      "period": "2026-10-02",
      "y": 551605610.0,
-     "p10": 534886737.1284171,
+     "p10": 534140660.6164619,
      "p50": 628788470.0000011,
-     "p90": 744075845.5059521
+     "p90": 744959605.3991513
     },
     {
      "period": "2026-10-03",
      "y": 564069084.0,
-     "p10": 561715297.9230889,
+     "p10": 560931800.1073881,
      "p50": 659405859.0,
-     "p90": 779381191.5009431
+     "p90": 780306884.5505433
     },
     {
      "period": "2026-10-04",
      "y": 849928479.0,
-     "p10": 680407357.5885421,
+     "p10": 679458304.4286458,
      "p50": 797626108.0000014,
-     "p90": 941631465.5584145
+     "p90": 942749867.8401961
     },
     {
      "period": "2026-10-05",
      "y": 795427863.0,
-     "p10": 660146036.19192,
+     "p10": 659225244.147779,
      "p50": 772794796.9999998,
-     "p90": 911234750.030305
+     "p90": 912317049.2747035
     },
     {
      "period": "2026-10-06",
      "y": 601015108.0,
-     "p10": 502483717.047086,
+     "p10": 502413877.1606571,
      "p50": 588146878.0,
-     "p90": 692098356.5446581
+     "p90": 693508646.067443
     },
     {
      "period": "2026-10-07",
      "y": 571428623.0,
-     "p10": 508574928.5903726,
+     "p10": 508504242.09039414,
      "p50": 595193778.9999994,
-     "p90": 698966470.8886621
+     "p90": 700390755.5750113
     },
     {
      "period": "2026-10-08",
      "y": 564733011.0,
-     "p10": 504195740.1841957,
+     "p10": 504125662.3447797,
      "p50": 589986727.9999989,
-     "p90": 691442611.4928204
+     "p90": 692851564.8032483
     },
     {
      "period": "2026-10-09",
      "y": 633080374.0,
-     "p10": 471461214.8470064,
+     "p10": 471395686.7580684,
      "p50": 551605610.0000008,
-     "p90": 645146745.3951969
+     "p90": 646461361.5723428
     },
     {
      "period": "2026-10-10",
      "y": 679719010.0,
-     "p10": 482180852.1988579,
+     "p10": 482113834.1944663,
      "p50": 564069083.9999995,
-     "p90": 658382186.0156946
+     "p90": 659723772.0636109
     },
     {
      "period": "2026-10-11",
      "y": 826226381.0,
-     "p10": 726641857.1184176,
+     "p10": 726540861.6372628,
      "p50": 849928479.0000014,
-     "p90": 1006956098.1824951
+     "p90": 1008152088.3751055
     },
     {
      "period": "2026-10-12",
      "y": 808937520.0,
-     "p10": 680141376.1792648,
+     "p10": 680046843.7698424,
      "p50": 795427862.9999993,
-     "p90": 941268308.721876
+     "p90": 942386279.6720313
     },
     {
      "period": "2026-10-13",
      "y": 645869597.0,
-     "p10": 513977552.1840657,
+     "p10": 513906114.7769344,
      "p50": 601015107.9999998,
-     "p90": 710366558.9102808
+     "p90": 711210281.3318924
     },
     {
      "period": "2026-10-14",
      "y": 627738486.0,
-     "p10": 488743640.61937314,
+     "p10": 488675710.4572673,
      "p50": 571428622.9999996,
-     "p90": 674595736.4493834
+     "p90": 675396972.8550484
+    },
+    {
+     "period": "2026-10-15",
+     "y": 635096804.0,
+     "p10": 483016875.0123686,
+     "p50": 564733011.0000005,
+     "p90": 666691282.3735526
     }
    ],
    "unit": "dollars"
@@ -454,219 +454,219 @@
    "period": "day",
    "status": "ok",
    "last": {
-    "period": "2026-10-15",
-    "value": 2966724.0
+    "period": "2026-10-16",
+    "value": 2964547.0
    },
    "next": {
-    "period": "2026-10-16",
-    "p10": 2642150.453381456,
-    "p50": 3089112.0766545464,
-    "p90": 3761366.5240233964
+    "period": "2026-10-17",
+    "p10": 2342713.5198329417,
+    "p50": 2826306.0,
+    "p90": 3400745.757321737
    },
-   "model": "ensemble",
+   "model": "drift8",
    "failed_models": {},
    "n_history": 130,
    "backtest": {
     "naive": {
      "n": 122,
-     "pinball": 88158.628006,
-     "pinball_scaled": 0.3151,
-     "recent_pinball_scaled": 0.4347,
+     "pinball": 88248.503484,
+     "pinball_scaled": 0.3171,
+     "recent_pinball_scaled": 0.4074,
      "coverage_80": 0.779,
-     "mae": 279823.257869,
-     "mape": 11.56
+     "mae": 278272.172131,
+     "mape": 11.44
     },
     "mean7": {
      "n": 122,
-     "pinball": 99269.62469,
-     "pinball_scaled": 0.3548,
-     "recent_pinball_scaled": 0.6792,
-     "coverage_80": 0.73,
-     "mae": 312837.657775,
-     "mape": 13.45
+     "pinball": 99814.518626,
+     "pinball_scaled": 0.3587,
+     "recent_pinball_scaled": 0.6666,
+     "coverage_80": 0.689,
+     "mae": 313501.640562,
+     "mape": 13.37
     },
     "median7": {
      "n": 122,
-     "pinball": 100362.079132,
-     "pinball_scaled": 0.3587,
-     "recent_pinball_scaled": 0.7018,
+     "pinball": 100991.464286,
+     "pinball_scaled": 0.3629,
+     "recent_pinball_scaled": 0.6853,
      "coverage_80": 0.713,
-     "mae": 314611.187541,
-     "mape": 13.47
+     "mae": 314885.267541,
+     "mape": 13.39
     },
     "drift8": {
      "n": 122,
-     "pinball": 92530.800864,
-     "pinball_scaled": 0.3307,
-     "recent_pinball_scaled": 0.4336,
-     "coverage_80": 0.746,
-     "mae": 301103.699415,
-     "mape": 12.38
+     "pinball": 92653.222925,
+     "pinball_scaled": 0.333,
+     "recent_pinball_scaled": 0.4003,
+     "coverage_80": 0.738,
+     "mae": 300317.335621,
+     "mape": 12.28
     },
     "ets": {
      "n": 122,
-     "pinball": 87620.831077,
-     "pinball_scaled": 0.3131,
-     "recent_pinball_scaled": 0.4195,
-     "coverage_80": 0.77,
-     "mae": 272710.818123,
-     "mape": 11.7
+     "pinball": 87734.343445,
+     "pinball_scaled": 0.3153,
+     "recent_pinball_scaled": 0.4078,
+     "coverage_80": 0.754,
+     "mae": 270896.602933,
+     "mape": 11.5
     },
     "theta": {
      "n": 122,
-     "pinball": 87732.253771,
-     "pinball_scaled": 0.3135,
-     "recent_pinball_scaled": 0.4498,
-     "coverage_80": 0.795,
-     "mae": 270183.950875,
-     "mape": 11.73
+     "pinball": 87905.611992,
+     "pinball_scaled": 0.3159,
+     "recent_pinball_scaled": 0.4567,
+     "coverage_80": 0.77,
+     "mae": 270456.047561,
+     "mape": 11.69
     },
     "seasonal_naive7": {
      "n": 122,
-     "pinball": 140817.574477,
-     "pinball_scaled": 0.5032,
-     "recent_pinball_scaled": 1.2131,
+     "pinball": 142873.754532,
+     "pinball_scaled": 0.5134,
+     "recent_pinball_scaled": 1.221,
      "coverage_80": 0.738,
-     "mae": 457115.169836,
-     "mape": 19.07
+     "mae": 465326.563279,
+     "mape": 19.4
     },
     "lgbm": {
      "n": 122,
-     "pinball": 104118.253189,
-     "pinball_scaled": 0.3721,
-     "recent_pinball_scaled": 0.5371,
-     "coverage_80": 0.795,
-     "mae": 323501.989268,
-     "mape": 13.69
+     "pinball": 106878.869674,
+     "pinball_scaled": 0.3841,
+     "recent_pinball_scaled": 0.539,
+     "coverage_80": 0.787,
+     "mae": 335704.268947,
+     "mape": 14.06
     },
     "ensemble": {
      "n": 122,
-     "pinball": 86110.925125,
-     "pinball_scaled": 0.3077,
-     "recent_pinball_scaled": 0.4535,
-     "coverage_80": 0.77,
-     "mae": 269518.714481,
-     "mape": 11.47
+     "pinball": 87562.302967,
+     "pinball_scaled": 0.3147,
+     "recent_pinball_scaled": 0.4507,
+     "coverage_80": 0.762,
+     "mae": 273769.190589,
+     "mape": 11.65
     }
    },
    "procedure": {
     "n": 119,
-    "pinball": 91197.909041,
-    "pinball_scaled": 0.3259,
-    "recent_pinball_scaled": 0.4535,
-    "coverage_80": 0.765,
-    "mae": 284497.180252,
-    "mape": 12.04
+    "pinball": 92221.921074,
+    "pinball_scaled": 0.3314,
+    "recent_pinball_scaled": 0.4507,
+    "coverage_80": 0.748,
+    "mae": 287065.267211,
+    "mape": 11.97
    },
    "naive_same_periods": {
     "n": 119,
-    "pinball": 89291.195832,
-    "pinball_scaled": 0.3191,
-    "recent_pinball_scaled": 0.4347,
+    "pinball": 89648.683681,
+    "pinball_scaled": 0.3222,
+    "recent_pinball_scaled": 0.4074,
     "coverage_80": 0.782,
-    "mae": 282734.86437,
-    "mape": 11.48
+    "mae": 282664.471765,
+    "mape": 11.47
    },
-   "skill_vs_naive": -0.021,
+   "skill_vs_naive": -0.029,
    "recent_window": 14,
    "_last_steps": [
     {
-     "period": "2026-10-02",
-     "y": 4994928.0,
-     "p10": 4469716.606729381,
-     "p50": 5161798.842962156,
-     "p90": 6292921.887811735
-    },
-    {
      "period": "2026-10-03",
      "y": 4453538.0,
-     "p10": 4360556.829433638,
-     "p50": 5032608.214039083,
-     "p90": 6134482.380991868
+     "p10": 4293696.221217086,
+     "p50": 5169111.857142861,
+     "p90": 6229557.4217859665
     },
     {
      "period": "2026-10-04",
      "y": 4753173.0,
-     "p10": 3942282.4618729986,
-     "p50": 4547042.285714283,
-     "p90": 5541755.112376943
+     "p10": 3713630.90917483,
+     "p50": 4469210.285714288,
+     "p90": 5386012.813082235
     },
     {
      "period": "2026-10-05",
      "y": 4810129.0,
-     "p10": 4123559.663167899,
-     "p50": 4753172.999999999,
-     "p90": 5792092.58540635
+     "p10": 4087112.1619415027,
+     "p50": 4916952.8571428545,
+     "p90": 5925540.441300222
     },
     {
      "period": "2026-10-06",
      "y": 4723907.0,
-     "p10": 4193372.4547991054,
-     "p50": 4831796.089995616,
-     "p90": 5887512.681913322
+     "p10": 4077745.536004399,
+     "p50": 4903961.428571424,
+     "p90": 5909820.596085786
     },
     {
      "period": "2026-10-07",
      "y": 3798664.0,
-     "p10": 4123056.962323403,
-     "p50": 4748957.86070167,
-     "p90": 5786193.555448485
+     "p10": 3905032.992734767,
+     "p50": 4691990.428571427,
+     "p90": 5652725.929559698
     },
     {
      "period": "2026-10-08",
      "y": 3547471.0,
-     "p10": 3680840.5451227166,
-     "p50": 4261355.403406794,
-     "p90": 5191750.119288879
+     "p10": 3041708.1964079365,
+     "p50": 3668301.14285714,
+     "p90": 4418138.776556989
     },
     {
      "period": "2026-10-09",
      "y": 3932234.0,
-     "p10": 3258520.495640185,
-     "p50": 3799630.5547504527,
-     "p90": 4628910.461359809
+     "p10": 2710339.583111998,
+     "p50": 3267522.428571431,
+     "p90": 3934291.274178378
     },
     {
      "period": "2026-10-10",
      "y": 3050716.0,
-     "p10": 3407746.4908840884,
-     "p50": 3970115.3462498733,
-     "p90": 4836285.351251084
+     "p10": 3136879.324751726,
+     "p50": 3780420.57142857,
+     "p90": 4553284.42114407
     },
     {
      "period": "2026-10-11",
      "y": 3197125.0,
-     "p10": 2972377.280235067,
-     "p50": 3479625.1210610606,
-     "p90": 4238504.355352247
+     "p10": 2359779.7153575625,
+     "p50": 2850312.857142858,
+     "p90": 3432547.422559039
     },
     {
      "period": "2026-10-12",
      "y": 3510786.0,
-     "p10": 2900124.9435846214,
-     "p50": 3394715.626307222,
-     "p90": 4134804.3016764256
+     "p10": 2463287.7124667307,
+     "p50": 2974832.4285714296,
+     "p90": 3582002.4101709477
     },
     {
      "period": "2026-10-13",
      "y": 3309077.0,
-     "p10": 2997236.1769049177,
-     "p50": 3508050.3913367903,
-     "p90": 4272565.868553802
+     "p10": 2753845.747203333,
+     "p50": 3325165.5714285723,
+     "p90": 4003280.253362938
     },
     {
      "period": "2026-10-14",
      "y": 3233805.0,
-     "p10": 2874693.706203509,
-     "p50": 3364299.1179972775,
-     "p90": 4097216.651783428
+     "p10": 2573566.999392772,
+     "p50": 3106958.4285714305,
+     "p90": 3740050.911349007
     },
     {
      "period": "2026-10-15",
      "y": 2966724.0,
-     "p10": 2810957.023173783,
-     "p50": 3289390.2110312264,
-     "p90": 4005724.7771853507
+     "p10": 2612239.4157664883,
+     "p50": 3153110.8571428573,
+     "p90": 3795077.631109651
+    },
+    {
+     "period": "2026-10-16",
+     "y": 2964547.0,
+     "p10": 2389497.469254643,
+     "p50": 2883760.142857143,
+     "p90": 3470403.0131310914
     }
    ],
    "unit": "dollars"
@@ -676,120 +676,113 @@
    "period": "day",
    "status": "ok",
    "last": {
-    "period": "2026-10-15",
-    "value": 46720.0
+    "period": "2026-10-16",
+    "value": 50417.0
    },
    "next": {
-    "period": "2026-10-16",
-    "p10": 41188.79986952888,
-    "p50": 46719.527017176006,
-    "p90": 54367.63930186037
+    "period": "2026-10-17",
+    "p10": 44475.19095982632,
+    "p50": 50402.75106432585,
+    "p90": 58625.29976210339
    },
    "model": "ensemble",
    "failed_models": {},
-   "n_history": 53,
+   "n_history": 54,
    "backtest": {
     "naive": {
-     "n": 45,
-     "pinball": 1019.614334,
-     "pinball_scaled": 0.3135,
-     "recent_pinball_scaled": 0.3397,
-     "coverage_80": 0.778,
-     "mae": 3252.2,
-     "mape": 8.89
+     "n": 46,
+     "pinball": 1020.29726,
+     "pinball_scaled": 0.3128,
+     "recent_pinball_scaled": 0.3408,
+     "coverage_80": 0.783,
+     "mae": 3261.869565,
+     "mape": 8.86
     },
     "mean7": {
-     "n": 45,
-     "pinball": 1679.152722,
-     "pinball_scaled": 0.5163,
-     "recent_pinball_scaled": 0.4604,
-     "coverage_80": 0.711,
-     "mae": 4890.212698,
-     "mape": 13.4
+     "n": 46,
+     "pinball": 1671.288752,
+     "pinball_scaled": 0.5124,
+     "recent_pinball_scaled": 0.4581,
+     "coverage_80": 0.717,
+     "mae": 4878.307453,
+     "mape": 13.3
     },
     "median7": {
-     "n": 45,
-     "pinball": 1643.891088,
-     "pinball_scaled": 0.5055,
-     "recent_pinball_scaled": 0.441,
-     "coverage_80": 0.644,
-     "mae": 4822.755556,
-     "mape": 13.35
+     "n": 46,
+     "pinball": 1634.968492,
+     "pinball_scaled": 0.5012,
+     "recent_pinball_scaled": 0.4377,
+     "coverage_80": 0.652,
+     "mae": 4798.282609,
+     "mape": 13.22
     },
     "drift8": {
-     "n": 45,
-     "pinball": 1103.386917,
-     "pinball_scaled": 0.3393,
-     "recent_pinball_scaled": 0.3756,
-     "coverage_80": 0.778,
-     "mae": 3403.295238,
-     "mape": 9.35
+     "n": 46,
+     "pinball": 1107.894493,
+     "pinball_scaled": 0.3397,
+     "recent_pinball_scaled": 0.371,
+     "coverage_80": 0.783,
+     "mae": 3437.524845,
+     "mape": 9.37
     },
     "ets": {
-     "n": 45,
-     "pinball": 1050.567859,
-     "pinball_scaled": 0.323,
-     "recent_pinball_scaled": 0.3371,
-     "coverage_80": 0.822,
-     "mae": 3386.430656,
-     "mape": 9.26
+     "n": 46,
+     "pinball": 1050.759388,
+     "pinball_scaled": 0.3221,
+     "recent_pinball_scaled": 0.3382,
+     "coverage_80": 0.826,
+     "mae": 3393.192445,
+     "mape": 9.22
     },
     "theta": {
-     "n": 45,
-     "pinball": 1075.158598,
-     "pinball_scaled": 0.3306,
-     "recent_pinball_scaled": 0.3725,
-     "coverage_80": 0.778,
-     "mae": 3312.016754,
-     "mape": 9.07
+     "n": 46,
+     "pinball": 1076.306979,
+     "pinball_scaled": 0.33,
+     "recent_pinball_scaled": 0.3741,
+     "coverage_80": 0.783,
+     "mae": 3326.981087,
+     "mape": 9.04
     },
     "seasonal_naive7": {
-     "n": 45,
-     "pinball": 1938.944819,
-     "pinball_scaled": 0.5962,
-     "recent_pinball_scaled": 0.7413,
-     "coverage_80": 0.644,
-     "mae": 6106.644444,
-     "mape": 15.43
+     "n": 46,
+     "pinball": 1924.176153,
+     "pinball_scaled": 0.5899,
+     "recent_pinball_scaled": 0.7079,
+     "coverage_80": 0.652,
+     "mae": 6029.130435,
+     "mape": 15.21
     },
     "ensemble": {
-     "n": 45,
-     "pinball": 1017.115721,
-     "pinball_scaled": 0.3127,
-     "recent_pinball_scaled": 0.3498,
-     "coverage_80": 0.756,
-     "mae": 3201.615397,
-     "mape": 8.71
+     "n": 46,
+     "pinball": 1017.951035,
+     "pinball_scaled": 0.3121,
+     "recent_pinball_scaled": 0.3508,
+     "coverage_80": 0.761,
+     "mae": 3212.394909,
+     "mape": 8.68
     }
    },
    "procedure": {
-    "n": 42,
-    "pinball": 1058.365787,
-    "pinball_scaled": 0.3254,
-    "recent_pinball_scaled": 0.3498,
-    "coverage_80": 0.714,
-    "mae": 3358.776274,
-    "mape": 9.17
+    "n": 43,
+    "pinball": 1058.300074,
+    "pinball_scaled": 0.3244,
+    "recent_pinball_scaled": 0.3508,
+    "coverage_80": 0.721,
+    "mae": 3366.652942,
+    "mape": 9.13
    },
    "naive_same_periods": {
-    "n": 42,
-    "pinball": 1046.751329,
-    "pinball_scaled": 0.3219,
-    "recent_pinball_scaled": 0.3397,
-    "coverage_80": 0.762,
-    "mae": 3374.52381,
-    "mape": 9.21
+    "n": 43,
+    "pinball": 1046.850807,
+    "pinball_scaled": 0.3209,
+    "recent_pinball_scaled": 0.3408,
+    "coverage_80": 0.767,
+    "mae": 3382.023256,
+    "mape": 9.17
    },
    "skill_vs_naive": -0.011,
    "recent_window": 14,
    "_last_steps": [
-    {
-     "period": "2026-10-02",
-     "y": 47746.0,
-     "p10": 45294.12459998096,
-     "p50": 50666.44638442558,
-     "p90": 59576.87177439884
-    },
     {
      "period": "2026-10-03",
      "y": 52414.0,
@@ -880,6 +873,13 @@
      "p10": 37082.1421423641,
      "p50": 42098.53597280586,
      "p90": 49014.010024246556
+    },
+    {
+     "period": "2026-10-16",
+     "y": 50417.0,
+     "p10": 41188.79986952888,
+     "p50": 46719.527017176006,
+     "p90": 54367.63930186037
     }
    ],
    "unit": "coins"
@@ -889,124 +889,117 @@
    "period": "day",
    "status": "ok",
    "last": {
-    "period": "2026-10-15",
-    "value": 64166.0
+    "period": "2026-10-16",
+    "value": 85695.0
    },
    "next": {
-    "period": "2026-10-16",
-    "p10": 46524.42411116482,
-    "p50": 65511.00000000005,
-    "p90": 89446.57876494534
+    "period": "2026-10-17",
+    "p10": 54559.829809721785,
+    "p50": 76419.44535215318,
+    "p90": 104023.41437433654
    },
    "model": "ensemble",
    "failed_models": {},
-   "n_history": 31,
+   "n_history": 32,
    "backtest": {
     "naive": {
-     "n": 23,
-     "pinball": 11406.943747,
-     "pinball_scaled": 0.3676,
-     "recent_pinball_scaled": 0.1794,
-     "coverage_80": 0.826,
-     "mae": 31027.304348,
-     "mape": 37.74
+     "n": 24,
+     "pinball": 11145.322738,
+     "pinball_scaled": 0.3639,
+     "recent_pinball_scaled": 0.1883,
+     "coverage_80": 0.833,
+     "mae": 30631.541667,
+     "mape": 37.21
     },
     "mean7": {
-     "n": 23,
-     "pinball": 9549.973641,
-     "pinball_scaled": 0.3078,
-     "recent_pinball_scaled": 0.149,
-     "coverage_80": 0.87,
-     "mae": 24620.062112,
-     "mape": 27.47
+     "n": 24,
+     "pinball": 9307.105339,
+     "pinball_scaled": 0.3038,
+     "recent_pinball_scaled": 0.1472,
+     "coverage_80": 0.875,
+     "mae": 24145.202381,
+     "mape": 26.97
     },
     "median7": {
-     "n": 23,
-     "pinball": 8578.566839,
-     "pinball_scaled": 0.2765,
-     "recent_pinball_scaled": 0.1478,
-     "coverage_80": 0.783,
-     "mae": 21198.869565,
-     "mape": 21.19
+     "n": 24,
+     "pinball": 8397.215958,
+     "pinball_scaled": 0.2741,
+     "recent_pinball_scaled": 0.1439,
+     "coverage_80": 0.792,
+     "mae": 20941.416667,
+     "mape": 21.04
     },
     "drift8": {
-     "n": 23,
-     "pinball": 11771.72114,
-     "pinball_scaled": 0.3794,
-     "recent_pinball_scaled": 0.184,
-     "coverage_80": 0.826,
-     "mae": 32150.21118,
-     "mape": 39.81
+     "n": 24,
+     "pinball": 11545.344675,
+     "pinball_scaled": 0.3769,
+     "recent_pinball_scaled": 0.1964,
+     "coverage_80": 0.792,
+     "mae": 31892.857143,
+     "mape": 39.42
     },
     "ets": {
-     "n": 23,
-     "pinball": 12183.719144,
-     "pinball_scaled": 0.3927,
-     "recent_pinball_scaled": 0.1727,
-     "coverage_80": 0.826,
-     "mae": 33712.914522,
-     "mape": 41.85
+     "n": 24,
+     "pinball": 11904.814541,
+     "pinball_scaled": 0.3886,
+     "recent_pinball_scaled": 0.1814,
+     "coverage_80": 0.833,
+     "mae": 33205.224292,
+     "mape": 41.16
     },
     "theta": {
-     "n": 23,
-     "pinball": 10846.374921,
-     "pinball_scaled": 0.3496,
-     "recent_pinball_scaled": 0.1547,
-     "coverage_80": 0.826,
-     "mae": 29040.751538,
-     "mape": 36.64
+     "n": 24,
+     "pinball": 10527.031636,
+     "pinball_scaled": 0.3437,
+     "recent_pinball_scaled": 0.1468,
+     "coverage_80": 0.833,
+     "mae": 28260.370889,
+     "mape": 35.61
     },
     "seasonal_naive7": {
-     "n": 23,
-     "pinball": 13967.985197,
-     "pinball_scaled": 0.4502,
-     "recent_pinball_scaled": 0.1922,
-     "coverage_80": 0.783,
-     "mae": 38015.391304,
-     "mape": 47.43
+     "n": 24,
+     "pinball": 13594.699601,
+     "pinball_scaled": 0.4438,
+     "recent_pinball_scaled": 0.1994,
+     "coverage_80": 0.792,
+     "mae": 37272.416667,
+     "mape": 46.43
     },
     "ensemble": {
-     "n": 23,
-     "pinball": 10746.169724,
-     "pinball_scaled": 0.3463,
-     "recent_pinball_scaled": 0.1266,
-     "coverage_80": 0.87,
-     "mae": 28845.099624,
-     "mape": 33.99
+     "n": 24,
+     "pinball": 10498.193422,
+     "pinball_scaled": 0.3427,
+     "recent_pinball_scaled": 0.1337,
+     "coverage_80": 0.875,
+     "mae": 28484.220473,
+     "mape": 33.56
     }
    },
    "procedure": {
-    "n": 20,
-    "pinball": 4896.906652,
-    "pinball_scaled": 0.1578,
-    "recent_pinball_scaled": 0.1426,
-    "coverage_80": 0.8,
-    "mae": 13176.340494,
-    "mape": 17.66
+    "n": 21,
+    "pinball": 4892.041501,
+    "pinball_scaled": 0.1597,
+    "recent_pinball_scaled": 0.14,
+    "coverage_80": 0.81,
+    "mae": 13510.038566,
+    "mape": 17.94
    },
    "naive_same_periods": {
-    "n": 20,
-    "pinball": 6108.807788,
-    "pinball_scaled": 0.1969,
-    "recent_pinball_scaled": 0.1794,
-    "coverage_80": 0.9,
-    "mae": 17686.0,
-    "mape": 24.65
+    "n": 21,
+    "pinball": 6062.104538,
+    "pinball_scaled": 0.1979,
+    "recent_pinball_scaled": 0.1883,
+    "coverage_80": 0.905,
+    "mae": 17869.0,
+    "mape": 24.67
    },
-   "skill_vs_naive": 0.198,
+   "skill_vs_naive": 0.193,
    "recent_window": 14,
    "_last_steps": [
     {
-     "period": "2026-10-02",
-     "y": 50535.0,
-     "p10": 30818.47945936527,
-     "p50": 53653.99999999999,
-     "p90": 89974.79920029988
-    },
-    {
      "period": "2026-10-03",
      "y": 79739.0,
-     "p10": 45269.275912657846,
+     "p10": 45269.27591265785,
      "p50": 71255.42857142862,
      "p90": 109952.14929682032
     },
@@ -1093,6 +1086,13 @@
      "p10": 54043.42875280963,
      "p50": 76502.99999999996,
      "p90": 104773.21073210501
+    },
+    {
+     "period": "2026-10-16",
+     "y": 85695.0,
+     "p10": 46524.42411116482,
+     "p50": 65511.00000000005,
+     "p90": 89446.57876494534
     }
    ],
    "unit": "gigs"
@@ -1102,120 +1102,113 @@
    "period": "day",
    "status": "ok",
    "last": {
-    "period": "2026-10-15",
+    "period": "2026-10-16",
     "value": 0.01
    },
    "next": {
-    "period": "2026-10-16",
-    "p10": 0.005841923364371718,
+    "period": "2026-10-17",
+    "p10": 0.005849399372872619,
     "p50": 0.010000000000000004,
-    "p90": 0.018758126292525303
+    "p90": 0.01816641308740508
    },
    "model": "ensemble",
    "failed_models": {},
-   "n_history": 31,
+   "n_history": 32,
    "backtest": {
     "naive": {
-     "n": 23,
-     "pinball": 0.001273,
-     "pinball_scaled": 0.379,
-     "recent_pinball_scaled": 0.2903,
-     "coverage_80": 0.87,
-     "mae": 0.00336,
-     "mape": 34.17
+     "n": 24,
+     "pinball": 0.00124,
+     "pinball_scaled": 0.3851,
+     "recent_pinball_scaled": 0.2942,
+     "coverage_80": 0.875,
+     "mae": 0.00322,
+     "mape": 32.75
     },
     "mean7": {
-     "n": 23,
-     "pinball": 0.00116,
-     "pinball_scaled": 0.3454,
-     "recent_pinball_scaled": 0.3114,
-     "coverage_80": 0.826,
-     "mae": 0.002883,
-     "mape": 33.98
+     "n": 24,
+     "pinball": 0.001127,
+     "pinball_scaled": 0.3499,
+     "recent_pinball_scaled": 0.3263,
+     "coverage_80": 0.833,
+     "mae": 0.002762,
+     "mape": 32.57
     },
     "median7": {
-     "n": 23,
-     "pinball": 0.001097,
-     "pinball_scaled": 0.3264,
-     "recent_pinball_scaled": 0.2436,
-     "coverage_80": 0.826,
-     "mae": 0.002652,
-     "mape": 31.39
+     "n": 24,
+     "pinball": 0.001067,
+     "pinball_scaled": 0.3315,
+     "recent_pinball_scaled": 0.2523,
+     "coverage_80": 0.833,
+     "mae": 0.002541,
+     "mape": 30.08
     },
     "drift8": {
-     "n": 23,
-     "pinball": 0.001584,
-     "pinball_scaled": 0.4716,
-     "recent_pinball_scaled": 0.3886,
-     "coverage_80": 0.826,
-     "mae": 0.003797,
-     "mape": 38.74
+     "n": 24,
+     "pinball": 0.001541,
+     "pinball_scaled": 0.4787,
+     "recent_pinball_scaled": 0.3968,
+     "coverage_80": 0.833,
+     "mae": 0.003639,
+     "mape": 37.13
     },
     "ets": {
-     "n": 23,
-     "pinball": 0.001042,
-     "pinball_scaled": 0.3102,
-     "recent_pinball_scaled": 0.2691,
-     "coverage_80": 0.87,
-     "mae": 0.002535,
-     "mape": 27.53
+     "n": 24,
+     "pinball": 0.001019,
+     "pinball_scaled": 0.3164,
+     "recent_pinball_scaled": 0.2774,
+     "coverage_80": 0.875,
+     "mae": 0.002437,
+     "mape": 26.47
     },
     "theta": {
-     "n": 23,
-     "pinball": 0.001194,
-     "pinball_scaled": 0.3553,
-     "recent_pinball_scaled": 0.2988,
-     "coverage_80": 0.826,
-     "mae": 0.003014,
-     "mape": 32.16
+     "n": 24,
+     "pinball": 0.001165,
+     "pinball_scaled": 0.362,
+     "recent_pinball_scaled": 0.3094,
+     "coverage_80": 0.833,
+     "mae": 0.002897,
+     "mape": 30.92
     },
     "seasonal_naive7": {
-     "n": 23,
-     "pinball": 0.001556,
-     "pinball_scaled": 0.463,
-     "recent_pinball_scaled": 0.4457,
-     "coverage_80": 0.87,
-     "mae": 0.004378,
-     "mape": 47.11
+     "n": 24,
+     "pinball": 0.001516,
+     "pinball_scaled": 0.4708,
+     "recent_pinball_scaled": 0.4638,
+     "coverage_80": 0.875,
+     "mae": 0.004196,
+     "mape": 45.15
     },
     "ensemble": {
-     "n": 23,
-     "pinball": 0.001111,
-     "pinball_scaled": 0.3308,
-     "recent_pinball_scaled": 0.2493,
-     "coverage_80": 0.826,
-     "mae": 0.002656,
-     "mape": 28.38
+     "n": 24,
+     "pinball": 0.001083,
+     "pinball_scaled": 0.3363,
+     "recent_pinball_scaled": 0.2556,
+     "coverage_80": 0.833,
+     "mae": 0.002545,
+     "mape": 27.2
     }
    },
    "procedure": {
-    "n": 20,
-    "pinball": 0.001144,
-    "pinball_scaled": 0.3404,
-    "recent_pinball_scaled": 0.2798,
-    "coverage_80": 0.75,
-    "mae": 0.002668,
-    "mape": 27.66
+    "n": 21,
+    "pinball": 0.00111,
+    "pinball_scaled": 0.3447,
+    "recent_pinball_scaled": 0.2875,
+    "coverage_80": 0.762,
+    "mae": 0.002541,
+    "mape": 26.34
    },
    "naive_same_periods": {
-    "n": 20,
-    "pinball": 0.001321,
-    "pinball_scaled": 0.3933,
-    "recent_pinball_scaled": 0.2903,
-    "coverage_80": 0.85,
-    "mae": 0.003527,
-    "mape": 35.28
+    "n": 21,
+    "pinball": 0.001281,
+    "pinball_scaled": 0.3978,
+    "recent_pinball_scaled": 0.2942,
+    "coverage_80": 0.857,
+    "mae": 0.003359,
+    "mape": 33.6
    },
-   "skill_vs_naive": 0.134,
+   "skill_vs_naive": 0.133,
    "recent_window": 14,
    "_last_steps": [
-    {
-     "period": "2026-10-02",
-     "y": 0.01,
-     "p10": 0.00585896497258218,
-     "p50": 0.00995250796600855,
-     "p90": 0.02470590120059527
-    },
     {
      "period": "2026-10-03",
      "y": 0.005,
@@ -1289,7 +1282,7 @@
     {
      "period": "2026-10-13",
      "y": 0.01,
-     "p10": 0.0057814250685524066,
+     "p10": 0.005781425068552407,
      "p50": 0.010000000000000004,
      "p90": 0.02027196708864367
     },
@@ -1306,6 +1299,13 @@
      "p10": 0.005834456910818174,
      "p50": 0.010000000000000004,
      "p90": 0.019369112675868928
+    },
+    {
+     "period": "2026-10-16",
+     "y": 0.01,
+     "p10": 0.005841923364371718,
+     "p50": 0.010000000000000004,
+     "p90": 0.018758126292525303
     }
    ],
    "unit": "dollars"
@@ -1641,7 +1641,7 @@
     {
      "period": "2025-11-01",
      "y": 4.5,
-     "p10": 4.2312020610752255,
+     "p10": 4.231202061075226,
      "p50": 4.4,
      "p90": 4.575531898630309
     },
@@ -1683,7 +1683,7 @@
     {
      "period": "2026-05-01",
      "y": 4.3,
-     "p10": 4.191931689315956,
+     "p10": 4.191931689315957,
      "p50": 4.3,
      "p90": 4.4108543197699905
     },
@@ -2159,9 +2159,9 @@
    ]
   },
   "GIGS": {
-   "forecasts": 10,
-   "scored": 9,
-   "inside_80": 8,
+   "forecasts": 11,
+   "scored": 10,
+   "inside_80": 9,
    "recent": [
     {
      "period": "2026-10-07",
@@ -2234,6 +2234,14 @@
      "p50": 76503.0,
      "p90": 104773.0,
      "inside": true
+    },
+    {
+     "period": "2026-10-16",
+     "y": 85695.0,
+     "p10": 46524.4,
+     "p50": 65511.0,
+     "p90": 89446.6,
+     "inside": true
     }
    ]
   },
@@ -2244,8 +2252,8 @@
    "recent": []
   },
   "LAYOFFS": {
-   "forecasts": 2,
-   "scored": 1,
+   "forecasts": 3,
+   "scored": 2,
    "inside_80": 1,
    "recent": [
     {
@@ -2255,13 +2263,21 @@
      "p50": 159165.0,
      "p90": 177544.0,
      "inside": true
+    },
+    {
+     "period": "2026-10-10",
+     "y": 191033.0,
+     "p10": 147640.0,
+     "p50": 170732.0,
+     "p90": 187743.0,
+     "inside": false
     }
    ]
   },
   "MINTS": {
-   "forecasts": 10,
-   "scored": 9,
-   "inside_80": 6,
+   "forecasts": 11,
+   "scored": 10,
+   "inside_80": 7,
    "recent": [
     {
      "period": "2026-10-07",
@@ -2334,13 +2350,21 @@
      "p50": 42098.5,
      "p90": 49014.0,
      "inside": true
+    },
+    {
+     "period": "2026-10-16",
+     "y": 50417.0,
+     "p10": 41188.8,
+     "p50": 46719.5,
+     "p90": 54367.6,
+     "inside": true
     }
    ]
   },
   "TRENCHES": {
-   "forecasts": 9,
-   "scored": 8,
-   "inside_80": 6,
+   "forecasts": 10,
+   "scored": 9,
+   "inside_80": 7,
    "recent": [
     {
      "period": "2026-10-07",
@@ -2405,6 +2429,14 @@
      "p50": 3382260.0,
      "p90": 4161490.0,
      "inside": true
+    },
+    {
+     "period": "2026-10-16",
+     "y": 2964547.0,
+     "p10": 2642150.0,
+     "p50": 3089110.0,
+     "p90": 3761370.0,
+     "inside": true
     }
    ]
   },
@@ -2415,9 +2447,9 @@
    "recent": []
   },
   "WAGE": {
-   "forecasts": 10,
-   "scored": 9,
-   "inside_80": 8,
+   "forecasts": 11,
+   "scored": 10,
+   "inside_80": 9,
    "recent": [
     {
      "period": "2026-10-07",
@@ -2490,13 +2522,21 @@
      "p50": 0.01,
      "p90": 0.0193691,
      "inside": true
+    },
+    {
+     "period": "2026-10-16",
+     "y": 0.01,
+     "p10": 0.00584192,
+     "p50": 0.01,
+     "p90": 0.0187581,
+     "inside": true
     }
    ]
   },
   "YESNO": {
-   "forecasts": 10,
-   "scored": 9,
-   "inside_80": 8,
+   "forecasts": 11,
+   "scored": 10,
+   "inside_80": 9,
    "recent": [
     {
      "period": "2026-10-04",
@@ -2568,6 +2608,14 @@
      "p10": 488812000.0,
      "p50": 571429000.0,
      "p90": 673795000.0,
+     "inside": true
+    },
+    {
+     "period": "2026-10-15",
+     "y": 635096804.0,
+     "p10": 483084000.0,
+     "p50": 564733000.0,
+     "p90": 665900000.0,
      "inside": true
     }
    ]
