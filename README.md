@@ -32,7 +32,8 @@ scripts/
   verify-proof.ts   npm run verify: check one day's seal and write the files for `ots verify`.
   count-mints.ts    npm run mints: recount $MINTS from the chain and set it beside the print.
   recompute-gigs-wage.ts  npm run gigs: recompute $GIGS and $WAGE for a day from the chain.
-  test-all.mjs      npm test: runs every file in test/.
+  mirror.ts         The twice-daily mirror of the prints and daily proofs (below). node scripts/mirror.ts
+  test-all.ts       npm test: runs every file in test/.
 test/               Plain-assert tests, no network. Most are copied from Tickerz's own suite.
   fixtures/seal-2026-10-03.json   The public proof for 2026-10-03, unchanged.
 ```
@@ -43,7 +44,7 @@ The counting code is extracted from Tickerz's production code with the counting 
 
 `prints/<TICKER>.csv` is the settlement file for each index counted from a source whose terms allow republishing the count ($LAYOFFS, $MINTS, $GIGS, $WAGE): one row per complete period, with the first print, the value a contract settles on, any later revision beside it, and the day and Bitcoin block of its proof. `daily-proofs/<day>.json` is each daily proof: the exact JSON that was hashed, its SHA-256, and the OpenTimestamps file.
 
-A scheduled job (`.github/workflows/mirror.yml`, `scripts/mirror.py`) copies them from tickerz.com twice a day. It refuses to write, and fails in public, if a first print already in this repo changed, a period disappeared, or a proof's digest differs. So this repo's git history is a second, independent record of what was printed and when: a market that settles on a Tickerz number does not have to trust, or wait on, Tickerz's own servers.
+A scheduled job (`.github/workflows/mirror.yml`, `scripts/mirror.ts`) copies them from tickerz.com twice a day. It refuses to write, and fails in public, if a first print already in this repo changed, a period disappeared, or a proof's digest differs. So this repo's git history is a second, independent record of what was printed and when: a market that settles on a Tickerz number does not have to trust, or wait on, Tickerz's own servers.
 
 Raw files: `https://raw.githubusercontent.com/tickerzhq/tickerz-open/main/prints/GIGS.csv`
 

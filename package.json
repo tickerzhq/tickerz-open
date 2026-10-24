@@ -8,7 +8,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node scripts/test-all.mjs",
+    "test": "tsx scripts/test-all.ts",
     "typecheck": "tsc --noEmit",
     "verify": "tsx scripts/verify-proof.ts",
     "mints": "tsx scripts/count-mints.ts",
