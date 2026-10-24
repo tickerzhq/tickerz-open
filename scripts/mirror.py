@@ -7,9 +7,10 @@ saves each daily proof to daily-proofs/<day>.json, and fills in the Bitcoin bloc
 
 It refuses to write when the new file would break the record:
   - a first print that is already in this repo has a different value, or
-  - a period that is already in this repo is missing, or
+  - a period that is already in this repo is missing from inside the new file's range, or
   - a daily proof's digest differs from the one saved here.
-Either one fails the run, and the difference is printed. Run: python3 scripts/mirror.py
+Either one fails the run, and the difference is printed. The settlement file holds about the last 100 periods, so a period
+older than its first one has aged out of the file, not out of the record: this repo keeps it. Run: python3 scripts/mirror.py
 """
 import csv, io, json, os, sys, urllib.request
 
@@ -36,16 +37,27 @@ def rows_of(text):
 
 
 def check(ticker, old_rows, new_rows):
-    """The record only grows: no period disappears and no first print changes."""
+    """The record only grows: no period inside the new file's range disappears and no first print changes."""
     new = {row[1]: row for row in new_rows}
+    oldest = min(new)
     problems = []
     for row in old_rows:
         period, first_print = row[1], row[2]
+        if period < oldest:
+            continue  # aged out of the settlement file's window; kept here by aged_out()
         if period not in new:
             problems.append(f"{ticker} {period}: in this repo, missing from the new file")
         elif new[period][2] != first_print:
             problems.append(f"{ticker} {period}: first print was {first_print}, the new file says {new[period][2]}")
     return problems
+
+
+def aged_out(old_text, new_text):
+    """The new file with this repo's periods older than its first one kept on top, so the mirror never loses a period."""
+    new_lines = new_text.splitlines(keepends=True)
+    oldest = min(row[1] for row in rows_of(new_text))
+    kept = [line for line in old_text.splitlines(keepends=True)[1:] if next(csv.reader([line]))[1] < oldest]
+    return "".join(new_lines[:1] + kept + new_lines[1:])
 
 
 def main():
@@ -61,9 +73,11 @@ def main():
         old_text = open(path).read() if os.path.exists(path) else ""
         old_rows = rows_of(old_text) if old_text else []
         problems += check(ticker, old_rows, new_rows)
+        if old_text:
+            text = aged_out(old_text, text)
         proof_days.update(row[8] for row in new_rows[-14:] if row[8])
         if text != old_text:
-            changed.append((path, text, f"{ticker}: {len(old_rows)} to {len(new_rows)} periods"))
+            changed.append((path, text, f"{ticker}: {len(old_rows)} to {len(rows_of(text))} periods"))
     if problems:
         print("The record changed. Nothing was written.\n" + "\n".join(problems))
         sys.exit(1)
