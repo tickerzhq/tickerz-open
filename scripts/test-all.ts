@@ -9,7 +9,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dir = path.join(root, "test");
 const files = readdirSync(dir).filter((f) => f.endsWith(".test.ts")).sort().map((f) => path.join(dir, f));
 
-const failed = [];
+const failed: string[] = [];
 let checks = 0;
 for (const f of files) {
   const r = spawnSync(process.execPath, ["--import", "tsx", f], { cwd: root, encoding: "utf8" });
