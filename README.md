@@ -44,7 +44,7 @@ The counting code is extracted from Tickerz's production code with the counting 
 
 `prints/<TICKER>.csv` is the settlement file for each index counted from a source whose terms allow republishing the count ($LAYOFFS, $MINTS, $GIGS, $WAGE): one row per complete period, with the first print, the value a contract settles on, any later revision beside it, and the day and Bitcoin block of its proof. `daily-proofs/<day>.json` is each daily proof: the exact JSON that was hashed, its SHA-256, and the OpenTimestamps file.
 
-A scheduled job (`.github/workflows/mirror.yml`, `scripts/mirror.ts`) copies them from tickerz.com twice a day. It refuses to write, and fails in public, if a first print already in this repo changed, a period disappeared, or a proof's digest differs. So this repo's git history is a second, independent record of what was printed and when: a market that settles on a Tickerz number does not have to trust, or wait on, Tickerz's own servers.
+A scheduled job (`.github/workflows/mirror.yml`, `scripts/mirror.ts`) copies them from tickerz.com twice a day. It refuses to write, and fails in public, if a first print already in this repo changed, a period disappeared, or a proof's digest differs. A revision (revised = true) may change a period's value beside its first print; git history shows it. So this repo's git history is a second, independent record of what was printed and when: a market that settles on a Tickerz number does not have to trust, or wait on, Tickerz's own servers.
 
 Raw files: `https://raw.githubusercontent.com/tickerzhq/tickerz-open/main/prints/GIGS.csv`
 

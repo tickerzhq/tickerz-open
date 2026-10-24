@@ -7,15 +7,16 @@
  * then shows every change anyone ever made.
  *
  * It refuses to write when the new file would break the record:
- *   - a first print that is already in this repo has a different value, or
+ *   - a first print that is already in this repo has a different value (the first print is settlement_value; a
+ *     revision, marked revised = true, may change value beside it, and git history shows the change), or
  *   - a period that is already in this repo is missing from inside the new file's range, or
  *   - a daily proof's digest differs from the one saved here.
  * Either one fails the run, and the difference is printed. The settlement file holds about the last 100 periods, so a
  * period older than its first one has aged out of the file, not out of the record: this repo keeps it.
  *
- * Run: node scripts/mirror.ts (Node 24 or later runs TypeScript as is; no install, no dependencies). It keeps the
- * Python mirror's behaviour byte for byte: the downloaded text is written as it came, and the lines kept from this repo
- * are the repo's own lines, never rewritten.
+ * Run: node scripts/mirror.ts (Node 24 or later runs TypeScript as is; no install, no dependencies). The downloaded
+ * text is written as it came, and the lines kept from this repo are the repo's own lines, never rewritten.
+ * test/mirror.test.ts pins the rules.
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -44,7 +45,7 @@ async function get(urlPath: string): Promise<string> {
 }
 
 /** CSV rows as Python's csv.reader reads them: quoted fields with "" for a quote, a blank line as an empty row. */
-function parseCsv(text: string): Row[] {
+export function parseCsv(text: string): Row[] {
   const rows: Row[] = [];
   let row: Row = [], field = "", quoted = false, started = false, i = 0;
   const endRow = () => {
@@ -70,7 +71,7 @@ function parseCsv(text: string): Row[] {
 /** Python's str.splitlines(keepends=True): every line keeps its own ending, \r\n counts as one. */
 const BREAK = "\\n\\r\\v\\f\\x1c\\x1d\\x1e\\x85\\u2028\\u2029";
 const LINE = new RegExp(`[^${BREAK}]*(?:\\r\\n|[${BREAK}]|$)`, "g");
-function splitLines(text: string): string[] {
+export function splitLines(text: string): string[] {
   return (text.match(LINE) ?? []).filter((s) => s !== "");
 }
 
@@ -90,24 +91,33 @@ function rowsOf(text: string): Row[] {
 
 const minOf = (values: string[]) => values.reduce((a, b) => (b < a ? b : a));
 
-/** The record only grows: no period inside the new file's range disappears and no first print changes. */
-function check(ticker: string, oldRows: Row[], newRows: Row[]): string[] {
+const VALUE = 2, SETTLEMENT = 3, REVISED = 4;
+
+/**
+ * The record only grows: no period inside the new file's range disappears and no first print changes. A period with a
+ * first print (settlement_value) keeps it; its value may change only as a revision (revised = true). A period with no
+ * first print yet keeps its value.
+ */
+export function check(ticker: string, oldRows: Row[], newRows: Row[]): string[] {
   const fresh = new Map<string, Row>();
   for (const row of newRows) fresh.set(at(row, 1), row);
   const oldest = minOf([...fresh.keys()]);
   const problems: string[] = [];
   for (const row of oldRows) {
-    const period = at(row, 1), firstPrint = at(row, 2);
+    const period = at(row, 1);
     if (period < oldest) continue; // aged out of the settlement file's window; kept here by agedOut()
     const now = fresh.get(period);
+    const first = at(row, SETTLEMENT);
     if (!now) problems.push(`${ticker} ${period}: in this repo, missing from the new file`);
-    else if (at(now, 2) !== firstPrint) problems.push(`${ticker} ${period}: first print was ${firstPrint}, the new file says ${at(now, 2)}`);
+    else if (first && at(now, SETTLEMENT) !== first) problems.push(`${ticker} ${period}: first print was ${first}, the new file says ${at(now, SETTLEMENT)}`);
+    else if (first && at(now, VALUE) !== at(row, VALUE) && at(now, REVISED) !== "true") problems.push(`${ticker} ${period}: value was ${at(row, VALUE)}, the new file says ${at(now, VALUE)} with no revision`);
+    else if (!first && at(now, VALUE) !== at(row, VALUE)) problems.push(`${ticker} ${period}: first print was ${at(row, VALUE)}, the new file says ${at(now, VALUE)}`);
   }
   return problems;
 }
 
 /** The new file with this repo's periods older than its first one kept on top, so the mirror never loses a period. */
-function agedOut(oldText: string, newText: string): string {
+export function agedOut(oldText: string, newText: string): string {
   const newLines = splitLines(newText);
   const oldest = minOf(rowsOf(newText).map((row) => at(row, 1)));
   const kept = splitLines(oldText).slice(1).filter((line) => at(parseCsv(line)[0] ?? [], 1) < oldest);
@@ -166,4 +176,4 @@ async function main() {
   if (!changed.length) console.log("no new prints");
 }
 
-await main();
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) await main();
