@@ -1,0 +1,10 @@
+{
+  "report_hash": "29c518e083be3380d3a4fc7e7f7b5ca41899a9cc7d04d12457072f3c818bc06f",
+  "ticker": "UNEMP",
+  "period": "2026-10-01",
+  "value": "41",
+  "by": "7TYVLzDyAGspQ2FSH1H4D8kzrocuQqSRMM48frr3EjZ3",
+  "signature": "39pdD6i3W6rd9fiyxfcsWGiwUZS5Uge23SKouYjUxz3wTrnrN8q4dsN7xLWzzyHBiT2Kc32unbohR6JgWHpqLiVE",
+  "how": "BLS API v1 LNS14000000",
+  "at": "2026-11-06T21:44:19.743Z"
+}
