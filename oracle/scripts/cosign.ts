@@ -20,14 +20,33 @@ const out = arg("out", ".")!;
 const base = arg("base", "https://tickerz.com")!;
 const TICKERS = ["JOBS", "UNEMP", "CPI", "CORECPI", "LAYOFFS", "MINTS"];
 
+/** Daily indexes are signed every day, so the newest report is not the only one waiting: a day that stopped being the
+ * newest before the recount ran (Nov 2026: $MINTS on every other day) would never be recounted. So a daily index is
+ * also asked for each of the last DAILY_LOOKBACK UTC days by period; an answer that is not provisional, or is already
+ * co-signed or disputed, is skipped below. */
+const DAILY = new Set(["MINTS"]);
+const DAILY_LOOKBACK = 14;
+function candidates(now: Date): { t: string; url: string }[] {
+  const list: { t: string; url: string }[] = [];
+  for (const t of TICKERS) {
+    list.push({ t, url: `${base}/api/indices/${t.toLowerCase()}/report` });
+    if (!DAILY.has(t)) continue;
+    for (let i = 1; i <= DAILY_LOOKBACK; i++) {
+      const day = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - i)).toISOString().slice(0, 10);
+      list.push({ t, url: `${base}/api/indices/${t.toLowerCase()}/report?period=${day}` });
+    }
+  }
+  return list;
+}
+
 async function main() {
   const secret = process.env.TICKERZ_COSIGNER_KEY;
   if (!secret) throw new Error("TICKERZ_COSIGNER_KEY is not set");
   const rpc = process.env.SOLANA_RPC_URL;
   for (const d of ["cosigns", "disputes"]) mkdirSync(path.join(out, d), { recursive: true });
-  for (const t of TICKERS) {
-    const r = await fetch(`${base}/api/indices/${t.toLowerCase()}/report`, { headers: { "user-agent": "tickerz-open/cosign" } });
-    if (r.status !== 200) { console.log(`${t}: no report (${r.status})`); continue; }
+  for (const { t, url } of candidates(new Date())) {
+    const r = await fetch(url, { headers: { "user-agent": "tickerz-open/cosign" } });
+    if (r.status !== 200) { if (!url.includes("period=")) console.log(`${t}: no report (${r.status})`); continue; }
     const env = (await r.json()) as ReportEnvelope;
     if (env.report.status !== "provisional") { console.log(`${t} ${env.report.period}: ${env.report.status}, nothing to co-sign`); continue; }
     const done = ["cosigns", "disputes"].some((d) => existsSync(path.join(out, d, `${env.hash}.json`)));
