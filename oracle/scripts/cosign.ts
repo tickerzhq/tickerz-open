@@ -22,10 +22,11 @@ const TICKERS = ["JOBS", "UNEMP", "CPI", "CORECPI", "LAYOFFS", "MINTS"];
 
 /** Daily indexes are signed every day, so the newest report is not the only one waiting: a day that stopped being the
  * newest before the recount ran (Nov 2026: $MINTS on every other day) would never be recounted. So a daily index is
- * also asked for each of the last DAILY_LOOKBACK UTC days by period; an answer that is not provisional, or is already
+ * also asked for each of the last DAILY_LOOKBACK UTC days by period (older days run into the page cap); an answer that is not provisional, or is already
  * co-signed or disputed, is skipped below. */
 const DAILY = new Set(["MINTS"]);
-const DAILY_LOOKBACK = 14;
+// About seven days of $MINTS signatures fit under the recount's page cap, paging back from now.
+const DAILY_LOOKBACK = 7;
 function candidates(now: Date): { t: string; url: string }[] {
   const list: { t: string; url: string }[] = [];
   for (const t of TICKERS) {
@@ -55,6 +56,11 @@ async function main() {
     if (res.status === "cosigned") {
       writeFileSync(path.join(out, "cosigns", `${env.hash}.json`), JSON.stringify({ report_hash: env.hash, ticker: t, period: env.report.period, value: env.report.value, ...res.cosignature, how: res.how, at: new Date().toISOString() }, null, 2) + "\n");
       console.log(`${t} ${env.report.period}: co-signed ${env.report.value}`);
+    } else if (res.status === "dispute" && res.recounted == null) {
+      // A read that could not finish (Nov 6 2026: the 400,000 row page cap, paging back to a day over a week old) is not
+      // a different count. It writes nothing, so the report stays provisional and a later run can try again; a dispute
+      // is only ever a recount that finished and got another number.
+      console.log(`${t} ${env.report.period}: could not recount (${res.error ?? "no count"}), left for a later run`);
     } else if (res.status === "dispute") {
       writeFileSync(path.join(out, "disputes", `${env.hash}.json`), JSON.stringify({ report_hash: env.hash, ticker: t, period: env.report.period, signed: res.signed, recounted: res.recounted, how: res.how, error: res.error ?? null, at: new Date().toISOString() }, null, 2) + "\n");
       console.log(`${t} ${env.report.period}: DISPUTE signed ${res.signed}, recounted ${res.recounted}`);
