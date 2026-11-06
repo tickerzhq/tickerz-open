@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-27T06:15:52Z",
+  "updated_utc": "2026-11-06T03:46:57Z",
   "system": "The Tickerz Floor",
   "model": "v4",
   "since": "2026-10-02",
@@ -15,113 +15,129 @@
       "title": "Founder and CEO",
       "team": "Board",
       "model": "Human",
-      "level": 289,
-      "change_close": 0,
-      "change_7d": 0,
+      "level": 220,
+      "change_close": 1,
+      "change_7d": 1,
       "history": [
         {
-          "date": "2026-10-02",
-          "level": 105
-        },
-        {
-          "date": "2026-10-03",
-          "level": 105
-        },
-        {
-          "date": "2026-10-04",
-          "level": 130
-        },
-        {
-          "date": "2026-10-05",
-          "level": 154
-        },
-        {
-          "date": "2026-10-06",
-          "level": 172
-        },
-        {
           "date": "2026-10-07",
-          "level": 212
+          "level": 158
         },
         {
           "date": "2026-10-08",
-          "level": 219
+          "level": 164
         },
         {
           "date": "2026-10-09",
-          "level": 286
+          "level": 217
         },
         {
           "date": "2026-10-10",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-11",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-12",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-13",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-14",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-15",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-16",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-17",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-18",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-19",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-20",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-21",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-22",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-23",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-24",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-25",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-26",
-          "level": 289
+          "level": 217
         },
         {
           "date": "2026-10-27",
-          "level": 289
+          "level": 219
+        },
+        {
+          "date": "2026-10-28",
+          "level": 219
+        },
+        {
+          "date": "2026-10-29",
+          "level": 219
+        },
+        {
+          "date": "2026-10-30",
+          "level": 219
+        },
+        {
+          "date": "2026-10-31",
+          "level": 219
+        },
+        {
+          "date": "2026-11-01",
+          "level": 219
+        },
+        {
+          "date": "2026-11-02",
+          "level": 219
+        },
+        {
+          "date": "2026-11-03",
+          "level": 219
+        },
+        {
+          "date": "2026-11-04",
+          "level": 219
+        },
+        {
+          "date": "2026-11-05",
+          "level": 220
         }
       ],
       "own_numbers": [],
@@ -132,7 +148,7 @@
         "reading": "n/a"
       },
       "view": {
-        "text": "607 messages and at least 72 hours directing the agents since Oct 2, 35 decisions, and 17 pieces of agent work he caught and sent back.",
+        "text": "8 messages and at least 3 hours directing the agents since Oct 2, 36 decisions, and 17 pieces of agent work he caught and sent back.",
         "label": "From the record"
       },
       "working": {
@@ -155,29 +171,29 @@
       },
       "moved_by": [
         {
-          "date": "2026-10-09",
+          "date": "2026-10-27",
           "points": 2,
-          "text": "Every page, every time: Next.js, React, TypeScript and Tailwind as the"
+          "text": "Work on the record."
         },
         {
           "date": "2026-10-09",
           "points": 2,
-          "text": "The Floor is Proof of Work (tickerz.com/proof-of-work; /floor redi"
+          "text": "Every page, every time: Next.js, React, TypeScript and Tailwind as the."
         },
         {
           "date": "2026-10-09",
           "points": 2,
-          "text": "The founder is the CEO; his seat on the Floor is CEO (Founder and CEO)"
+          "text": "Work on the record."
         },
         {
           "date": "2026-10-09",
           "points": 2,
-          "text": "No Wikipedia or Wikimedia data is a Tickerz source: not for an ind"
+          "text": "The founder is the CEO."
         },
         {
           "date": "2026-10-09",
           "points": 2,
-          "text": "Nothing is beyond challenge. The identity, the line \"Everything ge"
+          "text": "Work on the record."
         }
       ]
     },
@@ -186,30 +202,10 @@
       "title": "Trust and data quality",
       "team": "Product",
       "model": "Claude Opus",
-      "level": 126.5,
+      "level": 128.5,
       "change_close": 0.0,
       "change_7d": 0.0,
       "history": [
-        {
-          "date": "2026-10-02",
-          "level": 100
-        },
-        {
-          "date": "2026-10-03",
-          "level": 100
-        },
-        {
-          "date": "2026-10-04",
-          "level": 105
-        },
-        {
-          "date": "2026-10-05",
-          "level": 105
-        },
-        {
-          "date": "2026-10-06",
-          "level": 105
-        },
         {
           "date": "2026-10-07",
           "level": 110
@@ -292,7 +288,43 @@
         },
         {
           "date": "2026-10-27",
-          "level": 126.5
+          "level": 128.5
+        },
+        {
+          "date": "2026-10-28",
+          "level": 128.5
+        },
+        {
+          "date": "2026-10-29",
+          "level": 128.5
+        },
+        {
+          "date": "2026-10-30",
+          "level": 128.5
+        },
+        {
+          "date": "2026-10-31",
+          "level": 128.5
+        },
+        {
+          "date": "2026-11-01",
+          "level": 128.5
+        },
+        {
+          "date": "2026-11-02",
+          "level": 128.5
+        },
+        {
+          "date": "2026-11-03",
+          "level": 128.5
+        },
+        {
+          "date": "2026-11-04",
+          "level": 128.5
+        },
+        {
+          "date": "2026-11-05",
+          "level": 128.5
         }
       ],
       "own_numbers": [
@@ -307,9 +339,9 @@
       "skills": {
         "Shipping": {
           "estimate": 0.975,
-          "low": 0.956,
+          "low": 0.957,
           "high": 0.994,
-          "n": 90,
+          "n": 92,
           "minimum": 20,
           "tier": "rated"
         },
@@ -351,29 +383,29 @@
       },
       "moved_by": [
         {
-          "date": "2026-10-09",
+          "date": "2026-10-27",
           "points": 1,
-          "text": "#1033 Index pages give the daily proof's real time, 12:40 UTC"
+          "text": "#1110 /close: rows as cards on a phone."
+        },
+        {
+          "date": "2026-10-27",
+          "points": 1,
+          "text": "Close at first prints, fresh index pages, /clos."
         },
         {
           "date": "2026-10-09",
           "points": 1,
-          "text": "#1032 Weekly: the prediction markets line names the next report and no longe"
+          "text": "#1033 Index pages give the daily proof's real time, 12:40 UTC."
         },
         {
           "date": "2026-10-09",
           "points": 1,
-          "text": "#1030 Forecast: a period that already printed says what printed, not \"likely"
+          "text": "#1032 Weekly: the prediction markets line names the next report and no longe."
         },
         {
           "date": "2026-10-09",
           "points": 1,
-          "text": "#1029 Ticker it reads the Treasury's Debt to the Penny ($DEBT); Friday's Tre"
-        },
-        {
-          "date": "2026-10-09",
-          "points": 1,
-          "text": "#1026 The Tape: lines open the right host from oracle.tickerz.com and /mini"
+          "text": "#1030 Forecast: a period that already printed says what printed, not \"likely."
         }
       ]
     },
@@ -386,26 +418,6 @@
       "change_close": 0,
       "change_7d": 0,
       "history": [
-        {
-          "date": "2026-10-02",
-          "level": 100
-        },
-        {
-          "date": "2026-10-03",
-          "level": 100
-        },
-        {
-          "date": "2026-10-04",
-          "level": 100
-        },
-        {
-          "date": "2026-10-05",
-          "level": 105
-        },
-        {
-          "date": "2026-10-06",
-          "level": 110
-        },
         {
           "date": "2026-10-07",
           "level": 111
@@ -489,13 +501,49 @@
         {
           "date": "2026-10-27",
           "level": 113
+        },
+        {
+          "date": "2026-10-28",
+          "level": 113
+        },
+        {
+          "date": "2026-10-29",
+          "level": 113
+        },
+        {
+          "date": "2026-10-30",
+          "level": 113
+        },
+        {
+          "date": "2026-10-31",
+          "level": 113
+        },
+        {
+          "date": "2026-11-01",
+          "level": 113
+        },
+        {
+          "date": "2026-11-02",
+          "level": 113
+        },
+        {
+          "date": "2026-11-03",
+          "level": 113
+        },
+        {
+          "date": "2026-11-04",
+          "level": 113
+        },
+        {
+          "date": "2026-11-05",
+          "level": 113
         }
       ],
       "own_numbers": [],
       "skills": {
         "Shipping": {
-          "estimate": 0.986,
-          "low": 0.965,
+          "estimate": 0.985,
+          "low": 0.964,
           "high": 1,
           "n": 32,
           "minimum": 20,
@@ -533,27 +581,27 @@
         {
           "date": "2026-10-09",
           "points": 1,
-          "text": "#1042 Design QA Oct 9: phone targets, signed and Close times in the reader's"
+          "text": "Phone targets, signed and Close times in the reader's."
         },
         {
           "date": "2026-10-08",
           "points": 1,
-          "text": "#988 Design QA Oct 8: Arena folds as one list, 44px targets on oracle keys "
+          "text": "Work on the record."
         },
         {
           "date": "2026-10-07",
           "points": 1,
-          "text": "#941 Design QA: /data folds on a phone, 44px Menu and oracle chips, Tape li"
+          "text": "#941 Design QA: /data folds on a phone, 44px Menu and oracle chips, Tape li."
         },
         {
           "date": "2026-10-06",
           "points": 1,
-          "text": "#852 List pages: block title, one line, boxed links, search, compact rows"
+          "text": "#852 List pages: block title, one line, boxed links, search, compact rows."
         },
         {
           "date": "2026-10-06",
           "points": 1,
-          "text": "#851 Homepage, alive and minimal: docked live terminal, three sections, fou"
+          "text": "#851 Homepage, alive and minimal: docked live terminal, three sections, fou."
         }
       ]
     },
@@ -562,30 +610,10 @@
       "title": "Engineering: builds, merges, ships",
       "team": "Product",
       "model": "Claude Opus and Codex",
-      "level": 108.5,
-      "change_close": 0.0,
-      "change_7d": 7.0,
+      "level": 109.5,
+      "change_close": 1.0,
+      "change_7d": 1.0,
       "history": [
-        {
-          "date": "2026-10-02",
-          "level": 104
-        },
-        {
-          "date": "2026-10-03",
-          "level": 106
-        },
-        {
-          "date": "2026-10-04",
-          "level": 111
-        },
-        {
-          "date": "2026-10-05",
-          "level": 116
-        },
-        {
-          "date": "2026-10-06",
-          "level": 121
-        },
         {
           "date": "2026-10-07",
           "level": 117
@@ -669,15 +697,51 @@
         {
           "date": "2026-10-27",
           "level": 108.5
+        },
+        {
+          "date": "2026-10-28",
+          "level": 108.5
+        },
+        {
+          "date": "2026-10-29",
+          "level": 108.5
+        },
+        {
+          "date": "2026-10-30",
+          "level": 108.5
+        },
+        {
+          "date": "2026-10-31",
+          "level": 108.5
+        },
+        {
+          "date": "2026-11-01",
+          "level": 108.5
+        },
+        {
+          "date": "2026-11-02",
+          "level": 108.5
+        },
+        {
+          "date": "2026-11-03",
+          "level": 108.5
+        },
+        {
+          "date": "2026-11-04",
+          "level": 108.5
+        },
+        {
+          "date": "2026-11-05",
+          "level": 109.5
         }
       ],
       "own_numbers": [],
       "skills": {
         "Shipping": {
-          "estimate": 0.953,
-          "low": 0.935,
-          "high": 0.97,
-          "n": 227,
+          "estimate": 0.949,
+          "low": 0.931,
+          "high": 0.967,
+          "n": 229,
           "minimum": 20,
           "tier": "rated"
         },
@@ -701,15 +765,15 @@
       },
       "working": {
         "when": "2026-10-09 10:04 PM ET",
-        "doing": "Followed a sibling session's brief to carry 'I grew up as a number' into every application.",
-        "learned": "Check every fact about the CEO against Founder/messages before writing it, even when a brief supplies it."
+        "doing": null,
+        "learned": null
       },
       "runs": {
         "count": 27,
         "last": "2026-10-09T20:23:33.153105Z"
       },
       "week": {
-        "shipped": 7,
+        "shipped": 1,
         "reverted": 0,
         "signed": 0,
         "lesson": 0,
@@ -721,27 +785,27 @@
         {
           "date": "2026-10-09",
           "points": -3,
-          "text": "Agent-written tagline presented as his words"
+          "text": "Work the CEO sent back."
         },
         {
           "date": "2026-10-09",
           "points": -3,
-          "text": "Application drafts that read like templates"
+          "text": "Work the CEO sent back."
         },
         {
           "date": "2026-10-09",
           "points": -3,
-          "text": "Print on demand suppliers recommended again"
+          "text": "Work the CEO sent back."
         },
         {
           "date": "2026-10-09",
           "points": -3,
-          "text": "He had to re-explain context agents should know"
+          "text": "Work the CEO sent back."
         },
         {
           "date": "2026-10-09",
           "points": -3,
-          "text": "First /floor was a status page, not a ranking"
+          "text": "Work the CEO sent back."
         }
       ]
     },
@@ -754,26 +818,6 @@
       "change_close": 0.0,
       "change_7d": 0.0,
       "history": [
-        {
-          "date": "2026-10-02",
-          "level": 100
-        },
-        {
-          "date": "2026-10-03",
-          "level": 100
-        },
-        {
-          "date": "2026-10-04",
-          "level": 101
-        },
-        {
-          "date": "2026-10-05",
-          "level": 101
-        },
-        {
-          "date": "2026-10-06",
-          "level": 102
-        },
         {
           "date": "2026-10-07",
           "level": 102
@@ -857,6 +901,42 @@
         {
           "date": "2026-10-27",
           "level": 103.5
+        },
+        {
+          "date": "2026-10-28",
+          "level": 103.5
+        },
+        {
+          "date": "2026-10-29",
+          "level": 103.5
+        },
+        {
+          "date": "2026-10-30",
+          "level": 103.5
+        },
+        {
+          "date": "2026-10-31",
+          "level": 103.5
+        },
+        {
+          "date": "2026-11-01",
+          "level": 103.5
+        },
+        {
+          "date": "2026-11-02",
+          "level": 103.5
+        },
+        {
+          "date": "2026-11-03",
+          "level": 103.5
+        },
+        {
+          "date": "2026-11-04",
+          "level": 103.5
+        },
+        {
+          "date": "2026-11-05",
+          "level": 103.5
         }
       ],
       "own_numbers": [
@@ -870,8 +950,8 @@
       ],
       "skills": {
         "Shipping": {
-          "estimate": 0.969,
-          "low": 0.923,
+          "estimate": 0.966,
+          "low": 0.919,
           "high": 1,
           "n": 3,
           "minimum": 20,
@@ -890,7 +970,7 @@
       "working": {
         "when": "2026-10-09 5:14 PM ET",
         "doing": "Checked the ledger and brain first, then opened 4 new candidates and drafted one buyer note for Opinion, unsent.",
-        "learned": "Venue buyers in section 1b already settle through an oracle or AI resolver."
+        "learned": null
       },
       "runs": {
         "count": 8,
@@ -909,22 +989,22 @@
         {
           "date": "2026-10-09",
           "points": 0.5,
-          "text": "Wrote down what it learned for every other seat"
+          "text": "Wrote down what it learned for every other seat."
         },
         {
           "date": "2026-10-08",
           "points": 1,
-          "text": "#977 Research: do markets trade differently on weekends"
+          "text": "#977 Research: do markets trade differently on weekends."
         },
         {
           "date": "2026-10-06",
           "points": 1,
-          "text": "#802 Skills: verify, run before every commit"
+          "text": "#802 Skills: verify, run before every commit."
         },
         {
           "date": "2026-10-04",
           "points": 1,
-          "text": "#728 Skills: pr and retro from mattpocock/skills, with Tickerz guardrails"
+          "text": "Work on the record."
         }
       ]
     },
@@ -937,26 +1017,6 @@
       "change_close": 0.0,
       "change_7d": 0.0,
       "history": [
-        {
-          "date": "2026-10-02",
-          "level": 100
-        },
-        {
-          "date": "2026-10-03",
-          "level": 100
-        },
-        {
-          "date": "2026-10-04",
-          "level": 100
-        },
-        {
-          "date": "2026-10-05",
-          "level": 100
-        },
-        {
-          "date": "2026-10-06",
-          "level": 100
-        },
         {
           "date": "2026-10-07",
           "level": 102
@@ -1039,6 +1099,42 @@
         },
         {
           "date": "2026-10-27",
+          "level": 102.25
+        },
+        {
+          "date": "2026-10-28",
+          "level": 102.25
+        },
+        {
+          "date": "2026-10-29",
+          "level": 102.25
+        },
+        {
+          "date": "2026-10-30",
+          "level": 102.25
+        },
+        {
+          "date": "2026-10-31",
+          "level": 102.25
+        },
+        {
+          "date": "2026-11-01",
+          "level": 102.25
+        },
+        {
+          "date": "2026-11-02",
+          "level": 102.25
+        },
+        {
+          "date": "2026-11-03",
+          "level": 102.25
+        },
+        {
+          "date": "2026-11-04",
+          "level": 102.25
+        },
+        {
+          "date": "2026-11-05",
           "level": 102.25
         }
       ],
@@ -1060,8 +1156,8 @@
       ],
       "skills": {
         "Shipping": {
-          "estimate": 0.973,
-          "low": 0.934,
+          "estimate": 0.971,
+          "low": 0.931,
           "high": 1,
           "n": 7,
           "minimum": 20,
@@ -1107,27 +1203,27 @@
         {
           "date": "2026-10-08",
           "points": -3,
-          "text": "Automatic X posts stopped: not good enough"
+          "text": "Work the CEO sent back."
         },
         {
           "date": "2026-10-09",
           "points": 1,
-          "text": "#1034 Connect, llms.txt and skill.md name the Claude Code plugin"
+          "text": "Work on the record."
         },
         {
           "date": "2026-10-09",
           "points": -1.96,
-          "text": "Visitors a week: 129 to 106"
+          "text": "Visitors a week: 129 to 106."
         },
         {
           "date": "2026-10-09",
           "points": 0.21,
-          "text": "Followers on X: 372 to 380"
+          "text": "Followers on X: 372 to 380."
         },
         {
           "date": "2026-10-08",
           "points": 1,
-          "text": "#999 Growth run log, Oct 8 evening"
+          "text": "#999 Growth run log, Oct 8 evening."
         }
       ]
     },
@@ -1140,26 +1236,6 @@
       "change_close": 0.0,
       "change_7d": 0.0,
       "history": [
-        {
-          "date": "2026-10-02",
-          "level": 100
-        },
-        {
-          "date": "2026-10-03",
-          "level": 100
-        },
-        {
-          "date": "2026-10-04",
-          "level": 100
-        },
-        {
-          "date": "2026-10-05",
-          "level": 100
-        },
-        {
-          "date": "2026-10-06",
-          "level": 100
-        },
         {
           "date": "2026-10-07",
           "level": 100
@@ -1242,6 +1318,42 @@
         },
         {
           "date": "2026-10-27",
+          "level": 100.5
+        },
+        {
+          "date": "2026-10-28",
+          "level": 100.5
+        },
+        {
+          "date": "2026-10-29",
+          "level": 100.5
+        },
+        {
+          "date": "2026-10-30",
+          "level": 100.5
+        },
+        {
+          "date": "2026-10-31",
+          "level": 100.5
+        },
+        {
+          "date": "2026-11-01",
+          "level": 100.5
+        },
+        {
+          "date": "2026-11-02",
+          "level": 100.5
+        },
+        {
+          "date": "2026-11-03",
+          "level": 100.5
+        },
+        {
+          "date": "2026-11-04",
+          "level": 100.5
+        },
+        {
+          "date": "2026-11-05",
           "level": 100.5
         }
       ],
@@ -1266,7 +1378,7 @@
       },
       "working": {
         "when": "2026-10-09 9:32 PM ET",
-        "doing": "Read the CEO's last 48 hours, the lane write-backs and actions.md, then wrote the Company Close and renamed the Today block to TICK.",
+        "doing": null,
         "learned": "On a promises-only night, the evening run is the Close and nothing more."
       },
       "runs": {
@@ -1286,7 +1398,7 @@
         {
           "date": "2026-10-09",
           "points": 0.5,
-          "text": "Wrote down what it learned for every other seat"
+          "text": "Wrote down what it learned for every other seat."
         }
       ]
     },
@@ -1299,26 +1411,6 @@
       "change_close": 0,
       "change_7d": 0,
       "history": [
-        {
-          "date": "2026-10-02",
-          "level": 100
-        },
-        {
-          "date": "2026-10-03",
-          "level": 100
-        },
-        {
-          "date": "2026-10-04",
-          "level": 100
-        },
-        {
-          "date": "2026-10-05",
-          "level": 100
-        },
-        {
-          "date": "2026-10-06",
-          "level": 100
-        },
         {
           "date": "2026-10-07",
           "level": 100
@@ -1401,6 +1493,42 @@
         },
         {
           "date": "2026-10-27",
+          "level": 100
+        },
+        {
+          "date": "2026-10-28",
+          "level": 100
+        },
+        {
+          "date": "2026-10-29",
+          "level": 100
+        },
+        {
+          "date": "2026-10-30",
+          "level": 100
+        },
+        {
+          "date": "2026-10-31",
+          "level": 100
+        },
+        {
+          "date": "2026-11-01",
+          "level": 100
+        },
+        {
+          "date": "2026-11-02",
+          "level": 100
+        },
+        {
+          "date": "2026-11-03",
+          "level": 100
+        },
+        {
+          "date": "2026-11-04",
+          "level": 100
+        },
+        {
+          "date": "2026-11-05",
           "level": 100
         }
       ],
@@ -1453,26 +1581,6 @@
       "change_7d": 0,
       "history": [
         {
-          "date": "2026-10-02",
-          "level": 100
-        },
-        {
-          "date": "2026-10-03",
-          "level": 100
-        },
-        {
-          "date": "2026-10-04",
-          "level": 100
-        },
-        {
-          "date": "2026-10-05",
-          "level": 100
-        },
-        {
-          "date": "2026-10-06",
-          "level": 100
-        },
-        {
           "date": "2026-10-07",
           "level": 100
         },
@@ -1554,6 +1662,42 @@
         },
         {
           "date": "2026-10-27",
+          "level": 100
+        },
+        {
+          "date": "2026-10-28",
+          "level": 100
+        },
+        {
+          "date": "2026-10-29",
+          "level": 100
+        },
+        {
+          "date": "2026-10-30",
+          "level": 100
+        },
+        {
+          "date": "2026-10-31",
+          "level": 100
+        },
+        {
+          "date": "2026-11-01",
+          "level": 100
+        },
+        {
+          "date": "2026-11-02",
+          "level": 100
+        },
+        {
+          "date": "2026-11-03",
+          "level": 100
+        },
+        {
+          "date": "2026-11-04",
+          "level": 100
+        },
+        {
+          "date": "2026-11-05",
           "level": 100
         }
       ],
@@ -1598,26 +1742,6 @@
       "change_7d": 0,
       "history": [
         {
-          "date": "2026-10-02",
-          "level": 100
-        },
-        {
-          "date": "2026-10-03",
-          "level": 100
-        },
-        {
-          "date": "2026-10-04",
-          "level": 100
-        },
-        {
-          "date": "2026-10-05",
-          "level": 100
-        },
-        {
-          "date": "2026-10-06",
-          "level": 100
-        },
-        {
           "date": "2026-10-07",
           "level": 100
         },
@@ -1699,6 +1823,42 @@
         },
         {
           "date": "2026-10-27",
+          "level": 100
+        },
+        {
+          "date": "2026-10-28",
+          "level": 100
+        },
+        {
+          "date": "2026-10-29",
+          "level": 100
+        },
+        {
+          "date": "2026-10-30",
+          "level": 100
+        },
+        {
+          "date": "2026-10-31",
+          "level": 100
+        },
+        {
+          "date": "2026-11-01",
+          "level": 100
+        },
+        {
+          "date": "2026-11-02",
+          "level": 100
+        },
+        {
+          "date": "2026-11-03",
+          "level": 100
+        },
+        {
+          "date": "2026-11-04",
+          "level": 100
+        },
+        {
+          "date": "2026-11-05",
           "level": 100
         }
       ],
@@ -1743,26 +1903,6 @@
       "change_7d": 0,
       "history": [
         {
-          "date": "2026-10-02",
-          "level": 100
-        },
-        {
-          "date": "2026-10-03",
-          "level": 100
-        },
-        {
-          "date": "2026-10-04",
-          "level": 100
-        },
-        {
-          "date": "2026-10-05",
-          "level": 100
-        },
-        {
-          "date": "2026-10-06",
-          "level": 100
-        },
-        {
           "date": "2026-10-07",
           "level": 100
         },
@@ -1844,6 +1984,42 @@
         },
         {
           "date": "2026-10-27",
+          "level": 97
+        },
+        {
+          "date": "2026-10-28",
+          "level": 97
+        },
+        {
+          "date": "2026-10-29",
+          "level": 97
+        },
+        {
+          "date": "2026-10-30",
+          "level": 97
+        },
+        {
+          "date": "2026-10-31",
+          "level": 97
+        },
+        {
+          "date": "2026-11-01",
+          "level": 97
+        },
+        {
+          "date": "2026-11-02",
+          "level": 97
+        },
+        {
+          "date": "2026-11-03",
+          "level": 97
+        },
+        {
+          "date": "2026-11-04",
+          "level": 97
+        },
+        {
+          "date": "2026-11-05",
           "level": 97
         }
       ],
@@ -1897,7 +2073,7 @@
         {
           "date": "2026-10-09",
           "points": -3,
-          "text": "Application drafts read like templates; he rewrote them"
+          "text": "Work the CEO sent back."
         }
       ]
     }
