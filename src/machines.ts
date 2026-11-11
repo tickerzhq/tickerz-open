@@ -35,6 +35,13 @@ export const TRANSFER_TOPIC = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11
 export const BASE_RPCS: readonly string[] = ["https://mainnet.base.org"];
 /** Nodes for single calls (block numbers, blocks, logs): Base's own first, two free fallbacks. */
 export const BASE_SINGLE_RPCS: readonly string[] = ["https://mainnet.base.org", "https://base.drpc.org", "https://base.meowrpc.com"];
+/**
+ * Nodes for eth_getLogs, tried in turn. Since Nov 2026 mainnet.base.org answers every eth_getLogs with HTTP 429
+ * "request limit reached", even for one block, while it still serves blocks and receipts; base.drpc.org and
+ * base.meowrpc.com do not serve eth_getLogs at all. PublicNode and Tenderly's gateway returned the same logs for the
+ * same 1,000 blocks when compared on 2026-11-11.
+ */
+export const BASE_LOG_RPCS: readonly string[] = ["https://base-rpc.publicnode.com", "https://base.gateway.tenderly.co", "https://mainnet.base.org"];
 /** Below this many distinct payers a day's $WAGE is not printed: a handful of payers is not a rate. */
 export const WAGE_MIN_PAYERS = 50;
 const HOUR_MS = 3_600_000;
@@ -383,6 +390,7 @@ export async function readHour(
   const post = opts.post ?? fetchRpc;
   const rpcs = opts.rpcs ?? BASE_RPCS;
   const single = opts.rpcs ?? BASE_SINGLE_RPCS;
+  const logRpcs = opts.rpcs ?? BASE_LOG_RPCS;
   const from = await firstBlockAtOrAfter(post, single, hourStartMs / 1000);
   const to = (await firstBlockAtOrAfter(post, single, (hourStartMs + HOUR_MS) / 1000)) - 1;
   const logs: (Log & { blockHash: string })[] = [];
@@ -392,7 +400,7 @@ export async function readHour(
   while (ranges.length) {
     const [a, z] = ranges.shift()!;
     try {
-      logs.push(...((await call(post, single, "eth_getLogs", [
+      logs.push(...((await call(post, logRpcs, "eth_getLogs", [
         { address: BASE_USDC, topics: [AUTH_USED_TOPIC], fromBlock: `0x${a.toString(16)}`, toBlock: `0x${z.toString(16)}` },
       ])) as (Log & { blockHash: string })[]));
     } catch (e) {
