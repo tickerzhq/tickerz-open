@@ -36,6 +36,13 @@ scripts/
   test-all.ts       npm test: runs every file in test/.
 test/               Plain-assert tests, no network. Most are copied from Tickerz's own suite.
   fixtures/seal-2026-10-03.json   The public proof for 2026-10-03, unchanged.
+prints/, daily-proofs/  The mirrored prints and daily proofs (below).
+oracle/             The independent recount that co-signs the oracle's reports; cosigns/ and disputes/ hold its output.
+models/             forecast.py (Tickerz Forecast v1, writes forecasts/) and bandit.py (the decision model over experiments).
+floor/              The Floor (below).
+displays/           Desk display apps (below).
+plugin/, .claude-plugin/  The Tickerz plugin for Claude Code: the tickerz.com MCP server and the tickerz-index skill.
+                    Install: /plugin install tickerz --marketplace tickerzhq/tickerz-open (see plugin/README.md).
 ```
 
 The counting code is extracted from Tickerz's production code with the counting rules unchanged. What was taken out: the database, the scheduler, the website, and environment settings. What is not here at all: how Tickerz scores a reading against its own history, how it decides when to write, and the Terminal's model for crypto and stocks.
@@ -50,11 +57,11 @@ Raw files: `https://raw.githubusercontent.com/tickerzhq/tickerz-open/main/prints
 
 ## Run the tests
 
-Tested on Node 22.13 (package.json asks for Node 20 or later).
+Tested on Node 22.23 (package.json asks for Node 20 or later).
 
 ```
 npm ci
-npm test            # 5 files, 37 checks, no network
+npm test            # 7 files, 54 checks, no network
 npx tsc --noEmit    # strict type check of src, scripts and tests
 ```
 

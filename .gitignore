@@ -5,3 +5,4 @@ node_modules/
 tickerz-seal-*
 proofs/
 .DS_Store
+__pycache__/
