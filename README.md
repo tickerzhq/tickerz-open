@@ -61,7 +61,7 @@ Tested on Node 22.23 (package.json asks for Node 20 or later).
 
 ```
 npm ci
-npm test            # 7 files, 53 checks, no network
+npm test            # 7 files, 54 checks, no network
 npx tsc --noEmit    # strict type check of src, scripts and tests
 ```
 

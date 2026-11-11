@@ -192,5 +192,31 @@ void (async () => {
     assert.equal(ranges[0][0], 100);
     assert.equal(ranges[ranges.length - 1][1], 1899);
   });
+  // Nov 5 2026 18:00 UTC: Base went from a block every 2 seconds to one every 0.2 seconds. The old search assumed 2
+  // seconds and never converged on the hour that ends at the change, so no day after Nov 4 could be recounted.
+  await checkAsync("readHour finds the hour's blocks when Base's block time changes inside the search", async () => {
+    const T0 = 1_793_000_000;
+    const FORK = 1000; // block FORK is at T0 + 2000 s; after it, five blocks a second, sharing a whole-second timestamp
+    const ts = (n: number) => (n <= FORK ? T0 + 2 * n : T0 + 2 * FORK + Math.floor((n - FORK) / 5));
+    const head = FORK + 5 * 6 * 86_400; // six days of 0.2 second blocks after the change
+    let blockReads = 0;
+    const post = async (_url: string, body: unknown) => {
+      const { method, params } = body as { method: string; params: unknown[] };
+      if (method === "eth_blockNumber") return { result: `0x${head.toString(16)}` };
+      if (method === "eth_getBlockByNumber") { blockReads++; return { result: { timestamp: `0x${ts(Number.parseInt(String(params[0]), 16)).toString(16)}` } }; }
+      if (method === "eth_getLogs") return { result: [] };
+      throw new Error(`unexpected ${method}`);
+    };
+    // The hour that ends 1,600 s after the change: 2 s blocks for its first 2,000 s, 0.2 s blocks after.
+    const r = await readHour((T0 + 2 * FORK - 2000) * 1000, { post, rpcs: ["https://node.test"] });
+    assert.equal(r.fromBlock, 0);
+    assert.equal(ts(r.toBlock + 1), T0 + 2 * FORK + 1600, "the block after the hour is the first at its end");
+    assert.ok(ts(r.toBlock) < T0 + 2 * FORK + 1600);
+    assert.equal(r.toBlock, FORK + 5 * 1600 - 1);
+    // An hour wholly after the change, read six days later: 18,000 blocks.
+    const h = await readHour((T0 + 2 * FORK + 86_400) * 1000, { post, rpcs: ["https://node.test"] });
+    assert.equal(h.toBlock - h.fromBlock + 1, 18_000);
+    assert.ok(blockReads < 200, `block reads stay small (${blockReads})`);
+  });
   console.log(`${passed} passed`);
 })().catch((e) => { console.error(e); process.exit(1); });

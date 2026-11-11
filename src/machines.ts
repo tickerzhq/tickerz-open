@@ -319,20 +319,60 @@ async function blockTime(post: RpcPost, rpcs: readonly string[], n: number): Pro
   return Number.parseInt(b.timestamp, 16);
 }
 
-/** The first block with a timestamp at or after tsSec. Base makes a block every 2 seconds; the estimate is checked. */
+/** Blocks behind the head used to measure Base's block time for the first guess. */
+const BLOCK_RATE_SPAN = 1000;
+
+/**
+ * The first block with a timestamp at or after tsSec. A guess from the block time measured over the newest
+ * BLOCK_RATE_SPAN blocks, then a bracket that doubles until it holds, then a binary search, so the answer never
+ * depends on the block time being what it was. Same search as Tickerz production (machines.ts).
+ *
+ * Why: Base made a block every 2 seconds until 2026-11-05 18:00 UTC and every 0.2 seconds after it. The old search
+ * assumed 2 seconds and moved half the distance in blocks for 12 tries; across the change it never converged, so no
+ * $GIGS or $WAGE day after Nov 4 could be recounted.
+ */
 export async function firstBlockAtOrAfter(post: RpcPost, rpcs: readonly string[], tsSec: number): Promise<number> {
   const latestHex = (await call(post, rpcs, "eth_blockNumber", [])) as string;
   const latest = Number.parseInt(latestHex, 16);
-  const latestTs = await blockTime(post, rpcs, latest);
-  let b = latest - Math.floor((latestTs - tsSec) / 2);
-  for (let i = 0; i < 12; i++) {
-    const t = await blockTime(post, rpcs, b);
-    if (t < tsSec) { b += Math.max(1, Math.ceil((tsSec - t) / 2)); continue; }
-    const prev = await blockTime(post, rpcs, b - 1);
-    if (prev < tsSec) return b;
-    b -= Math.max(1, Math.floor((t - tsSec) / 2));
+  const times = new Map<number, number>();
+  const time = async (n: number) => {
+    const hit = times.get(n);
+    if (hit != null) return hit;
+    const t = await blockTime(post, rpcs, n);
+    times.set(n, t);
+    return t;
+  };
+  const latestTs = await time(latest);
+  if (latestTs < tsSec) throw new Error("block_after_head");
+  const span = Math.min(BLOCK_RATE_SPAN, latest);
+  const secPerBlock = span > 0 ? Math.max(0.01, (latestTs - (await time(latest - span))) / span) : 2;
+  const guess = Math.max(0, Math.min(latest, latest - Math.floor((latestTs - tsSec) / secPerBlock)));
+  let lo: number;
+  let hi: number;
+  if ((await time(guess)) >= tsSec) {
+    hi = guess;
+    for (let step = 64; ; step *= 2) {
+      lo = Math.max(0, hi - step);
+      if ((await time(lo)) < tsSec) break;
+      if (lo === 0) return 0;
+      hi = lo;
+    }
+  } else {
+    lo = guess;
+    for (let step = 64; ; step *= 2) {
+      hi = Math.min(latest, lo + step);
+      if ((await time(hi)) >= tsSec) break;
+      if (hi === latest) throw new Error("block_after_head");
+      lo = hi;
+    }
   }
-  throw new Error("block_search_failed");
+  // time(lo) < tsSec <= time(hi)
+  while (hi - lo > 1) {
+    const mid = lo + Math.floor((hi - lo) / 2);
+    if ((await time(mid)) >= tsSec) hi = mid;
+    else lo = mid;
+  }
+  return hi;
 }
 
 /** One hour, [hourStartMs, hourStartMs + 1 hour): every signed transfer counted, the sample read receipt by receipt. */
