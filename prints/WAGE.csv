@@ -50,10 +50,10 @@ WAGE,2026-11-01,0.007,0.007,false,,Quiet,-2.4,2026-11-02,974257,https://tickerz.
 WAGE,2026-11-02,0.01,0.01,false,,Quiet,0,2026-11-03,974389,https://tickerz.com/api/indices/proof?day=2026-11-03
 WAGE,2026-11-03,0.01,0.01,false,,Quiet,0,2026-11-04,974530,https://tickerz.com/api/indices/proof?day=2026-11-04
 WAGE,2026-11-04,0.01,0.01,false,,Quiet,0,2026-11-05,974681,https://tickerz.com/api/indices/proof?day=2026-11-05
-WAGE,2026-11-05,0.01,,false,,Quiet,0,,,
-WAGE,2026-11-06,0.01,,false,,Quiet,0,,,
-WAGE,2026-11-07,0.01,,false,,Quiet,0,,,
-WAGE,2026-11-08,0.01,,false,,Quiet,0,,,
-WAGE,2026-11-09,0.01,,false,,Quiet,0,,,
-WAGE,2026-11-10,0.008,,false,,Quiet,-4.8,,,
-WAGE,2026-11-11,0.01,,false,,Normal,0,,,
+WAGE,2026-11-05,0.01,0.01,false,,Quiet,0,2026-11-12,975557,https://tickerz.com/api/indices/proof?day=2026-11-12
+WAGE,2026-11-06,0.01,0.01,false,,Quiet,0,2026-11-12,975557,https://tickerz.com/api/indices/proof?day=2026-11-12
+WAGE,2026-11-07,0.01,0.01,false,,Quiet,0,2026-11-12,975557,https://tickerz.com/api/indices/proof?day=2026-11-12
+WAGE,2026-11-08,0.01,0.01,false,,Quiet,0,2026-11-12,975557,https://tickerz.com/api/indices/proof?day=2026-11-12
+WAGE,2026-11-09,0.01,0.01,false,,Quiet,0,2026-11-12,975557,https://tickerz.com/api/indices/proof?day=2026-11-12
+WAGE,2026-11-10,0.008,0.008,false,,Quiet,-4.8,2026-11-12,975557,https://tickerz.com/api/indices/proof?day=2026-11-12
+WAGE,2026-11-11,0.01,0.01,false,,Normal,0,2026-11-12,975557,https://tickerz.com/api/indices/proof?day=2026-11-12
