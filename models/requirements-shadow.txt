@@ -1,0 +1,11 @@
+# The two shadow models (models/forecast.py, "shadow"). CPU torch from the PyTorch index; everything pinned.
+# Both models are Apache 2.0. Never add TimesFM 3.0: its licence is non-commercial.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.15.0+cpu
+chronos-forecasting==2.3.2
+timesfm==3.0.2
+transformers==5.22.2
+huggingface-hub==2.4.0
+accelerate==1.15.0
+safetensors==0.8.0
+einops==0.8.2
