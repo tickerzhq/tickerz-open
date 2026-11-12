@@ -23,8 +23,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const BASE = "https://tickerz.com";
-// Indexes counted from sources whose terms allow republishing the count.
-const TICKERS = ["LAYOFFS", "MINTS", "GIGS", "WAGE"];
+// Indexes counted from sources whose terms allow republishing the count. The human indexes added Nov 12 2026 are the
+// ones on public domain or CC0 government files; $GOON, $AIGF and $TILT need their sources' consent and stay out.
+const TICKERS = ["LAYOFFS", "MINTS", "GIGS", "WAGE", "LONELY", "BROKE", "STRAPPED", "LASTCALL", "OD", "SHELTER", "SAD"];
 const UA = { "User-Agent": "tickerz-agent/mirror" };
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const HEADER = ["ticker", "period", "value", "settlement_value", "revised", "revised_on", "band", "z", "proof_day", "bitcoin_height", "proof_url"];
@@ -142,8 +143,10 @@ async function main() {
   for (const ticker of TICKERS) {
     let text = await get(`/api/indices/${ticker.toLowerCase()}/history.csv`);
     const newRows = rowsOf(text);
-    if (!newRows.length) fail(`${ticker}: the settlement file is empty`);
     const file = path.join(ROOT, "prints", `${ticker}.csv`);
+    // An index that has not printed yet has nothing to mirror. Once a file is here, an empty download is a failure.
+    if (!newRows.length && !existsSync(file)) { console.log(`${ticker}: nothing printed yet`); continue; }
+    if (!newRows.length) fail(`${ticker}: the settlement file is empty`);
     const oldText = existsSync(file) ? readText(file) : "";
     const oldRows = oldText ? rowsOf(oldText) : [];
     problems.push(...check(ticker, oldRows, newRows));
