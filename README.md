@@ -1,6 +1,6 @@
 # Tickerz: the open parts
 
-[![$MINTS](https://tickerz.com/api/badge/mints.svg)](https://oracle.tickerz.com/mints) [![$GIGS](https://tickerz.com/api/badge/gigs.svg)](https://oracle.tickerz.com/gigs) [![$WAGE](https://tickerz.com/api/badge/wage.svg)](https://oracle.tickerz.com/wage) [![$JOBS](https://tickerz.com/api/badge/jobs.svg)](https://oracle.tickerz.com/jobs) [![$CPI](https://tickerz.com/api/badge/cpi.svg)](https://oracle.tickerz.com/cpi)
+[![$MINTS](https://tickerz.com/api/badge/mints.svg)](https://oracle.tickerz.com/mints) [![$JOBS](https://tickerz.com/api/badge/jobs.svg)](https://oracle.tickerz.com/jobs) [![$CPI](https://tickerz.com/api/badge/cpi.svg)](https://oracle.tickerz.com/cpi)
 
 Tickerz publishes indexes of real-world activity. Each index counts one thing, every day, from a named public source: coins created on pump.fun, paid API calls settled over x402, unemployment claims filed with the states. Once a day every new reading is hashed and timestamped in Bitcoin with OpenTimestamps, so anyone can check later that a number was not changed after it was printed. Because the first print of each day is fixed that way, a venue such as a prediction market can settle a contract on it.
 
@@ -9,10 +9,10 @@ This repo is the part of Tickerz needed to check that claim: the code that count
 | Index | What it counts | Source |
 |---|---|---|
 | **$MINTS** | New coins created on pump.fun per UTC day, with graduations as a second line | Solana mainnet, read directly |
-| **$GIGS** | Paid calls settled over x402 on Base per UTC day, estimated from a one in sixteen sample, with a 95% range | Base mainnet, read directly |
-| **$WAGE** | The payer-balanced median price of one of those paid calls | Base mainnet, read directly |
+| **$GIGS** (retired Nov 12 2026) | Paid calls settled over x402 on Base per UTC day, estimated from a one in sixteen sample, with a 95% range | Base mainnet, read directly |
+| **$WAGE** (retired Nov 12 2026) | The payer-balanced median price of one of those paid calls | Base mainnet, read directly |
 
-Live pages: https://tickerz.com/x/mints, https://tickerz.com/x/gigs, https://tickerz.com/x/wage. The full rulebook for each is in [METHODOLOGY.md](METHODOLOGY.md).
+Live page: https://tickerz.com/x/mints ($GIGS and $WAGE were retired on Nov 12 2026; their addresses go to the board). The full rulebook for each is in [METHODOLOGY.md](METHODOLOGY.md).
 
 ## What is in this repo
 
@@ -49,7 +49,7 @@ The counting code is extracted from Tickerz's production code with the counting 
 
 ## The prints, mirrored here
 
-`prints/<TICKER>.csv` is the settlement file for each index counted from a source whose terms allow republishing the count ($LAYOFFS, $MINTS, $GIGS, $WAGE, and since Nov 12 2026 the human indexes on public domain or CC0 files: $LONELY, $BROKE, $STRAPPED, $LASTCALL, $OD, $SHELTER, $SAD): one row per complete period, with the first print, the value a contract settles on, any later revision beside it, and the day and Bitcoin block of its proof. `daily-proofs/<day>.json` is each daily proof: the exact JSON that was hashed, its SHA-256, and the OpenTimestamps file.
+`prints/<TICKER>.csv` is the settlement file for each index counted from a source whose terms allow republishing the count ($LAYOFFS, $MINTS, and since Nov 12 2026 the human indexes on public domain or CC0 files: $LONELY, $BROKE, $STRAPPED, $LASTCALL, $OD, $SHELTER, $SAD; GIGS.csv and WAGE.csv stay as history since $GIGS and $WAGE were retired on Nov 12 2026): one row per complete period, with the first print, the value a contract settles on, any later revision beside it, and the day and Bitcoin block of its proof. `daily-proofs/<day>.json` is each daily proof: the exact JSON that was hashed, its SHA-256, and the OpenTimestamps file.
 
 A scheduled job (`.github/workflows/mirror.yml`, `scripts/mirror.ts`) copies them from tickerz.com twice a day. It refuses to write, and fails in public, if a first print already in this repo changed, a period disappeared, or a proof's digest differs. A revision (revised = true) may change a period's value beside its first print; git history shows it. So this repo's git history is a second, independent record of what was printed and when: a market that settles on a Tickerz number does not have to trust, or wait on, Tickerz's own servers.
 

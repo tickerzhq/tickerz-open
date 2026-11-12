@@ -25,7 +25,9 @@ import { fileURLToPath } from "node:url";
 const BASE = "https://tickerz.com";
 // Indexes counted from sources whose terms allow republishing the count. The human indexes added Nov 12 2026 are the
 // ones on public domain or CC0 government files; $GOON, $AIGF and $TILT need their sources' consent and stay out.
-const TICKERS = ["LAYOFFS", "MINTS", "GIGS", "WAGE", "LONELY", "BROKE", "STRAPPED", "LASTCALL", "OD", "SHELTER", "SAD"];
+// $GIGS and $WAGE were retired on Nov 12 2026 (tickerz.com answers 404 for their settlement files); prints/GIGS.csv
+// and prints/WAGE.csv stay here as history.
+const TICKERS = ["LAYOFFS", "MINTS", "LONELY", "BROKE", "STRAPPED", "LASTCALL", "OD", "SHELTER", "SAD"];
 const UA = { "User-Agent": "tickerz-agent/mirror" };
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const HEADER = ["ticker", "period", "value", "settlement_value", "revised", "revised_on", "band", "z", "proof_day", "bitcoin_height", "proof_url"];
