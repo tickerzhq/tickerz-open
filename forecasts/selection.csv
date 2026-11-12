@@ -377,3 +377,4 @@ day,ticker,model,recent_pinball_scaled,runner_up,runner_up_score,version
 2026-11-12,UNEMP,naive,0.2412,drift8,0.2662,forecast-v1
 2026-11-12,CPI,ensemble,0.3168,median7,0.3097,forecast-v1
 2026-11-12,CORECPI,ensemble,0.2959,median7,0.279,forecast-v1
+2026-11-12,BROKE,ensemble,0.2794,median7,0.2762,forecast-v1

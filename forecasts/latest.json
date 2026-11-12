@@ -1,6 +1,6 @@
 {
  "version": "forecast-v1",
- "generated_at": "2026-11-12T21:27:11Z",
+ "generated_at": "2026-11-12T21:55:03Z",
  "display_only": true,
  "note": "Forecasts of the next published number. Display only: never a settled number. Ranges are the 10th to 90th percentile.",
  "method": {
@@ -427,8 +427,149 @@
   {
    "ticker": "BROKE",
    "period": "week",
-   "status": "too_short",
-   "n": 0,
+   "status": "ok",
+   "last": {
+    "period": "2026-10-17",
+    "value": 5302.0
+   },
+   "next": {
+    "period": "2026-10-24",
+    "p10": 4636.9450566406995,
+    "p50": 5156.1318243604055,
+    "p90": 5733.450594181192
+   },
+   "model": "ensemble",
+   "failed_models": {},
+   "n_history": 14,
+   "backtest": {
+    "naive": {
+     "n": 6,
+     "pinball": 83.651605,
+     "pinball_scaled": 0.3029,
+     "recent_pinball_scaled": 0.3029,
+     "coverage_80": 1.0,
+     "mae": 276.166667,
+     "mape": 5.49
+    },
+    "mean7": {
+     "n": 6,
+     "pinball": 80.009063,
+     "pinball_scaled": 0.2897,
+     "recent_pinball_scaled": 0.2897,
+     "coverage_80": 0.833,
+     "mae": 233.404762,
+     "mape": 4.72
+    },
+    "median7": {
+     "n": 6,
+     "pinball": 76.267818,
+     "pinball_scaled": 0.2762,
+     "recent_pinball_scaled": 0.2762,
+     "coverage_80": 1.0,
+     "mae": 231.0,
+     "mape": 4.64
+    },
+    "drift8": {
+     "n": 6,
+     "pinball": 87.642928,
+     "pinball_scaled": 0.3174,
+     "recent_pinball_scaled": 0.3174,
+     "coverage_80": 0.833,
+     "mae": 268.571429,
+     "mape": 5.28
+    },
+    "ets": {
+     "n": 6,
+     "pinball": 80.374055,
+     "pinball_scaled": 0.291,
+     "recent_pinball_scaled": 0.291,
+     "coverage_80": 1.0,
+     "mae": 256.701469,
+     "mape": 5.11
+    },
+    "theta": {
+     "n": 6,
+     "pinball": 80.449336,
+     "pinball_scaled": 0.2913,
+     "recent_pinball_scaled": 0.2913,
+     "coverage_80": 1.0,
+     "mae": 260.165612,
+     "mape": 5.17
+    },
+    "ensemble": {
+     "n": 6,
+     "pinball": 77.163909,
+     "pinball_scaled": 0.2794,
+     "recent_pinball_scaled": 0.2794,
+     "coverage_80": 1.0,
+     "mae": 238.126084,
+     "mape": 4.74
+    }
+   },
+   "procedure": {
+    "n": 3,
+    "pinball": 78.941347,
+    "pinball_scaled": 0.2858,
+    "recent_pinball_scaled": 0.2858,
+    "coverage_80": 1.0,
+    "mae": 251.509527,
+    "mape": 4.77
+   },
+   "naive_same_periods": {
+    "n": 3,
+    "pinball": 88.642588,
+    "pinball_scaled": 0.321,
+    "recent_pinball_scaled": 0.321,
+    "coverage_80": 1.0,
+    "mae": 307.0,
+    "mape": 5.88
+   },
+   "skill_vs_naive": 0.109,
+   "recent_window": 6,
+   "_last_steps": [
+    {
+     "period": "2026-09-12",
+     "y": 4618.0,
+     "p10": 4416.085274035066,
+     "p50": 4980.868522694693,
+     "p90": 5617.883193116487
+    },
+    {
+     "period": "2026-09-19",
+     "y": 4990.0,
+     "p10": 4183.495408055023,
+     "p50": 4679.840793985562,
+     "p90": 5235.074434379149
+    },
+    {
+     "period": "2026-09-26",
+     "y": 4949.0,
+     "p10": 4403.945328291941,
+     "p50": 4950.200195309999,
+     "p90": 5564.2112122112
+    },
+    {
+     "period": "2026-10-03",
+     "y": 5319.0,
+     "p10": 4430.844654985704,
+     "p50": 4948.999999999998,
+     "p90": 5527.749877766591
+    },
+    {
+     "period": "2026-10-10",
+     "y": 5035.0,
+     "p10": 4600.434116614346,
+     "p50": 5144.676388093057,
+     "p90": 5753.303811615266
+    },
+    {
+     "period": "2026-10-17",
+     "y": 5302.0,
+     "p10": 4515.03860140384,
+     "p50": 5027.147806493977,
+     "p90": 5597.341971889106
+    }
+   ],
    "unit": "complaints"
   },
   {
@@ -3819,6 +3960,12 @@
  ],
  "live": {
   "AIGF": {
+   "forecasts": 1,
+   "scored": 0,
+   "inside_80": 0,
+   "recent": []
+  },
+  "BROKE": {
    "forecasts": 1,
    "scored": 0,
    "inside_80": 0,

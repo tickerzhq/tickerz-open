@@ -1,0 +1,834 @@
+{
+ "version": "forecast-shadow-v1",
+ "generated_at": "2026-11-12T21:55:03Z",
+ "shown_on_site": false,
+ "note": "Shadow forecasts from two open foundation models, logged beside Forecast v1 for comparison. Not shown on the site; the site reads latest.json.",
+ "models": {
+  "chronos2": {
+   "repo": "amazon/chronos-2",
+   "revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+   "licence": "Apache-2.0",
+   "status": "ok",
+   "seconds": 10.8
+  },
+  "timesfm25": {
+   "repo": "google/timesfm-2.5-200m-pytorch",
+   "revision": "1d952420fba87f3c6dee4f240de0f1a0fbc790e3",
+   "licence": "Apache-2.0",
+   "status": "ok",
+   "seconds": 12.1
+  },
+  "fm_average": {
+   "status": "ok"
+  }
+ },
+ "next": [
+  {
+   "ticker": "GOON",
+   "period": "2026-11-01",
+   "model": "chronos2",
+   "p10": 204.41920471191406,
+   "p50": 220.65960693359375,
+   "p90": 231.82225036621094
+  },
+  {
+   "ticker": "GOON",
+   "period": "2026-11-01",
+   "model": "timesfm25",
+   "p10": 207.2735595703125,
+   "p50": 219.48117065429688,
+   "p90": 228.49949645996094
+  },
+  {
+   "ticker": "GOON",
+   "period": "2026-11-01",
+   "model": "fm_average",
+   "p10": 205.84638214111328,
+   "p50": 220.0703887939453,
+   "p90": 230.16087341308594
+  },
+  {
+   "ticker": "TILT",
+   "period": "2026-11-08",
+   "model": "chronos2",
+   "p10": 599663552.0,
+   "p50": 645327104.0,
+   "p90": 694494400.0
+  },
+  {
+   "ticker": "TILT",
+   "period": "2026-11-08",
+   "model": "timesfm25",
+   "p10": 581500032.0,
+   "p50": 640243520.0,
+   "p90": 706561920.0
+  },
+  {
+   "ticker": "TILT",
+   "period": "2026-11-08",
+   "model": "fm_average",
+   "p10": 590581792.0,
+   "p50": 642785312.0,
+   "p90": 700528160.0
+  },
+  {
+   "ticker": "BROKE",
+   "period": "2026-10-24",
+   "model": "chronos2",
+   "p10": 4843.54296875,
+   "p50": 5299.1748046875,
+   "p90": 6008.3427734375
+  },
+  {
+   "ticker": "BROKE",
+   "period": "2026-10-24",
+   "model": "timesfm25",
+   "p10": 4686.29443359375,
+   "p50": 5163.86083984375,
+   "p90": 5792.43896484375
+  },
+  {
+   "ticker": "BROKE",
+   "period": "2026-10-24",
+   "model": "fm_average",
+   "p10": 4764.918701171875,
+   "p50": 5231.517822265625,
+   "p90": 5900.390869140625
+  },
+  {
+   "ticker": "STRAPPED",
+   "period": "2026-11-01",
+   "model": "chronos2",
+   "p10": 2198516.0,
+   "p50": 2377634.5,
+   "p90": 2569068.75
+  },
+  {
+   "ticker": "STRAPPED",
+   "period": "2026-11-01",
+   "model": "timesfm25",
+   "p10": 2084068.75,
+   "p50": 2315595.0,
+   "p90": 2546819.0
+  },
+  {
+   "ticker": "STRAPPED",
+   "period": "2026-11-01",
+   "model": "fm_average",
+   "p10": 2141292.375,
+   "p50": 2346614.75,
+   "p90": 2557943.875
+  },
+  {
+   "ticker": "LASTCALL",
+   "period": "2026-10-01",
+   "model": "chronos2",
+   "p10": 890353280.0,
+   "p50": 929581440.0,
+   "p90": 979075520.0
+  },
+  {
+   "ticker": "LASTCALL",
+   "period": "2026-10-01",
+   "model": "timesfm25",
+   "p10": 876424384.0,
+   "p50": 926358016.0,
+   "p90": 982930048.0
+  },
+  {
+   "ticker": "LASTCALL",
+   "period": "2026-10-01",
+   "model": "fm_average",
+   "p10": 883388832.0,
+   "p50": 927969728.0,
+   "p90": 981002784.0
+  },
+  {
+   "ticker": "OD",
+   "period": "2026-07-01",
+   "model": "chronos2",
+   "p10": 60445.359375,
+   "p50": 62673.09375,
+   "p90": 64671.95703125
+  },
+  {
+   "ticker": "OD",
+   "period": "2026-07-01",
+   "model": "timesfm25",
+   "p10": 60355.7265625,
+   "p50": 63454.19921875,
+   "p90": 64815.86328125
+  },
+  {
+   "ticker": "OD",
+   "period": "2026-07-01",
+   "model": "fm_average",
+   "p10": 60400.54296875,
+   "p50": 63063.646484375,
+   "p90": 64743.91015625
+  },
+  {
+   "ticker": "AIGF",
+   "period": "2026-11-01",
+   "model": "chronos2",
+   "p10": 7.64413595199585,
+   "p50": 7.946485996246338,
+   "p90": 8.08414077758789
+  },
+  {
+   "ticker": "AIGF",
+   "period": "2026-11-01",
+   "model": "timesfm25",
+   "p10": 7.841599941253662,
+   "p50": 8.012496948242188,
+   "p90": 8.043672561645508
+  },
+  {
+   "ticker": "AIGF",
+   "period": "2026-11-01",
+   "model": "fm_average",
+   "p10": 7.742867946624756,
+   "p50": 7.979491472244263,
+   "p90": 8.0639066696167
+  },
+  {
+   "ticker": "SHELTER",
+   "period": "2026-11-11",
+   "model": "chronos2",
+   "p10": 83402.8515625,
+   "p50": 83543.421875,
+   "p90": 83699.5546875
+  },
+  {
+   "ticker": "SHELTER",
+   "period": "2026-11-11",
+   "model": "timesfm25",
+   "p10": 83390.171875,
+   "p50": 83556.96875,
+   "p90": 83746.890625
+  },
+  {
+   "ticker": "SHELTER",
+   "period": "2026-11-11",
+   "model": "fm_average",
+   "p10": 83396.51171875,
+   "p50": 83550.1953125,
+   "p90": 83723.22265625
+  },
+  {
+   "ticker": "SAD",
+   "period": "2026-10-01",
+   "model": "chronos2",
+   "p10": 5143.3388671875,
+   "p50": 5297.5126953125,
+   "p90": 5457.6103515625
+  },
+  {
+   "ticker": "SAD",
+   "period": "2026-10-01",
+   "model": "timesfm25",
+   "p10": 5112.189453125,
+   "p50": 5268.6142578125,
+   "p90": 5424.3974609375
+  },
+  {
+   "ticker": "SAD",
+   "period": "2026-10-01",
+   "model": "fm_average",
+   "p10": 5127.76416015625,
+   "p50": 5283.0634765625,
+   "p90": 5441.00390625
+  },
+  {
+   "ticker": "LAYOFFS",
+   "period": "2026-11-07",
+   "model": "chronos2",
+   "p10": 181661.203125,
+   "p50": 199040.34375,
+   "p90": 221154.828125
+  },
+  {
+   "ticker": "LAYOFFS",
+   "period": "2026-11-07",
+   "model": "timesfm25",
+   "p10": 178765.9375,
+   "p50": 192051.203125,
+   "p90": 213707.21875
+  },
+  {
+   "ticker": "LAYOFFS",
+   "period": "2026-11-07",
+   "model": "fm_average",
+   "p10": 180213.5703125,
+   "p50": 195545.7734375,
+   "p90": 217431.0234375
+  },
+  {
+   "ticker": "YESNO",
+   "period": "2026-11-11",
+   "model": "chronos2",
+   "p10": 686180352.0,
+   "p50": 756004608.0,
+   "p90": 833212352.0
+  },
+  {
+   "ticker": "YESNO",
+   "period": "2026-11-11",
+   "model": "timesfm25",
+   "p10": 674460672.0,
+   "p50": 749451904.0,
+   "p90": 853881920.0
+  },
+  {
+   "ticker": "YESNO",
+   "period": "2026-11-11",
+   "model": "fm_average",
+   "p10": 680320512.0,
+   "p50": 752728256.0,
+   "p90": 843547136.0
+  },
+  {
+   "ticker": "TRENCHES",
+   "period": "2026-11-12",
+   "model": "chronos2",
+   "p10": 1854915.25,
+   "p50": 2093241.125,
+   "p90": 2373993.25
+  },
+  {
+   "ticker": "TRENCHES",
+   "period": "2026-11-12",
+   "model": "timesfm25",
+   "p10": 1687359.0,
+   "p50": 2108333.5,
+   "p90": 2515775.25
+  },
+  {
+   "ticker": "TRENCHES",
+   "period": "2026-11-12",
+   "model": "fm_average",
+   "p10": 1771137.125,
+   "p50": 2100787.3125,
+   "p90": 2444884.25
+  },
+  {
+   "ticker": "MINTS",
+   "period": "2026-11-12",
+   "model": "chronos2",
+   "p10": 38138.25,
+   "p50": 42813.27734375,
+   "p90": 48030.59765625
+  },
+  {
+   "ticker": "MINTS",
+   "period": "2026-11-12",
+   "model": "timesfm25",
+   "p10": 37437.26953125,
+   "p50": 42725.578125,
+   "p90": 48322.0078125
+  },
+  {
+   "ticker": "MINTS",
+   "period": "2026-11-12",
+   "model": "fm_average",
+   "p10": 37787.759765625,
+   "p50": 42769.427734375,
+   "p90": 48176.302734375
+  },
+  {
+   "ticker": "GIGS",
+   "period": "2026-11-12",
+   "model": "chronos2",
+   "p10": 85584.8359375,
+   "p50": 114475.1796875,
+   "p90": 180470.578125
+  },
+  {
+   "ticker": "GIGS",
+   "period": "2026-11-12",
+   "model": "timesfm25",
+   "p10": 77735.546875,
+   "p50": 107836.9375,
+   "p90": 160731.109375
+  },
+  {
+   "ticker": "GIGS",
+   "period": "2026-11-12",
+   "model": "fm_average",
+   "p10": 81660.19140625,
+   "p50": 111156.05859375,
+   "p90": 170600.84375
+  },
+  {
+   "ticker": "WAGE",
+   "period": "2026-11-12",
+   "model": "chronos2",
+   "p10": 0.0075908238068223,
+   "p50": 0.009906473569571972,
+   "p90": 0.010373594239354134
+  },
+  {
+   "ticker": "WAGE",
+   "period": "2026-11-12",
+   "model": "timesfm25",
+   "p10": 0.008560212329030037,
+   "p50": 0.009805218316614628,
+   "p90": 0.01073195319622755
+  },
+  {
+   "ticker": "WAGE",
+   "period": "2026-11-12",
+   "model": "fm_average",
+   "p10": 0.008075518067926168,
+   "p50": 0.0098558459430933,
+   "p90": 0.010552773717790842
+  },
+  {
+   "ticker": "JOBS",
+   "period": "2026-11-01",
+   "model": "chronos2",
+   "p10": -88863.3125,
+   "p50": 64807.828125,
+   "p90": 230830.703125
+  },
+  {
+   "ticker": "JOBS",
+   "period": "2026-11-01",
+   "model": "timesfm25",
+   "p10": -58595.31640625,
+   "p50": 79167.3984375,
+   "p90": 208837.5625
+  },
+  {
+   "ticker": "JOBS",
+   "period": "2026-11-01",
+   "model": "fm_average",
+   "p10": -73729.314453125,
+   "p50": 71987.61328125,
+   "p90": 219834.1328125
+  },
+  {
+   "ticker": "UNEMP",
+   "period": "2026-11-01",
+   "model": "chronos2",
+   "p10": 4.010132789611816,
+   "p50": 4.105564117431641,
+   "p90": 4.220745086669922
+  },
+  {
+   "ticker": "UNEMP",
+   "period": "2026-11-01",
+   "model": "timesfm25",
+   "p10": 3.999321699142456,
+   "p50": 4.141543865203857,
+   "p90": 4.287871837615967
+  },
+  {
+   "ticker": "UNEMP",
+   "period": "2026-11-01",
+   "model": "fm_average",
+   "p10": 4.004727244377136,
+   "p50": 4.123553991317749,
+   "p90": 4.254308462142944
+  },
+  {
+   "ticker": "CPI",
+   "period": "2026-11-01",
+   "model": "chronos2",
+   "p10": 0.05900092422962189,
+   "p50": 0.3879101574420929,
+   "p90": 0.6981683969497681
+  },
+  {
+   "ticker": "CPI",
+   "period": "2026-11-01",
+   "model": "timesfm25",
+   "p10": 0.12224115431308746,
+   "p50": 0.4042627513408661,
+   "p90": 0.6543411016464233
+  },
+  {
+   "ticker": "CPI",
+   "period": "2026-11-01",
+   "model": "fm_average",
+   "p10": 0.09062103927135468,
+   "p50": 0.3960864543914795,
+   "p90": 0.6762547492980957
+  },
+  {
+   "ticker": "CORECPI",
+   "period": "2026-11-01",
+   "model": "chronos2",
+   "p10": 0.14080674946308136,
+   "p50": 0.2816959619522095,
+   "p90": 0.41726526618003845
+  },
+  {
+   "ticker": "CORECPI",
+   "period": "2026-11-01",
+   "model": "timesfm25",
+   "p10": 0.13062644004821777,
+   "p50": 0.25863468647003174,
+   "p90": 0.375940203666687
+  },
+  {
+   "ticker": "CORECPI",
+   "period": "2026-11-01",
+   "model": "fm_average",
+   "p10": 0.13571659475564957,
+   "p50": 0.2701653242111206,
+   "p90": 0.39660273492336273
+  }
+ ],
+ "live": {
+  "chronos2": {
+   "AIGF": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "BROKE": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "CORECPI": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "CPI": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "GIGS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "GOON": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "JOBS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "LASTCALL": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "LAYOFFS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "MINTS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "OD": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "SAD": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "SHELTER": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "STRAPPED": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "TILT": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "TRENCHES": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "UNEMP": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "WAGE": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "YESNO": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   }
+  },
+  "timesfm25": {
+   "AIGF": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "BROKE": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "CORECPI": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "CPI": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "GIGS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "GOON": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "JOBS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "LASTCALL": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "LAYOFFS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "MINTS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "OD": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "SAD": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "SHELTER": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "STRAPPED": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "TILT": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "TRENCHES": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "UNEMP": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "WAGE": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "YESNO": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   }
+  },
+  "fm_average": {
+   "AIGF": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "BROKE": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "CORECPI": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "CPI": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "GIGS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "GOON": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "JOBS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "LASTCALL": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "LAYOFFS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "MINTS": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "OD": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "SAD": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "SHELTER": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "STRAPPED": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "TILT": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "TRENCHES": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "UNEMP": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "WAGE": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   },
+   "YESNO": {
+    "forecasts": 1,
+    "scored": 0,
+    "inside_80": 0,
+    "recent": []
+   }
+  }
+ },
+ "compare_with_v1": {}
+}
