@@ -381,12 +381,166 @@ def live_record(log_rows: list[dict], actual: dict) -> dict:
     return out
 
 
+# ---------- shadow: two open foundation models, logged beside v1, never shown ----------
+#
+# Amazon's Chronos-2 and Google's TimesFM 2.5 (both Apache 2.0; never TimesFM 3.0, whose licence is non-commercial)
+# forecast the same next period as v1, each with its own 10th, 50th and 90th percentile, plus the plain average of
+# the two. They run in shadow: their forecasts go to forecasts/shadow-log.csv (append only, the first forecast for a
+# period counts, as in log.csv) and forecasts/shadow.json. latest.json, which the site reads, is written before they
+# run and is never touched by them. A model that fails to install, load or run is named in shadow.json and left out;
+# v1 never fails because of them. Backtest behind this: tickerz-kit Research/foundation-forecast-2026-11-12.
+
+SHADOW_VERSION = "forecast-shadow-v1"
+# Hugging Face repo and the exact weights revision read on Nov 12 2026.
+SHADOW_REPOS = {
+    "chronos2": ("amazon/chronos-2", "29ec3766d36d6f73f0696f85560a422f50e8498c"),
+    "timesfm25": ("google/timesfm-2.5-200m-pytorch", "1d952420fba87f3c6dee4f240de0f1a0fbc790e3"),
+}
+SHADOW_AVERAGE = "fm_average"
+TIMESFM_CONTEXT = 256
+TIMESFM_BATCH = 64  # per_core_batch_size: at the package default of 1 it runs about seven times slower on CPU
+CHRONOS_BATCH = 64
+
+
+def _threads():
+    import torch
+    torch.set_num_threads(os.cpu_count() or 1)
+
+
+def fm_chronos2(contexts: list) -> list[dict]:
+    from chronos import Chronos2Pipeline
+    _threads()
+    repo, rev = SHADOW_REPOS["chronos2"]
+    pipe = Chronos2Pipeline.from_pretrained(repo, revision=rev, device_map="cpu")
+    out = []
+    for i in range(0, len(contexts), CHRONOS_BATCH):
+        q, _ = pipe.predict_quantiles([np.asarray(c, dtype=np.float32) for c in contexts[i:i + CHRONOS_BATCH]],
+                                      prediction_length=1, quantile_levels=list(QUANTS))
+        for t in q:  # (variates=1, horizon, 3)
+            a = t.numpy().reshape(-1, 3)[0]
+            out.append({0.1: float(a[0]), 0.5: float(a[1]), 0.9: float(a[2])})
+    return out
+
+
+def fm_timesfm25(contexts: list) -> list[dict]:
+    import timesfm
+    _threads()
+    repo, rev = SHADOW_REPOS["timesfm25"]
+    m = timesfm.TimesFM_2p5_200M_torch.from_pretrained(repo, revision=rev)
+    m.compile(timesfm.ForecastConfig(max_context=TIMESFM_CONTEXT, max_horizon=128, normalize_inputs=True,
+                                     use_continuous_quantile_head=True, force_flip_invariance=True,
+                                     infer_is_positive=True, fix_quantile_crossing=True,
+                                     per_core_batch_size=TIMESFM_BATCH))
+    _, q = m.forecast(horizon=1, inputs=[np.asarray(c, dtype=np.float64) for c in contexts])
+    # q[..., 0] is the mean, q[..., 1:10] the 10th to 90th percentiles
+    return [{0.1: float(r[0, 1]), 0.5: float(r[0, 5]), 0.9: float(r[0, 9])} for r in q]
+
+
+SHADOW_FNS = {"chronos2": fm_chronos2, "timesfm25": fm_timesfm25}
+SHADOW_HEADER = LOG_HEADER
+
+
+def shadow_forecasts(results: list[dict], series: dict) -> tuple[list[dict], dict]:
+    """Next-period forecasts from each shadow model for every index v1 forecast. Never raises."""
+    ok = [r for r in results if r.get("status") == "ok"]
+    contexts = [series[r["ticker"]]["y"].to_numpy().astype(float) for r in ok]
+    status, per = {}, {}
+    for name, fn in SHADOW_FNS.items():
+        t0 = time.time()
+        try:
+            qs = fn(contexts)
+            if len(qs) != len(ok):
+                raise RuntimeError(f"{len(qs)} forecasts for {len(ok)} indexes")
+            for q in qs:
+                if not all(math.isfinite(q[a]) for a in QUANTS):
+                    raise RuntimeError("not a finite number")
+            per[name] = qs
+            status[name] = {"status": "ok", "seconds": round(time.time() - t0, 1)}
+        except BaseException as e:  # an import, download or model error, even a SystemExit, is logged and skipped
+            if isinstance(e, KeyboardInterrupt):
+                raise
+            status[name] = {"status": "failed", "error": f"{type(e).__name__}: {e}"[:300], "seconds": round(time.time() - t0, 1)}
+            print(f"shadow model {name} failed and is left out: {status[name]['error']}", file=sys.stderr)
+    rows = []
+    for i, r in enumerate(ok):
+        got = {name: per[name][i] for name in SHADOW_FNS if name in per}
+        if len(got) == len(SHADOW_FNS):
+            got[SHADOW_AVERAGE] = {a: float(np.mean([q[a] for q in got.values()])) for a in QUANTS}
+        for name, q in got.items():
+            rows.append({"ticker": r["ticker"], "period": r["next"]["period"], "model": name,
+                         "p10": q[0.1], "p50": q[0.5], "p90": q[0.9]})
+    if SHADOW_AVERAGE not in {x["model"] for x in rows}:
+        status[SHADOW_AVERAGE] = {"status": "skipped", "error": "needs both models"}
+    else:
+        status[SHADOW_AVERAGE] = {"status": "ok"}
+    return rows, status
+
+
+def shadow_compare(v1_log: list[dict], shadow_log: list[dict], actual: dict) -> dict:
+    """Per index, on the periods where v1 and every shadow model had a first forecast and the number has landed:
+    mean pinball loss and how many landed inside the 10 to 90 range. This is what decides a switch."""
+    first = {}
+    for r in v1_log:
+        first.setdefault((r["ticker"], r["period"], "v1"), r)
+    for r in shadow_log:
+        first.setdefault((r["ticker"], r["period"], r["model"]), r)
+    names = ["v1", *SHADOW_FNS, SHADOW_AVERAGE]
+    out = {}
+    for t in sorted({k[0] for k in first}):
+        periods = sorted({k[1] for k in first if k[0] == t})
+        common = [p for p in periods if all((t, p, n) in first for n in names) and actual.get(t, {}).get(p) is not None]
+        if not common:
+            continue
+        row = {"periods": len(common)}
+        for n in names:
+            pb, inside = [], 0
+            for p in common:
+                f = first[(t, p, n)]
+                q = {0.1: float(f["p10"]), 0.5: float(f["p50"]), 0.9: float(f["p90"])}
+                y = actual[t][p]
+                pb.append(pinball(y, q))
+                inside += q[0.1] <= y <= q[0.9]
+            row[n] = {"pinball": round(float(np.mean(pb)), 6), "inside_80": inside}
+        out[t] = row
+    return out
+
+
+def run_shadow(out_dir: str, results: list[dict], series: dict, actual: dict, made_at: str, dry: bool) -> None:
+    """Writes forecasts/shadow-log.csv (append only) and forecasts/shadow.json. Never writes latest.json or log.csv."""
+    rows, status = shadow_forecasts(results, series)
+    path = os.path.join(out_dir, "shadow-log.csv")
+    if not dry:
+        logged = {(r["ticker"], r["period"], r["model"]) for r in read_csv(path)}
+        new = [[made_at, x["ticker"], x["period"], x["model"], f"{x['p10']:.6g}", f"{x['p50']:.6g}", f"{x['p90']:.6g}", SHADOW_VERSION]
+               for x in rows if (x["ticker"], x["period"], x["model"]) not in logged]
+        append_csv(path, SHADOW_HEADER, new)
+    shadow_log = read_csv(path)
+    live = {}
+    for name in [*SHADOW_FNS, SHADOW_AVERAGE]:
+        live[name] = live_record([r for r in shadow_log if r["model"] == name], actual)
+    doc = {
+        "version": SHADOW_VERSION,
+        "generated_at": made_at,
+        "shown_on_site": False,
+        "note": "Shadow forecasts from two open foundation models, logged beside Forecast v1 for comparison. Not shown on the site; the site reads latest.json.",
+        "models": {name: {"repo": repo, "revision": rev, "licence": "Apache-2.0", **status.get(name, {})}
+                   for name, (repo, rev) in SHADOW_REPOS.items()} | {SHADOW_AVERAGE: status.get(SHADOW_AVERAGE, {})},
+        "next": rows,
+        "live": live,
+        "compare_with_v1": shadow_compare(read_csv(os.path.join(out_dir, "log.csv")), shadow_log, actual),
+    }
+    with open(os.path.join(out_dir, "shadow.json"), "w", encoding="utf-8") as f:
+        json.dump(doc, f, indent=1, default=float)
+        f.write("\n")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--hist", help="read <ticker>.csv from this folder instead of tickerz.com")
     ap.add_argument("--out", default=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "forecasts"))
     ap.add_argument("--today", help="UTC day to run as (default: now)")
     ap.add_argument("--dry", action="store_true", help="write latest.json only, append nothing")
+    ap.add_argument("--no-shadow", action="store_true", help="skip the shadow models (also TICKERZ_SHADOW=0)")
     a = ap.parse_args()
     now = dt.datetime.now(dt.timezone.utc)
     today = dt.date.fromisoformat(a.today) if a.today else now.date()
@@ -441,6 +595,13 @@ def main() -> None:
     with open(os.path.join(a.out, "latest.json"), "w", encoding="utf-8") as f:
         json.dump(doc, f, indent=1, default=float)
         f.write("\n")
+
+    # The shadow models run only after everything the site reads is written, and nothing they do can fail v1.
+    if not a.no_shadow and os.environ.get("TICKERZ_SHADOW", "1") != "0":
+        try:
+            run_shadow(a.out, results, series, actual, made_at, a.dry)
+        except Exception as e:
+            print(f"shadow run failed, v1 unaffected: {type(e).__name__}: {e}"[:400], file=sys.stderr)
 
 
 if __name__ == "__main__":

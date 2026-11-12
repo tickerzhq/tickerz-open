@@ -53,6 +53,61 @@ def test_live_record_keeps_first_forecast():
     assert rec["forecasts"] == 1 and rec["scored"] == 1 and rec["inside_80"] == 1
 
 
+def test_shadow_is_append_only_and_leaves_latest_alone():
+    """The shadow writer only appends to shadow-log.csv, keeps the first forecast for a period, records a model that
+    fails instead of raising, and never touches latest.json or log.csv."""
+    import datetime as dt
+    import tempfile
+    import polars as pl
+
+    df = pl.DataFrame({"period": [dt.date(2026, 9, 1) + dt.timedelta(days=i) for i in range(20)],
+                       "y": [100.0 + i for i in range(20)]})
+    res = f.run_series("MINTS", "day", df)
+    assert res["status"] == "ok"
+    saved = dict(f.SHADOW_FNS)
+    try:
+        with tempfile.TemporaryDirectory() as d:
+            latest = os.path.join(d, "latest.json")
+            log = os.path.join(d, "log.csv")
+            with open(latest, "w") as fh:
+                fh.write('{"version": "forecast-v1"}\n')
+            f.append_csv(log, f.LOG_HEADER, [["t", "MINTS", res["next"]["period"], "ensemble", "1", "2", "3", f.VERSION]])
+            before = {p: open(p, "rb").read() for p in (latest, log)}
+
+            def ok(level):
+                return lambda contexts: [{0.1: level - 1.0, 0.5: level, 0.9: level + 1.0} for _ in contexts]
+
+            def broken(contexts):
+                raise SystemExit("weights did not download")
+
+            f.SHADOW_FNS.clear()
+            f.SHADOW_FNS.update({"chronos2": ok(120.0), "timesfm25": ok(130.0)})
+            f.run_shadow(d, [res], {"MINTS": df}, {}, "2026-11-12T00:00:00Z", dry=False)
+            first = open(os.path.join(d, "shadow-log.csv")).read()
+            assert [r["model"] for r in f.read_csv(os.path.join(d, "shadow-log.csv"))] == ["chronos2", "timesfm25", "fm_average"]
+            avg = f.read_csv(os.path.join(d, "shadow-log.csv"))[2]
+            assert float(avg["p50"]) == 125.0
+
+            # A second run for the same period with new numbers and one model failing: nothing is rewritten.
+            f.SHADOW_FNS.update({"chronos2": ok(999.0), "timesfm25": broken})
+            f.run_shadow(d, [res], {"MINTS": df}, {}, "2026-11-13T00:00:00Z", dry=False)
+            assert open(os.path.join(d, "shadow-log.csv")).read() == first
+            doc = __import__("json").load(open(os.path.join(d, "shadow.json")))
+            assert doc["models"]["timesfm25"]["status"] == "failed"
+            assert doc["models"]["fm_average"]["status"] == "skipped"
+            assert {p: open(p, "rb").read() for p in (latest, log)} == before
+
+            # A later period is appended after the earlier rows.
+            df2 = pl.concat([df, pl.DataFrame({"period": [dt.date(2026, 9, 21)], "y": [120.0]})])
+            res2 = f.run_series("MINTS", "day", df2)
+            f.run_shadow(d, [res2], {"MINTS": df2}, {}, "2026-11-14T00:00:00Z", dry=False)
+            assert open(os.path.join(d, "shadow-log.csv")).read().startswith(first)
+            assert {p: open(p, "rb").read() for p in (latest, log)} == before
+    finally:
+        f.SHADOW_FNS.clear()
+        f.SHADOW_FNS.update(saved)
+
+
 if __name__ == "__main__":
     for k, v in list(globals().items()):
         if k.startswith("test_"):

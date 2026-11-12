@@ -154,11 +154,13 @@ Where each index's next number is likely to land, with a 10th to 90th percentile
 - **Forward.** Each index uses the median of all candidates unless another model's loss over the last 14 periods is at least 10% lower. The next forecast is appended to `forecasts/log.csv` before the number is known; a row there is never rewritten, and only the first forecast for a period counts.
 - **Self-correcting.** The choice is made again every day from the newest prints and logged in `forecasts/selection.csv`.
 - **Honest numbers.** `forecasts/latest.json` gives, per index, the backtest of the whole procedure (picking the model the way the daily run does, from earlier periods only) against repeating the last number on the same periods. The default model and the 10% margin were chosen after looking at that backtest, so the clean test is the live record in `log.csv`.
+- **In shadow, from Nov 2026.** Two open models, Amazon's Chronos-2 and Google's TimesFM 2.5 (both Apache 2.0), forecast the same next period with their own ranges, along with the average of the two, for four weeks beside v1. They go to `forecasts/shadow-log.csv` (append only, the first forecast for a period counts) and `forecasts/shadow.json` (the same side-by-side live record); the site still reads `latest.json`, which they never touch. In a backtest on v1's own periods they scored about 7 to 10% better than v1; the site switches only if the live record agrees.
 
 ```bash
 pip install -r models/requirements.txt
 python3 models/test_forecast.py      # no network: no look-ahead, ranges, negative series, the live record
-python3 models/forecast.py --dry     # reads tickerz.com, writes forecasts/latest.json only
+python3 models/forecast.py --dry     # reads tickerz.com, writes forecasts/latest.json (and shadow.json) only
+pip install -r models/requirements-shadow.txt   # optional: the shadow models (CPU torch, about 1.3 GB of weights)
 ```
 
 ## Desk displays

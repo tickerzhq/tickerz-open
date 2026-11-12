@@ -3,6 +3,8 @@ name: forecast
 # Once a day: Tickerz Forecast v1 (models/forecast.py). Backtests every candidate model on the numbers as first
 # published, picks one per index, forecasts the next print and appends it to forecasts/log.csv before the number is
 # known. Display only: nothing here touches a printed or settled number. Public repo, so the minutes are free.
+# Two open models (Chronos-2, TimesFM 2.5) then forecast in shadow into forecasts/shadow-log.csv and shadow.json.
+# Their install and run may fail without stopping v1: latest.json and log.csv are written before they start.
 on:
   schedule:
     - cron: "10 14 * * *"
@@ -14,20 +16,33 @@ permissions:
 jobs:
   forecast:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: models/requirements.txt
+          cache-dependency-path: |
+            models/requirements.txt
+            models/requirements-shadow.txt
       - run: pip install -r models/requirements.txt
+      - name: Install the shadow models' libraries (CPU torch)
+        continue-on-error: true
+        timeout-minutes: 8
+        run: pip install -r models/requirements-shadow.txt
+      - name: Cache the shadow models' weights
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface/hub
+          key: hf-chronos2-29ec376-timesfm25-1d95242
       - name: Check the model code
         run: python models/test_forecast.py
       - name: Forecast
+        timeout-minutes: 15
         run: python models/forecast.py
       - name: Commit
+        if: ${{ !cancelled() }}
         run: |
           git config user.name "tickerz"
           git config user.email "support@tickerz.com"
