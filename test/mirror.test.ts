@@ -42,6 +42,16 @@ ok("a period with no first print yet keeps its value", () => {
   assert.deepEqual(check("MINTS", rows(unsettled), rows(unsettled.replace("48973,,", "48973,48973,"))), [], "its first print arriving is not a change");
 });
 
+ok("a first print that arrives with a revision is clean when it is the value held here", () => {
+  // BROKE 2026-09-19 as this repo held it from Nov 13 2026 (mirrored before its seal), and as the settlement file
+  // served it on Nov 17: sealed at 4990, the value held here, then revised by the source to 5004.
+  const held = "BROKE,2026-09-19,4990,,false,,Quiet,-0.6,,,\n";
+  const sealed = "BROKE,2026-09-19,5004,4990,true,2026-11-15,Quiet,-1.8,2026-11-13,975682,https://tickerz.com/api/indices/proof?day=2026-11-13\n";
+  assert.deepEqual(check("BROKE", rows(held), rows(sealed)), []);
+  assert.deepEqual(check("BROKE", rows(held), rows(sealed.replace(",4990,true,", ",4991,true,"))), ["BROKE 2026-09-19: first print was 4990, the new file says 4991"]);
+  assert.deepEqual(check("BROKE", rows(held), rows(sealed.replace(",true,2026-11-15,", ",false,,"))), ["BROKE 2026-09-19: value was 4990, the new file says 5004 with no revision"]);
+});
+
 ok("a period missing from inside the new file's range fails; one older than its first period aged out", () => {
   const a = `LAYOFFS,2026-09-26,180000,180000,false,,Quiet,0.1,${proof}\n`;
   const b = `LAYOFFS,2026-10-03,185000,185000,false,,Quiet,0.1,${proof}\n`;
