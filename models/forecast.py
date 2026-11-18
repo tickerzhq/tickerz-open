@@ -46,6 +46,10 @@ RECENT = 14  # periods the selection looks back over
 DEFAULT = "ensemble"  # the model a series uses unless another has clearly done better
 MARGIN = 0.10  # another model must have a recent loss this much lower than the default's to take over
 MIN_TRAIN = 8  # periods a model needs before it forecasts
+# The walk-forward refits every model at every period, so its cost grows with the square of the history. $ICE (daily since
+# 2020, about 2,200 periods) kept the run past 40 minutes from Nov 13 2026 and no forecast was written. Each series is
+# backtested and forecast on its newest MAX_POINTS periods; every series but the long daily ones is shorter than that.
+MAX_POINTS = 400
 MIN_RESID = 8  # past errors needed for an empirical range
 LGBM_MIN = 60  # periods before gradient-boosted trees are a candidate
 Z90 = 1.2815515655446004  # standard normal 90th percentile
@@ -260,6 +264,7 @@ def summarize(rows: list[dict], scale: float) -> dict:
 # ---------- one series ----------
 
 def run_series(ticker: str, period: str, df: pl.DataFrame) -> dict | None:
+    df = df.tail(MAX_POINTS)
     y = df["y"].to_numpy().astype(float)
     periods = df["period"].to_list()
     if len(y) < MIN_TRAIN + 4:
