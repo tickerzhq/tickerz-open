@@ -99,7 +99,10 @@ const VALUE = 2, SETTLEMENT = 3, REVISED = 4;
 /**
  * The record only grows: no period inside the new file's range disappears and no first print changes. A period with a
  * first print (settlement_value) keeps it; its value may change only as a revision (revised = true). A period with no
- * first print yet keeps its value.
+ * first print yet keeps its value, and when its first print arrives it must be that value; from then on it is a first
+ * print like any other, so a revision may arrive with it. ($BROKE 2026-09-05 to 2026-10-17 were mirrored on Nov 13 2026
+ * before their seal, sealed at the values held here and revised by the source before the next run; until this rule
+ * that run and every one after it failed, though no first print had changed.)
  */
 export function check(ticker: string, oldRows: Row[], newRows: Row[]): string[] {
   const fresh = new Map<string, Row>();
@@ -110,7 +113,8 @@ export function check(ticker: string, oldRows: Row[], newRows: Row[]): string[] 
     const period = at(row, 1);
     if (period < oldest) continue; // aged out of the settlement file's window; kept here by agedOut()
     const now = fresh.get(period);
-    const first = at(row, SETTLEMENT);
+    // Held here with no first print and arriving with one: the value held here is the first print it must keep.
+    const first = at(row, SETTLEMENT) || (now && at(now, SETTLEMENT) ? at(row, VALUE) : "");
     if (!now) problems.push(`${ticker} ${period}: in this repo, missing from the new file`);
     else if (first && at(now, SETTLEMENT) !== first) problems.push(`${ticker} ${period}: first print was ${first}, the new file says ${at(now, SETTLEMENT)}`);
     else if (first && at(now, VALUE) !== at(row, VALUE) && at(now, REVISED) !== "true") problems.push(`${ticker} ${period}: value was ${at(row, VALUE)}, the new file says ${at(now, VALUE)} with no revision`);
