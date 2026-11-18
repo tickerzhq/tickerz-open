@@ -23,6 +23,32 @@ def test_no_look_ahead():
                 assert ra["q"] == rb["q"], (name, ra["t"])
 
 
+def test_long_series_sees_at_most_max_history():
+    """A series with years of daily history is backtested on its last MAX_HISTORY periods, each forecast from at most
+    the MAX_HISTORY periods before it, so its cost stays bounded ($DARKWEB and $ICE, Nov 2026). Shorter series are not
+    affected, and there is still no look-ahead."""
+    rng = np.random.default_rng(11)
+    n = f.MAX_HISTORY + 400
+    y = 5000 + np.cumsum(rng.normal(0, 30, n))
+    seen = []
+
+    def spy(h):
+        seen.append(len(h))
+        return float(h[-1])
+
+    rows = f.walk_forward(y, spy)
+    assert len(rows) == f.MAX_HISTORY and rows[0]["t"] == n - f.MAX_HISTORY and rows[-1]["t"] == n - 1
+    assert max(seen) == f.MAX_HISTORY
+    short = y[:60]
+    seen.clear()
+    assert len(f.walk_forward(short, spy)) == 60 - f.MIN_TRAIN and seen == list(range(f.MIN_TRAIN, 60))
+    z = y.copy()
+    z[n - 100:] *= 3  # change the future
+    for ra, rb in zip(rows, f.walk_forward(z, spy)):
+        if ra["t"] < n - 100:
+            assert ra["q"] == rb["q"], ra["t"]
+
+
 def test_pinball_and_range():
     q = {0.1: 90.0, 0.5: 100.0, 0.9: 110.0}
     assert f.pinball(100.0, q) == (0.1 * 10 + 0 + 0.1 * 10) / 3

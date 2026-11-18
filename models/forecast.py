@@ -48,6 +48,12 @@ MARGIN = 0.10  # another model must have a recent loss this much lower than the 
 MIN_TRAIN = 8  # periods a model needs before it forecasts
 MIN_RESID = 8  # past errors needed for an empirical range
 LGBM_MIN = 60  # periods before gradient-boosted trees are a candidate
+# The most recent periods a model sees, and the most recent periods it is backtested on. AutoTheta refits in time that
+# grows with the square of the history, and the walk-forward refits it at every period, so a daily series that comes
+# with years of history ($DARKWEB 1,819 days, $ICE 2,198, both added Nov 12 2026) took longer than the run's 15
+# minutes on its own and no forecast at all was written from Nov 13. A year of history is more than any series had
+# before then (the longest was 253 periods), and a series of 365 periods or fewer forecasts exactly as before.
+MAX_HISTORY = 365
 Z90 = 1.2815515655446004  # standard normal 90th percentile
 
 
@@ -218,12 +224,13 @@ class ModelFailed(Exception):
 
 
 def walk_forward(y: np.ndarray, fn) -> list[dict]:
-    """Forecast every period from MIN_TRAIN on, each from the periods before it only. A model that fails or returns
-    nothing usable at any step is out for this series (ModelFailed): it is never scored as the last number."""
+    """Forecast each of the last MAX_HISTORY periods (from MIN_TRAIN on), each from at most the MAX_HISTORY periods
+    before it and never from a later one. A model that fails or returns nothing usable at any step is out for this
+    series (ModelFailed): it is never scored as the last number."""
     space = Space(y)
     out, resid = [], []
-    for t in range(MIN_TRAIN, len(y)):
-        hist = y[:t]
+    for t in range(max(MIN_TRAIN, len(y) - MAX_HISTORY), len(y)):
+        hist = y[max(0, t - MAX_HISTORY):t]
         try:
             mid = fn(hist)
         except NotReady:
@@ -265,7 +272,7 @@ def run_series(ticker: str, period: str, df: pl.DataFrame) -> dict | None:
     if len(y) < MIN_TRAIN + 4:
         return {"ticker": ticker, "period": period, "status": "too_short", "n": int(len(y))}
     # Scale for comparing series: the mean absolute period-to-period change over the backtest window.
-    scale = float(np.mean(np.abs(np.diff(y[MIN_TRAIN - 1:])))) or 1.0
+    scale = float(np.mean(np.abs(np.diff(y[max(MIN_TRAIN, len(y) - MAX_HISTORY) - 1:])))) or 1.0
     models = candidates(len(y), period)
     bt, failed = {}, {}
     for name, fn in list(models.items()):
@@ -303,7 +310,7 @@ def run_series(ticker: str, period: str, df: pl.DataFrame) -> dict | None:
     space = Space(y)
     resid = [float(space.fwd(r["y"]) - space.fwd(max(r["q"][0.5], 1e-12) if space.log else r["q"][0.5])) for r in bt[chosen]["rows"]]
     try:
-        mid = models[chosen](y)
+        mid = models[chosen](y[-MAX_HISTORY:])
     except Exception:
         mid = float(y[-1])
     q = quantiles(mid, resid, y, space)
