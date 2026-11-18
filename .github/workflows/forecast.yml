@@ -16,7 +16,7 @@ permissions:
 jobs:
   forecast:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -39,7 +39,7 @@ jobs:
       - name: Check the model code
         run: python models/test_forecast.py
       - name: Forecast
-        timeout-minutes: 15
+        timeout-minutes: 40
         run: python models/forecast.py
       - name: Commit
         if: ${{ !cancelled() }}
