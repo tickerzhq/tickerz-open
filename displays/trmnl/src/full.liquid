@@ -30,7 +30,7 @@
   </div>
   <div class="title tz-line">{{ text }}</div>
   <div class="tz-rule">
-    {%- for t in tz_tickers %}
+    {%- for t in tz_tickers limit: 6 %}
     <div class="tz-row">
       <span class="tz-tick tz-f22 tz-col-t">${{ t }}</span>
       <span class="tz-num tz-n32 tz-col-v">{{ tz_values[forloop.index0] }}</span>
