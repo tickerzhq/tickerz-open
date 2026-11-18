@@ -33,6 +33,7 @@ scripts/
   count-mints.ts    npm run mints: recount $MINTS from the chain and set it beside the print.
   recompute-gigs-wage.ts  npm run gigs: recompute $GIGS and $WAGE for a day from the chain.
   mirror.ts         The twice-daily mirror of the prints and daily proofs (below). node scripts/mirror.ts
+  hf-dataset.ts     The daily open dataset on Hugging Face (below). node scripts/hf-dataset.ts [out-dir]
   test-all.ts       npm test: runs every file in test/.
 test/               Plain-assert tests, no network. Most are copied from Tickerz's own suite.
   fixtures/seal-2026-10-03.json   The public proof for 2026-10-03, unchanged.
@@ -54,6 +55,10 @@ The counting code is extracted from Tickerz's production code with the counting 
 A scheduled job (`.github/workflows/mirror.yml`, `scripts/mirror.ts`) copies them from tickerz.com twice a day. It refuses to write, and fails in public, if a first print already in this repo changed, a period disappeared, or a proof's digest differs. A revision (revised = true) may change a period's value beside its first print; git history shows it. So this repo's git history is a second, independent record of what was printed and when: a market that settles on a Tickerz number does not have to trust, or wait on, Tickerz's own servers.
 
 Raw files: `https://raw.githubusercontent.com/tickerzhq/tickerz-open/main/prints/GIGS.csv`
+
+## The open dataset on Hugging Face
+
+`.github/workflows/hf-dataset.yml` runs `scripts/hf-dataset.ts` once a day (15:50 UTC) and uploads the result to the Hugging Face dataset `tickerzhq/tickerz-index`: one CSV per index whose rule says its source's rights are clean (read from `https://tickerz.com/api/indices/{ticker}/rule` on every run, so blocked and consent-needed indexes such as $YESNO, $TRENCHES, $GOON and $TILT stay out), with a dataset card that lists every column, the source and its terms clause per index, and the point-in-time caveat. The one added column, `as_first_published`, is true only for rows Tickerz read when they came out: most indexes were loaded with their history on their first day, and those back rows are the source's figure as it stood that day. Nothing is uploaded when the data has not changed. The upload needs the repository secret `HF_TOKEN` (a write token for the Hugging Face organization); without it the job builds and checks the dataset and skips the upload.
 
 ## Run the tests
 
