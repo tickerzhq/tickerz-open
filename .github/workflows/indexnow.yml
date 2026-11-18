@@ -1,0 +1,72 @@
+name: indexnow
+
+# Once a day: tell Bing (which also feeds ChatGPT search and Copilot), Yandex, Seznam and Naver which tickerz.com and
+# oracle.tickerz.com addresses changed. Reads the live sitemap and submits every address whose <lastmod> is in the last
+# 48 hours, one request per host, through IndexNow. tickerz.com already pings its index pages itself when the daily
+# Close is written (src/lib/indexnow.ts in tickerzhq/tickerz); this covers everything else a deploy changes: new
+# indexes, research, docs. Google reads the sitemap named in robots.txt by itself. The key is public by design: it only
+# proves the site asked (https://tickerz.com/c1f6b1381b61158c4e60f82a6ae48d23.txt). Run it by hand with "all" to send
+# every address once, e.g. after Bing Webmaster Tools is verified. No secret, no install; public repo, so the minutes
+# are free. Modelled on monte's indexnow.yml.
+on:
+  schedule:
+    - cron: "25 16 * * *"
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "Send every address in the sitemap, not only the last 48 hours"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SEND_ALL: ${{ inputs.all && 'true' || 'false' }}
+    steps:
+      - name: Submit the addresses that changed
+        run: |
+          python3 - <<'PY'
+          import json, os, re, urllib.request
+          from datetime import datetime, timedelta, timezone
+
+          KEY = "c1f6b1381b61158c4e60f82a6ae48d23"
+          UA = {"User-Agent": "tickerz-agent/indexnow (+https://tickerz.com)", "x-tickerz-agent": "indexnow"}
+          send_all = os.environ.get("SEND_ALL") == "true"
+          since = datetime.now(timezone.utc) - timedelta(hours=48)
+
+          req = urllib.request.Request("https://tickerz.com/sitemap.xml", headers=UA)
+          xml = urllib.request.urlopen(req, timeout=30).read().decode("utf-8")
+          by_host = {}
+          for block in re.findall(r"<url>(.*?)</url>", xml, re.S):
+              loc = re.search(r"<loc>\s*([^<\s]+)\s*</loc>", block)
+              if not loc:
+                  continue
+              url = loc.group(1)
+              host = url.split("/")[2]
+              if host not in ("tickerz.com", "oracle.tickerz.com"):
+                  continue
+              mod = re.search(r"<lastmod>\s*([^<\s]+)\s*</lastmod>", block)
+              if not send_all:
+                  if not mod:
+                      continue
+                  stamp = mod.group(1)
+                  when = datetime.fromisoformat(stamp if "T" in stamp else stamp + "T00:00:00+00:00")
+                  if when.tzinfo is None:
+                      when = when.replace(tzinfo=timezone.utc)
+                  if when < since:
+                      continue
+              by_host.setdefault(host, []).append(url)
+
+          if not by_host:
+              print("nothing changed in the last 48 hours; nothing sent")
+          for host, urls in sorted(by_host.items()):
+              body = json.dumps({"host": host, "key": KEY, "keyLocation": f"https://{host}/{KEY}.txt", "urlList": urls[:10000]}).encode()
+              post = urllib.request.Request("https://api.indexnow.org/indexnow", data=body, headers={"Content-Type": "application/json; charset=utf-8"})
+              with urllib.request.urlopen(post, timeout=30) as r:
+                  print(f"{host}: submitted {len(urls)} addresses, HTTP {r.status}")
+          PY
