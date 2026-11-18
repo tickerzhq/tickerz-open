@@ -1,7 +1,8 @@
 /**
  * The 95% range printed beside $GIGS. $GIGS is an estimate from a one in sixteen sample (estimateGigs in machines.ts),
- * so every day carries the range the estimate came with. Tickerz stores it beside the closed day and serves it with
- * the newest complete day at https://tickerz.com/api/v1/indices/gigs (latest_complete.range).
+ * so every day carries the range the estimate came with. Tickerz stored it beside the closed day and served it with
+ * the newest complete day at https://tickerz.com/api/v1/indices/gigs (latest_complete.range) until $GIGS was retired
+ * on Nov 12 2026; that address now answers 404.
  *
  * Pure parsing, plus one fetch helper for the public API. Stored values can arrive as numbers or as numeric strings
  * (Postgres numerics come back as text); anything that is not a finite number is no range at all, never a zero.

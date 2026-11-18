@@ -1,5 +1,7 @@
 /*
  * Recompute $GIGS and $WAGE for one UTC day from the Base chain, and set them beside what Tickerz printed.
+ * $GIGS and $WAGE were retired on Nov 12 2026 and tickerz.com no longer serves their series, so for a day they printed
+ * (Sep 15 to Nov 11 2026) compare with prints/GIGS.csv and prints/WAGE.csv in this repo.
  *
  *   npm run gigs -- 2026-10-03              all 24 hours: the day's GIGS with its 95% range, and its WAGE
  *   npm run gigs -- 2026-10-03 --hours 2    only the first 2 hours: a quick look at the method, no day level

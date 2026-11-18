@@ -2,7 +2,7 @@
   "name": "tickerz-open",
   "version": "0.1.0",
   "private": true,
-  "description": "The open parts of Tickerz: the $MINTS counter, the x402 $GIGS and $WAGE math, and a verifier for the daily Bitcoin-timestamped seal.",
+  "description": "The open parts of Tickerz: the public recount of the oracle's signed numbers, the $MINTS counter, a verifier for the daily Bitcoin-timestamped seal, the settlement file mirror, Forecast v1, and the retired $GIGS and $WAGE math kept as history.",
   "type": "module",
   "engines": {
     "node": ">=20"

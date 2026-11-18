@@ -1,6 +1,11 @@
 # Methodology: $MINTS, $GIGS and $WAGE
 
-This is the rulebook Tickerz publishes for the three indexes whose code is in this repo, copied from the production registry (Rulebook v0.1, 2026-09-23). The same lines are on each index's page (https://tickerz.com/x/mints, /x/gigs, /x/wage) and in `GET https://tickerz.com/api/v1/indices/{ticker}`. `src/rulebook.ts` holds them as data, and `test/rulebook.test.ts` fails if this file and that one drift apart.
+This is the rulebook Tickerz publishes for the three indexes whose code is in this repo, copied from the production registry (Rulebook v0.1, 2026-09-23). `src/rulebook.ts` holds them as data, and `test/rulebook.test.ts` fails if this file and that one drift apart.
+
+- **$MINTS** is live. Its lines are on https://tickerz.com/x/mints and in `GET https://tickerz.com/api/v1/indices/mints`, and its machine-readable rule, with the hash the oracle signs under, is at `GET https://tickerz.com/api/v1/indices/mints/rule`. Production now labels the same lines Rulebook v0.2 (2026-10-04); the $MINTS lines did not change.
+- **$GIGS and $WAGE** were retired on Nov 12 2026. Their lines are kept here as the rule every day they printed (Sep 15 to Nov 11 2026) was counted under. From the Oct 5 2026 print production counted $WAGE under rule v2 (below); the code here is rule v1.
+
+Every live index (48 today) has its rule at `GET https://tickerz.com/api/v1/indices/{ticker}/rule` and its page at https://tickerz.com/x/{ticker}. How Tickerz scores a reading against its own normal is published at https://tickerz.com/methodology.
 
 A rulebook line is what a venue can paste into a contract: what the number counts, where it comes from, what it costs to move, what happens when the source is late, and the precision. The grade says how far a venue can lean on it: **candidate** could settle a listed contract once its open item is cleared; **reference** is a public series a venue can read itself; **display** is for reading only.
 
@@ -66,7 +71,7 @@ The estimate: every signed transfer of the day (N) is counted; of the n transact
 
 The median: each payer's prices are reduced to that payer's lower weighted median (weighted by its calls), then the median of those per-payer medians is taken by nearest rank, with the 25th and 75th percentiles beside it. Code: `weightedMedian`, `percentile` and `dayStats` in `src/machines.ts`.
 
-**Open issue, Oct 3 2026.** Payer balancing stops one busy wallet from setting the wage, but not a fleet of small wallets paying one service. On Oct 3 2026 one service's many $0.001 payers halved it: WAGE printed $0.005, against $0.01 on Oct 2. A fix is open and not yet in the rulebook; until it lands, read WAGE with that in mind.
+**Rule v2, from the Oct 5 2026 print.** Payer balancing stops one busy wallet from setting the wage, but not a fleet of small wallets paying one service. On Oct 3 2026 one service's many $0.001 payers halved it: WAGE printed $0.005, against $0.01 on Oct 2. From the Oct 5 2026 print production counted WAGE under rule v2, which holds any one service's payers to 5% of the vote. The code in this repo is rule v1, so a recount of a day from Oct 5 on can differ from the print.
 
 **Unit.** US dollars per call.
 
@@ -92,4 +97,4 @@ A payment counts when a listed facilitator wallet sent the transaction, it succe
 
 The sample is one transaction in sixteen: the low byte of `keccak256(tx hash || block hash)` under 16. The sender cannot know its block's hash when it sends, so it cannot steer a transaction into or out of the sample, and anyone can redraw the same sample from the chain. A day is its 24 UTC hours, each read whole.
 
-The Terminal's activity-score methodology is published at https://tickerz.com/methodology and is not part of this repository.
+The Terminal's unusual trading score is published at https://tickerz.com/methodology and is not part of this repository.

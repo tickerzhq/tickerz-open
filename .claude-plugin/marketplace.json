@@ -5,13 +5,13 @@
     "email": "desk@tickerz.com"
   },
   "metadata": {
-    "description": "Tickerz plugins for Claude: live indexes for data nobody else publishes."
+    "description": "Tickerz plugins for Claude: indexes of what people actually do."
   },
   "plugins": [
     {
       "name": "tickerz",
       "source": "./plugin",
-      "description": "Live Tickerz indexes in Claude: the MCP server and a skill for reading them."
+      "description": "Tickerz indexes in Claude: the MCP server and a skill for reading them."
     }
   ]
 }

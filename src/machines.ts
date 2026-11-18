@@ -2,6 +2,10 @@
  * $GIGS and $WAGE: what paying wallets pay for, read from settled x402 payments on Base. Who holds a wallet is not on
  * the chain, so nothing here names a payer as an AI agent.
  *
+ * Retired Nov 12 2026: Tickerz no longer prints either. This code stays so every day they printed (Sep 15 to Nov 11
+ * 2026, kept in prints/GIGS.csv and prints/WAGE.csv) can still be recounted from the chain. It is $WAGE rule v1; from
+ * the Oct 5 2026 print production used rule v2 (METHODOLOGY.md).
+ *
  * $GIGS counts paid agent calls per UTC day. $WAGE is the payer-balanced median price of a paid call: each payer's
  * median price first, weighted by its calls, then the median across payers, so one bot firing thousands of calls
  * counts once. The 25th and 75th percentiles across payers are kept beside it, as SOFR publishes its percentiles.

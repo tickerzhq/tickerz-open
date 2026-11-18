@@ -1,6 +1,6 @@
 name: floor
 
-# The Floor (floor/latest.json, shown at tickerz.com/floor): every change is checked against floor/schema.json and the
+# The Floor (floor/latest.json, the first version of the file behind tickerz.com/proof-of-work): every change is checked against floor/schema.json and the
 # public rules in test/floor.test.ts before it lands. Public repo, so the minutes are free.
 on:
   pull_request:
