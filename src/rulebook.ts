@@ -1,6 +1,7 @@
 /**
  * The rulebook for the three indexes in this repo, as Tickerz publishes it (copied from the production registry; the
- * same text is on https://tickerz.com/x/mints, /x/gigs and /x/wage and in GET https://tickerz.com/api/v1/indices/{ticker}).
+ * $MINTS text is on https://tickerz.com/x/mints and in GET https://tickerz.com/api/v1/indices/mints). $GIGS and $WAGE
+ * were retired on Nov 12 2026; their lines stay as the rule the days they printed were counted under.
  * Pure data. METHODOLOGY.md prints these lines, and a test holds the two together.
  */
 import { GRADUATIONS_ACCOUNT, MINTS_ACCOUNT } from "./mints";

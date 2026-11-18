@@ -1,10 +1,12 @@
 # Tickerz: the open parts
 
-[![$MINTS](https://tickerz.com/api/badge/mints.svg)](https://oracle.tickerz.com/mints) [![$JOBS](https://tickerz.com/api/badge/jobs.svg)](https://oracle.tickerz.com/jobs) [![$CPI](https://tickerz.com/api/badge/cpi.svg)](https://oracle.tickerz.com/cpi)
+[![$SHELTER](https://tickerz.com/api/badge/shelter.svg)](https://tickerz.com/x/shelter) [![$MINTS](https://tickerz.com/api/badge/mints.svg)](https://oracle.tickerz.com/mints) [![$JOBS](https://tickerz.com/api/badge/jobs.svg)](https://oracle.tickerz.com/jobs) [![$CPI](https://tickerz.com/api/badge/cpi.svg)](https://oracle.tickerz.com/cpi)
 
-Tickerz publishes indexes of real-world activity. Each index counts one thing, every day, from a named public source: coins created on pump.fun, paid API calls settled over x402, unemployment claims filed with the states. Once a day every new reading is hashed and timestamped in Bitcoin with OpenTimestamps, so anyone can check later that a number was not changed after it was printed. Because the first print of each day is fixed that way, a venue such as a prediction market can settle a contract on it.
+Tickerz publishes indexes of what people actually do. There are 48 today, in eight families (Vice, Hard times, Mind, Streets, Wild, Net, Planet and Markets), led by the human ones: porn sites among the web's most visited ($GOON), lonely adults ($LONELY), phone bets in New York ($TILT), debt collector complaints ($BROKE), the New York City shelter census ($SHELTER) and evictions ($EVICTED). Then the streets, the wild, the net and the planet, from potholes to Arctic sea ice, and the markets, from memecoin launches ($MINTS) to the US jobs and CPI numbers as first published. Each index counts one thing from a named public source, daily, weekly or monthly. The full list is at https://tickerz.com/x.
 
-This repo is the part of Tickerz needed to check that claim: the code that counts three of the indexes from the chain, and a verifier for the daily Bitcoin proof. It runs on its own: no database, no keys, no account. Everything it fetches is public.
+Once a day every new reading is hashed and timestamped in Bitcoin with OpenTimestamps, so anyone can check later that a number was not changed after it was first published. The numbers a market may settle on ($LAYOFFS, $JOBS, $UNEMP, $CPI and $CORECPI; $MINTS is signed too) are also signed by the Tickerz oracle, and this repo recounts each one before it is final.
+
+This repo is the part of Tickerz anyone can run to check that: the public recount that co-signs the oracle's signed numbers, the code that recounts $MINTS from the chain, a verifier for the daily Bitcoin proof, a mirror of the settlement files, and Tickerz Forecast v1. It runs on its own: no database, no keys, no account. Everything it fetches is public.
 
 | Index | What it counts | Source |
 |---|---|---|
@@ -12,7 +14,7 @@ This repo is the part of Tickerz needed to check that claim: the code that count
 | **$GIGS** (retired Nov 12 2026) | Paid calls settled over x402 on Base per UTC day, estimated from a one in sixteen sample, with a 95% range | Base mainnet, read directly |
 | **$WAGE** (retired Nov 12 2026) | The payer-balanced median price of one of those paid calls | Base mainnet, read directly |
 
-Live page: https://tickerz.com/x/mints ($GIGS and $WAGE were retired on Nov 12 2026; their addresses go to the board). The full rulebook for each is in [METHODOLOGY.md](METHODOLOGY.md).
+Live page: https://tickerz.com/x/mints. $GIGS and $WAGE were retired on Nov 12 2026 and their pages go to the board; their code stays here so every day they printed (Sep 15 to Nov 11 2026) can still be recounted. The full rulebook for each is in [METHODOLOGY.md](METHODOLOGY.md).
 
 ## What is in this repo
 
@@ -21,10 +23,11 @@ src/
   mints.ts          $MINTS: the Solana counter. Pages getSignaturesForAddress on pump.fun's mint authority and
                     migrator, counts successful signatures per UTC day of block time, and keeps a cursor so a
                     run never counts a signature twice or skips one.
-  machines.ts       $GIGS and $WAGE: x402 payment extraction from a Base receipt, the one in sixteen sample, the
-                    estimate and its range, the payer-balanced median, and readHour over the public Base node.
+  machines.ts       $GIGS and $WAGE (retired Nov 12 2026, kept so past days can be recounted): x402 payment
+                    extraction from a Base receipt, the one in sixteen sample, the estimate and its range, the
+                    payer-balanced median, and readHour over public Base nodes.
   facilitators.ts   The 128 x402 facilitator wallets on Base whose payments count (from x402scan, MIT).
-  gigsRange.ts      The 95% range printed beside $GIGS: parsing, and a reader for the public API.
+  gigsRange.ts      The 95% range printed beside $GIGS (retired): parsing, and a reader for the public API.
   seal.ts           The daily seal: its canonical JSON, first prints, the .ots header, and checkSeal.
   rulebook.ts       The published rulebook lines for the three indexes, as data.
   publicApi.ts      Reads what Tickerz printed from https://tickerz.com/api/v1 (no key).
@@ -37,7 +40,7 @@ scripts/
 test/               Plain-assert tests, no network. Most are copied from Tickerz's own suite.
   fixtures/seal-2026-10-03.json   The public proof for 2026-10-03, unchanged.
 prints/, daily-proofs/  The mirrored prints and daily proofs (below).
-oracle/             The independent recount that co-signs the oracle's reports; cosigns/ and disputes/ hold its output.
+oracle/             The public recount that co-signs the oracle's reports; cosigns/ and disputes/ hold its output.
 models/             forecast.py (Tickerz Forecast v1, writes forecasts/) and bandit.py (the decision model over experiments).
 floor/              The Floor (below).
 displays/           Desk display apps (below).
@@ -45,15 +48,15 @@ plugin/, .claude-plugin/  The Tickerz plugin for Claude Code: the tickerz.com MC
                     Install: /plugin install tickerz --marketplace tickerzhq/tickerz-open (see plugin/README.md).
 ```
 
-The counting code is extracted from Tickerz's production code with the counting rules unchanged. What was taken out: the database, the scheduler, the website, and environment settings. What is not here at all: how Tickerz scores a reading against its own history, how it decides when to write, and the Terminal's model for crypto and stocks.
+The counting code is extracted from Tickerz's production code with the counting rules unchanged. What was taken out: the database, the scheduler, the website, and environment settings. What is not here at all: how Tickerz scores a reading against its own history, how it decides when to write, the Terminal's unusual trading score for crypto and stocks, and the Tickerz Engine, the private forecasting engine behind the ranges on tickerz.com (see Forecasts below).
 
 ## The prints, mirrored here
 
 `prints/<TICKER>.csv` is the settlement file for each index counted from a source whose terms allow republishing the count ($LAYOFFS, $MINTS, and since Nov 12 2026 the human indexes on public domain or CC0 files: $LONELY, $BROKE, $STRAPPED, $LASTCALL, $OD, $SHELTER, $SAD; GIGS.csv and WAGE.csv stay as history since $GIGS and $WAGE were retired on Nov 12 2026): one row per complete period, with the first print, the value a contract settles on, any later revision beside it, and the day and Bitcoin block of its proof. `daily-proofs/<day>.json` is each daily proof: the exact JSON that was hashed, its SHA-256, and the OpenTimestamps file.
 
-A scheduled job (`.github/workflows/mirror.yml`, `scripts/mirror.ts`) copies them from tickerz.com twice a day. It refuses to write, and fails in public, if a first print already in this repo changed, a period disappeared, or a proof's digest differs. A revision (revised = true) may change a period's value beside its first print; git history shows it. So this repo's git history is a second, independent record of what was printed and when: a market that settles on a Tickerz number does not have to trust, or wait on, Tickerz's own servers.
+A scheduled job (`.github/workflows/mirror.yml`, `scripts/mirror.ts`) copies them from tickerz.com twice a day. It refuses to write, and fails in public, if a first print already in this repo changed, a period disappeared, or a proof's digest differs. A revision (revised = true) may change a period's value beside its first print; git history shows it. So this repo's git history is a second, public record of what was printed and when: a market that settles on a Tickerz number does not have to trust, or wait on, Tickerz's own servers.
 
-Raw files: `https://raw.githubusercontent.com/tickerzhq/tickerz-open/main/prints/GIGS.csv`
+Raw files: `https://raw.githubusercontent.com/tickerzhq/tickerz-open/main/prints/MINTS.csv`
 
 ## Run the tests
 
@@ -80,7 +83,7 @@ This fetches the seal Tickerz wrote on that UTC day from `https://tickerz.com/ap
 3. Rebuilt from its own rows with the published key order (`canonicalSealJson`), the text comes out byte for byte the same, so nothing rides along outside the rows.
 4. The `.ots` file commits to that same digest (the 32 bytes after its header), and matches the copy inside the JSON.
 
-It then prints the $MINTS, $GIGS and $WAGE rows the seal fixes and writes two files side by side: `proofs/tickerz-seal-2026-10-03.json` (the exact bytes that were hashed) and `proofs/tickerz-seal-2026-10-03.json.ots`.
+It then prints the $MINTS, $GIGS and $WAGE rows the seal fixes and writes two files side by side: `proofs/tickerz-seal-2026-10-03.json` (the exact bytes that were hashed) and `proofs/tickerz-seal-2026-10-03.json.ots`. The seal holds every index's rows, so the `.json` it writes is where to read any other index for that day. A seal written after Nov 12 2026 has no $GIGS or $WAGE row: they were retired.
 
 A seal written on day D holds the readings that completed since the seal before, usually day D-1. The seal written on 2026-10-03 fixes the 2026-10-02 prints: $MINTS 47,746 (graduations 1,725), $GIGS 50,535, $WAGE $0.01. Its digest is `2d4f359fc8cf89e2e431d7e03517d9577125945df989f7ef91976b5e5334b3f4`.
 
@@ -113,7 +116,9 @@ day          creates  printed    match  graduations
 
 The recount matches every complete day Tickerz printed, and the 2026-10-02 figures (47,746 coins, 1,725 graduations) are the ones the seal written on 2026-10-03 fixed in Bitcoin block 969734. Today's row is a running count that Tickerz reads once an hour, so its print runs behind a fresh recount.
 
-## Recompute $GIGS and $WAGE
+## Recompute $GIGS and $WAGE (retired, kept as history)
+
+$GIGS and $WAGE were retired on Nov 12 2026: Tickerz prints neither any more, and their last printed day is Nov 11 2026. The code stays so any day they printed can still be recounted from the chain. tickerz.com no longer serves their series, so the script's last step, setting the recount beside the print, says it could not read the published series; compare with `prints/GIGS.csv` and `prints/WAGE.csv` here instead.
 
 ```
 npm run gigs -- 2026-10-03             # all 24 hours
@@ -125,7 +130,7 @@ For each hour of the day it finds the hour's blocks on Base, counts every USDC s
 - **$GIGS is estimated from the one in sixteen sample**: every signed transfer of the day times the payments per sampled transaction, printed with its 95% range. It is graded display, not candidate, until every transaction is read.
 - **$WAGE** is the median across payers of each payer's own median price, so one wallet firing thousands of calls counts once. No level prints below 50 payers in the sample.
 
-About 40 to 60 requests an hour on Base's free public node (59 for 08:00 UTC on Oct 3; the busiest hours, with over 500 sampled receipts, need about 80), so roughly 1,200 for a full day.
+About 40 to 60 requests an hour on Base's free public nodes (59 for 08:00 UTC on Oct 3; the busiest hours, with over 500 sampled receipts, need about 80), so roughly 1,200 for a full day. Base went from a block every 2 seconds to one every 0.2 seconds at 2026-11-05 18:00 UTC, so an hour after that is ten times the blocks and takes more log calls.
 
 Run on 2026-10-04 from this repo, `npm run gigs -- 2026-10-03` (24 hours read, about 15 minutes on the public node) printed:
 
@@ -142,19 +147,19 @@ Tickerz printed for 2026-10-03: GIGS 79739, WAGE 0.005
 
 The sample is fixed by the chain, so the recount lands on the same number and the same range as the print. The 2026-10-03 prints are sealed by the seal written on 2026-10-04, after 12:00 UTC: `npm run verify -- 2026-10-04` then shows them.
 
-## Known issue: $WAGE on Oct 3 2026
+## $WAGE rule v1 here, rule v2 in what Tickerz printed from Oct 5 2026
 
-Payer balancing stops one busy wallet from setting $WAGE. It does not stop many small wallets paying one service. On Oct 3 2026 one service's many $0.001 payers halved it: $WAGE printed $0.005, against $0.01 on Oct 2. A fix is open and is not yet in the rulebook or in this code. Until it lands, read $WAGE with that in mind.
+Payer balancing stops one busy wallet from setting $WAGE. It does not stop many small wallets paying one service. On Oct 3 2026 one service's many $0.001 payers halved it: $WAGE printed $0.005, against $0.01 on Oct 2. From the Oct 5 2026 print Tickerz counted $WAGE under rule v2, which holds any one service's payers to 5% of the vote. The code here is still rule v1, so a $WAGE recount of a day from Oct 5 to Nov 11 2026 can differ from the print.
 
 ## Forecasts (Tickerz Forecast v1)
 
-Where each index's next number is likely to land, with a 10th to 90th percentile range, and how well that has worked. Display only: a forecast never touches a printed or settled number. Code: [models/forecast.py](models/forecast.py), run daily at 14:10 UTC by `.github/workflows/forecast.yml`.
+Where each index's next number is likely to land, with a 10th to 90th percentile range, and how well that has worked, for all 48 indexes. Display only: a forecast never touches a printed or settled number. Forecast v1 is the open baseline: its whole method is here, so anyone can rerun it. Code: [models/forecast.py](models/forecast.py), run daily at 14:10 UTC by `.github/workflows/forecast.yml`.
 
 - **Backward.** Every candidate (last number, 7-period mean and median, 7-day seasonal, drift, exponential smoothing and Theta from statsforecast, gradient-boosted trees from LightGBM once a series has 60 periods, and the median of all of them) is walked forward over the numbers as first published: at each past period it sees only what came before. Scored by pinball loss and by how often the actual number fell inside the range (80% is right).
 - **Forward.** Each index uses the median of all candidates unless another model's loss over the last 14 periods is at least 10% lower. The next forecast is appended to `forecasts/log.csv` before the number is known; a row there is never rewritten, and only the first forecast for a period counts.
 - **Self-correcting.** The choice is made again every day from the newest prints and logged in `forecasts/selection.csv`.
 - **Honest numbers.** `forecasts/latest.json` gives, per index, the backtest of the whole procedure (picking the model the way the daily run does, from earlier periods only) against repeating the last number on the same periods. The default model and the 10% margin were chosen after looking at that backtest, so the clean test is the live record in `log.csv`.
-- **In shadow, from Nov 2026.** Two open models, Amazon's Chronos-2 and Google's TimesFM 2.5 (both Apache 2.0), forecast the same next period with their own ranges, along with the average of the two, for four weeks beside v1. They go to `forecasts/shadow-log.csv` (append only, the first forecast for a period counts) and `forecasts/shadow.json` (the same side-by-side live record); the site still reads `latest.json`, which they never touch. In a backtest on v1's own periods they scored about 7 to 10% better than v1; the site switches only if the live record agrees.
+- **In shadow, from Nov 2026.** Two open models, Amazon's Chronos-2 and Google's TimesFM 2.5 (both Apache 2.0), forecast the same next period with their own ranges, along with the average of the two, for four weeks beside v1. They go to `forecasts/shadow-log.csv` (append only, the first forecast for a period counts) and `forecasts/shadow.json` (the same side-by-side live record); they never touch `latest.json`. In a backtest on v1's own periods they scored about 7 to 10% better than v1. The site does not read them.
 
 ```bash
 pip install -r models/requirements.txt
@@ -163,13 +168,15 @@ python3 models/forecast.py --dry     # reads tickerz.com, writes forecasts/lates
 pip install -r models/requirements-shadow.txt   # optional: the shadow models (CPU torch, about 1.3 GB of weights)
 ```
 
+**What tickerz.com shows.** Since Nov 18 2026 the ranges on tickerz.com come from the Tickerz Engine, a forecasting engine that learns from every print. For each index it publishes the likely range of the next number and how unusual the newest one was ("about 1 in N"), with its live record: the `engine` object in `GET https://tickerz.com/api/v1/indices/{ticker}` and the page https://tickerz.com/forecast. Display only, never a settled number. The engine's method is private and is not in this repo. Where the engine has no reading, the site shows Forecast v1 from `forecasts/latest.json` here.
+
 ## Desk displays
 
 `displays/` holds a free plugin for TRMNL e-paper screens and a Pixlet app for Tidbyt LED panels on a Tronbyt server. Each shows the Tickerz Close or one index from the public API. Setup and screenshots: [displays/README.md](displays/README.md).
 
 ## The Floor
 
-`floor/latest.json` is how Tickerz runs as a company of AI agents, shown at [tickerz.com/floor](https://tickerz.com/floor): the three numbers the company is scored on, every seat with its name, its ticker and what it is doing and learning (the founder's seat included), the bell for real wins, the Company Close, and the idea market. It is exported from the company's private record by a script that passes every line through an allowlist and a confidentiality check and writes nothing when one fails. A ticker, a rank or odds that nothing measures yet is `null`, never a guess. The rules are in `floor/RULES.md`, the fields in `floor/schema.json`, and `.github/workflows/floor.yml` checks every change with `test/floor.test.ts`.
+Tickerz runs as a company of AI agents, shown at [tickerz.com/proof-of-work](https://tickerz.com/proof-of-work) (tickerz.com/floor goes there). That page reads `floor/seats.json`: every seat with its badge, title and team, its level and how it moved, what it is working on, what it learned and its own view (the founder's seat included), written nightly by the scorer from the company's private record with private lines dropped. `floor/latest.json` is the first version of the file (Oct 9 2026): the three numbers the company is scored on, the bell for real wins, the Company Close and the idea market. It is exported by a script that passes every line through an allowlist and a confidentiality check and writes nothing when one fails. A ticker, a rank or odds that nothing measures yet is `null`, never a guess. Its rules are in `floor/RULES.md`, its fields in `floor/schema.json`, and `.github/workflows/floor.yml` checks every change with `test/floor.test.ts`.
 
 ## Sources and credits
 
@@ -186,4 +193,4 @@ MIT, copyright Tickerz LLC (see LICENSE). The x402 facilitator list comes from M
 
 ## The oracle recount
 
-`oracle/` holds the code that independently recounts every number the Tickerz oracle signs, copied from the product repo so anyone can read exactly what co-signs. `.github/workflows/cosign.yml` runs it every day at 16:40 UTC: it fetches each new signed report from tickerz.com, counts the period again from the source (the BLS API and flat file for $JOBS, $UNEMP, $CPI and $CORECPI; the Solana chain for $MINTS), and co-signs only when its count equals the signed value. Co-signatures land in `cosigns/`, disagreements in `disputes/`. The co-signing key is this repo's own (address 7TYVLzDyAGspQ2FSH1H4D8kzrocuQqSRMM48frr3EjZ3), separate from the publisher's. A number is final after 24 hours with a co-signature and no dispute. Run it yourself: `npx tsx oracle/scripts/cosign.ts --out .` with your own `TICKERZ_COSIGNER_KEY`.
+`oracle/` holds the public recount of every number the Tickerz oracle signs, copied from the product repo so anyone can read exactly what co-signs. `.github/workflows/cosign.yml` runs it every day at 16:40 UTC: it fetches each new signed report from tickerz.com, counts the period again from the source (the BLS API and flat file for $JOBS, $UNEMP, $CPI and $CORECPI; the Labor Department's claims file for $LAYOFFS; the Solana chain for $MINTS), and co-signs only when its count equals the signed value. Co-signatures land in `cosigns/`, disagreements in `disputes/`. The co-signing key is this repo's own (address 7TYVLzDyAGspQ2FSH1H4D8kzrocuQqSRMM48frr3EjZ3), separate from the publisher's. A number is final after 24 hours with a co-signature and no dispute. Every signed number is listed at https://oracle.tickerz.com and https://tickerz.com/signed. The oracle's Solana program runs on devnet; its mainnet address is reserved and not deployed yet, so until it is, the signed report is the record. Run it yourself: `npx tsx oracle/scripts/cosign.ts --out .` with your own `TICKERZ_COSIGNER_KEY`.

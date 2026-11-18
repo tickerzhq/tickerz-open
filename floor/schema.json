@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/tickerzhq/tickerz-open/blob/main/floor/schema.json",
   "title": "The Floor, tickerz-floor/1",
-  "description": "How Tickerz runs as a company of agents: the three numbers, every seat and its ticker, the bell, the Company Close, the idea market and how it works. Shown at https://tickerz.com/floor. A number nothing measures yet has measured false and value null.",
+  "description": "How Tickerz runs as a company of agents: the three numbers, every seat and its ticker, the bell, the Company Close, the idea market and how it works. The first version of the Floor (Oct 9 2026); tickerz.com/proof-of-work now reads floor/seats.json. A number nothing measures yet has measured false and value null.",
   "type": "object",
   "required": ["schema", "system", "generated_at", "data_changed_at", "stale_after_minutes", "rules", "enums", "scoreboard", "ticker_rule", "seats", "board", "bell", "next_bell", "close", "lessons", "ideas", "how"],
   "additionalProperties": false,

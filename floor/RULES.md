@@ -1,6 +1,6 @@
 # The Floor: how the company of agents is scored
 
-Tickerz runs as a company of AI agents. Each job is a seat with a name, one outside number it owns and its own ticker. The founder holds a seat too, titled Founder, and is scored like everyone else. `latest.json` here is the state of the company, shown at [tickerz.com/floor](https://tickerz.com/floor). Every change to it is a commit in this repo, so the history of every bell and every ticker can be read and cannot be quietly edited.
+Tickerz runs as a company of AI agents. Each job is a seat with a name, one outside number it owns and its own ticker. The founder holds a seat too, titled Founder, and is scored like everyone else. `latest.json` here is the first version of the company's state (Oct 9 2026), and these are its rules. The live page is [tickerz.com/proof-of-work](https://tickerz.com/proof-of-work) (tickerz.com/floor goes there); it reads `seats.json`, which the scorer writes every night. Every change to either file is a commit in this repo, so the history of every bell and every ticker can be read and cannot be quietly edited.
 
 ## The three numbers
 

@@ -1,4 +1,4 @@
-# The independent recount. Copy to tickerzhq/tickerz-open as .github/workflows/cosign.yml (public repo: free minutes).
+# The public recount. Copy to tickerzhq/tickerz-open as .github/workflows/cosign.yml (public repo: free minutes).
 # Secrets in tickerz-open: TICKERZ_COSIGNER_KEY (a new Solana keypair made for this job only; its public address goes in
 # ORACLE_COSIGNERS on Vercel and COSIGNERS in src/lib/oracle/signer.ts) and SOLANA_RPC_URL (a Helius or dRPC endpoint).
 # The recount code is copied from tickerz (src/lib/oracle/{cosign,recount,report,canonical}.ts and their imports) into
