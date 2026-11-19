@@ -11,8 +11,7 @@ on:
     - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
 
-permissions:
-  issues: write
+permissions: {}
 
 concurrency:
   group: uptime
@@ -20,6 +19,9 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    # Opens, comments on and closes the "uptime" issue; reads nothing else.
+    permissions:
+      issues: write
     timeout-minutes: 3
     env:
       GH_TOKEN: ${{ github.token }}
