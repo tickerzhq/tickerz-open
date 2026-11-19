@@ -28,7 +28,7 @@ src/
                     payer-balanced median, and readHour over public Base nodes.
   facilitators.ts   The 128 x402 facilitator wallets on Base whose payments count (from x402scan, MIT).
   gigsRange.ts      The 95% range printed beside $GIGS (retired): parsing, and a reader for the public API.
-  seal.ts           The daily seal: its canonical JSON, first prints, the .ots header, and checkSeal.
+  seal.ts           The daily seal: its canonical JSON, the numbers as first published, the .ots header, and checkSeal.
   rulebook.ts       The published rulebook lines for the three indexes, as data.
   publicApi.ts      Reads what Tickerz printed from https://tickerz.com/api/v1 (no key).
 scripts/
@@ -52,9 +52,9 @@ The counting code is extracted from Tickerz's production code with the counting 
 
 ## The prints, mirrored here
 
-`prints/<TICKER>.csv` is the settlement file for each index counted from a source whose terms allow republishing the count ($LAYOFFS, $MINTS, and since Nov 12 2026 the human indexes on public domain or CC0 files: $LONELY, $BROKE, $STRAPPED, $LASTCALL, $OD, $SHELTER, $SAD; GIGS.csv and WAGE.csv stay as history since $GIGS and $WAGE were retired on Nov 12 2026): one row per complete period, with the first print, the value a contract settles on, any later revision beside it, and the day and Bitcoin block of its proof. `daily-proofs/<day>.json` is each daily proof: the exact JSON that was hashed, its SHA-256, and the OpenTimestamps file.
+`prints/<TICKER>.csv` is the settlement file for each index counted from a source whose terms allow republishing the count ($LAYOFFS, $MINTS, and since Nov 12 2026 the human indexes on public domain or CC0 files: $LONELY, $BROKE, $STRAPPED, $LASTCALL, $OD, $SHELTER, $SAD; GIGS.csv and WAGE.csv stay as history since $GIGS and $WAGE were retired on Nov 12 2026): one row per complete period, with the number as first published, the value a contract settles on, any later revision beside it, and the day and Bitcoin block of its proof. `daily-proofs/<day>.json` is each daily proof: the exact JSON that was hashed, its SHA-256, and the OpenTimestamps file.
 
-A scheduled job (`.github/workflows/mirror.yml`, `scripts/mirror.ts`) copies them from tickerz.com twice a day. It refuses to write, and fails in public, if a first print already in this repo changed, a period disappeared, or a proof's digest differs. A revision (revised = true) may change a period's value beside its first print; git history shows it. So this repo's git history is a second, public record of what was printed and when: a market that settles on a Tickerz number does not have to trust, or wait on, Tickerz's own servers.
+A scheduled job (`.github/workflows/mirror.yml`, `scripts/mirror.ts`) copies them from tickerz.com twice a day. It refuses to write, and fails in public, if a number as first published already in this repo changed, a period disappeared, or a proof's digest differs. A revision (revised = true) may change a period's value beside the number as first published; git history shows it. So this repo's git history is a second, public record of what was printed and when: a market that settles on a Tickerz number does not have to trust, or wait on, Tickerz's own servers.
 
 Raw files: `https://raw.githubusercontent.com/tickerzhq/tickerz-open/main/prints/MINTS.csv`
 
@@ -64,7 +64,7 @@ Tested on Node 22.23 (package.json asks for Node 20 or later).
 
 ```
 npm ci
-npm test            # 7 files, 54 checks, no network
+npm test            # 7 files, 55 checks, no network
 npx tsc --noEmit    # strict type check of src, scripts and tests
 ```
 
@@ -153,7 +153,7 @@ Payer balancing stops one busy wallet from setting $WAGE. It does not stop many 
 
 ## Forecasts (Tickerz Forecast v1)
 
-Where each index's next number is likely to land, with a 10th to 90th percentile range, and how well that has worked, for all 48 indexes. Display only: a forecast never touches a printed or settled number. Forecast v1 is the open baseline: its whole method is here, so anyone can rerun it. Code: [models/forecast.py](models/forecast.py), run daily at 14:10 UTC by `.github/workflows/forecast.yml`.
+Where each index's next number is likely to land, with a 10th to 90th percentile range, and how well that has worked, for every live index the public API serves with enough history (48 of the 50 in the run of Nov 18 2026: $TSA and $EO joined the board that day). Display only: a forecast never touches a printed or settled number. Forecast v1 is the open baseline: its whole method is here, so anyone can rerun it. Code: [models/forecast.py](models/forecast.py), run daily at 14:10 UTC by `.github/workflows/forecast.yml`.
 
 - **Backward.** Every candidate (last number, 7-period mean and median, 7-day seasonal, drift, exponential smoothing and Theta from statsforecast, gradient-boosted trees from LightGBM once a series has 60 periods, and the median of all of them) is walked forward over the numbers as first published: at each past period it sees only what came before. Scored by pinball loss and by how often the actual number fell inside the range (80% is right).
 - **Forward.** Each index uses the median of all candidates unless another model's loss over the last 14 periods is at least 10% lower. The next forecast is appended to `forecasts/log.csv` before the number is known; a row there is never rewritten, and only the first forecast for a period counts.
