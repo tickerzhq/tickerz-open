@@ -13,7 +13,7 @@ A rulebook line is what a venue can paste into a contract: what the number count
 
 Once per UTC day, after 12:00 UTC, Tickerz writes one seal: every index row written or revised since the seal before, as compact JSON with a fixed key order (`kind`, `day`, `since`, `rows[]` of `ticker`, `period`, `value`, `revisions`, sorted by ticker then period). The JSON is hashed with SHA-256 and the digest is stamped with OpenTimestamps, which commits it to a Bitcoin block. The text is served exactly as hashed at `GET https://tickerz.com/api/v1/indices/proof?day=YYYY-MM-DD`, with the `.ots` proof at `&format=ots`.
 
-A seal written on day D holds the periods that completed since the seal before, usually period D-1. The first seal to hold a ticker and period is that period's **first print**, the number a venue settles on. A later revision by the source is sealed again and sits beside the first print, never in its place. `npm run verify -- YYYY-MM-DD` checks a seal; see the README.
+A seal written on day D holds the periods that completed since the seal before, usually period D-1. The first seal to hold a ticker and period holds that period's number **as first published**, the number a venue settles on (`first_print` in the API). A later revision by the source is sealed again and sits beside it, never in its place. `npm run verify -- YYYY-MM-DD` checks a seal; see the README.
 
 ## $MINTS: Memecoin launches
 
