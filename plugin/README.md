@@ -15,13 +15,14 @@ Or add only the server: `claude mcp add --transport http tickerz https://tickerz
 
 ## The indexes
 
-48 live indexes in eight families, the human ones first:
+50 live indexes in nine families, the human ones first:
 
 - **Vice:** $GOON (porn among the web's top 1,000 sites), $AIGF (AI companion sites), $TILT (New York phone bets), $SPIN, $PARLAY, $KENO, $LASTCALL (the Texas bar tab), $LEAF (Canada's legal weed stores).
 - **Hard times:** $BROKE (debt collector complaints), $SHELTER (the New York City shelter census), $EVICTED, $EBT, $TAXMAN, $UNDERWATER.
 - **Mind:** $LONELY, $SAD (mental health ER visits), $OD (overdose deaths, shown and never called), $STRAPPED (gun background checks).
 - **Streets, Wild, Net, Planet:** city complaints from potholes to robotaxis, animals, the dark web and data breaches, sea ice, CO2, earthquakes and asteroids.
-- **Markets:** $LAYOFFS (US initial jobless claims), $JOBS, $UNEMP, $CPI and $CORECPI (as first published), $MINTS (memecoin launches on Solana), $TRENCHES, $YESNO (prediction market volume), $COE.
+- **Markets:** $LAYOFFS (US initial jobless claims), $JOBS, $UNEMP, $CPI and $CORECPI (as first published), $TSA (people screened at airport checkpoints), $MINTS (memecoin launches on Solana), $TRENCHES, $YESNO (prediction market volume), $COE.
+- **Power:** $EO (executive orders the President signs each week).
 
 `find_index` maps a plain question to the index that answers it. The full list: https://tickerz.com/x. How a reading is scored against its own normal: https://tickerz.com/methodology. Recounts: this repository.
 
@@ -34,3 +35,5 @@ The plugin has no hooks, scripts or local code. It adds one remote MCP server, `
 ## Privacy
 
 The server reads public data and stores nothing about you. `name_a_number` and `submit_forecast` write only what you send them. Policy: https://tickerz.com/privacy
+
+The code and text here are MIT licensed. The Tickerz name and mark, used as the plugin's icon (`assets/icon.png`), are not covered by that licence.
