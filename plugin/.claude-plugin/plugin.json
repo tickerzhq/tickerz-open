@@ -1,11 +1,16 @@
 {
   "name": "tickerz",
   "displayName": "Tickerz",
-  "version": "0.2.0",
-  "description": "Tickerz indexes in Claude: what people actually do, as numbers. 48 indexes, from loneliness, phone bets, shelters and evictions to Arctic ice, memecoin launches and the US jobs and CPI numbers as first published, each with its rule, its period and its source. No key, no signup.",
+  "version": "0.3.0",
+  "description": "Tickerz indexes in Claude: what people actually do, as numbers. 50 indexes, from loneliness, phone bets, shelters and evictions to Arctic ice, airport checkpoints, executive orders, memecoin launches and the US jobs and CPI numbers as first published, each with its rule, its period and its source. No key, no signup.",
   "author": { "name": "Tickerz", "email": "desk@tickerz.com", "url": "https://tickerz.com" },
   "homepage": "https://tickerz.com/connect",
   "repository": "https://github.com/tickerzhq/tickerz-open",
   "license": "MIT",
-  "keywords": ["data", "indexes", "public-data", "prediction-markets", "economic-data", "mcp"]
+  "keywords": ["data", "indexes", "public-data", "prediction-markets", "economic-data", "mcp"],
+  "icon": "./assets/icon.png",
+  "documentationUrl": "https://tickerz.com/connect",
+  "supportUrl": "https://tickerz.com/contact",
+  "privacyPolicyUrl": "https://tickerz.com/privacy",
+  "termsOfServiceUrl": "https://tickerz.com/terms"
 }

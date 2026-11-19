@@ -1,11 +1,11 @@
 ---
 name: tickerz-index
-description: Read Tickerz indexes and answer with the number, its unit, its period and how it was counted. Use when someone asks about what people actually do and the numbers behind it, such as loneliness, porn, sports and casino bets, drinking, overdoses, guns, shelters, evictions, food stamps, debt collectors, city complaints (potholes, fireworks, graffiti, tents, robotaxis), animals, the dark web and data breaches, sea ice, CO2, earthquakes and asteroids, or about US jobless claims, payrolls, unemployment and CPI as first published, memecoin launches and prediction market volume. Also for how unusual crypto or US stock trading is right now (the Terminal), or a market settled on one of these numbers.
+description: Read Tickerz indexes and answer with the number, its unit, its period and how it was counted. Use when someone asks about what people actually do and the numbers behind it, such as loneliness, porn, sports and casino bets, drinking, overdoses, guns, shelters, evictions, food stamps, debt collectors, city complaints (potholes, fireworks, graffiti, tents, robotaxis), animals, the dark web and data breaches, sea ice, CO2, earthquakes and asteroids, or about US jobless claims, payrolls, unemployment and CPI as first published, airport checkpoint counts, executive orders, memecoin launches and prediction market volume. Also for how unusual crypto or US stock trading is right now (the Terminal), or a market settled on one of these numbers.
 ---
 
 # Tickerz indexes
 
-Tickerz publishes 48 live indexes, each counted from a named public source under a fixed rule, in eight families: Vice, Hard times, Mind, Streets, Wild, Net, Planet and Markets. The human ones lead: $GOON (porn among the web's top 1,000 sites), $LONELY, $TILT (New York phone bets), $BROKE (debt collector complaints), $SHELTER (the New York City shelter census), $EVICTED and more. The list is at https://tickerz.com/x. Use the `tickerz` MCP tools; no key is needed.
+Tickerz publishes 50 live indexes, each counted from a named public source under a fixed rule, in nine families: Vice, Hard times, Mind, Streets, Wild, Net, Planet, Markets and Power. The human ones lead: $GOON (porn among the web's top 1,000 sites), $LONELY, $TILT (New York phone bets), $BROKE (debt collector complaints), $SHELTER (the New York City shelter census), $EVICTED and more. The list is at https://tickerz.com/x. Use the `tickerz` MCP tools; no key is needed.
 
 ## Which tool
 

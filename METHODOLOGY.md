@@ -5,7 +5,7 @@ This is the rulebook Tickerz publishes for the three indexes whose code is in th
 - **$MINTS** is live. Its lines are on https://tickerz.com/x/mints and in `GET https://tickerz.com/api/v1/indices/mints`, and its machine-readable rule, with the hash the oracle signs under, is at `GET https://tickerz.com/api/v1/indices/mints/rule`. Production now labels the same lines Rulebook v0.2 (2026-10-04); the $MINTS lines did not change.
 - **$GIGS and $WAGE** were retired on Nov 12 2026. Their lines are kept here as the rule every day they printed (Sep 15 to Nov 11 2026) was counted under. From the Oct 5 2026 print production counted $WAGE under rule v2 (below); the code here is rule v1.
 
-Every live index (48 today) has its rule at `GET https://tickerz.com/api/v1/indices/{ticker}/rule` and its page at https://tickerz.com/x/{ticker}. How Tickerz scores a reading against its own normal is published at https://tickerz.com/methodology.
+Every live index (50 today) has its rule at `GET https://tickerz.com/api/v1/indices/{ticker}/rule` and its page at https://tickerz.com/x/{ticker}. How Tickerz scores a reading against its own normal is published at https://tickerz.com/methodology.
 
 A rulebook line is what a venue can paste into a contract: what the number counts, where it comes from, what it costs to move, what happens when the source is late, and the precision. The grade says how far a venue can lean on it: **candidate** could settle a listed contract once its open item is cleared; **reference** is a public series a venue can read itself; **display** is for reading only.
 
