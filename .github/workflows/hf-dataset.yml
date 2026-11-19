@@ -1,0 +1,71 @@
+name: hf-dataset
+
+# Once a day: rebuild the open Tickerz dataset (scripts/hf-dataset.ts) and upload it to Hugging Face. Only indexes whose
+# rule says rights "clean" go in; the rule is read on every run. Nothing is uploaded when the data and the card have
+# not changed since the last upload (manifest.json digest). Public repo, so the minutes are free.
+#
+# Needs one repository secret, HF_TOKEN: a Hugging Face token with write access to the dataset's organization. Until it
+# is set the run still builds and checks the dataset, then skips the upload with a warning. The dataset repo is created
+# on the first upload if it does not exist.
+on:
+  schedule:
+    - cron: "50 15 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hf-dataset
+
+env:
+  HF_DATASET: tickerzhq/tickerz-index
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Build the dataset from tickerz.com
+        run: node scripts/hf-dataset.ts hf-out
+      - name: No token yet
+        if: env.HF_TOKEN == ''
+        run: echo "::warning::HF_TOKEN is not set in this repository's Actions secrets, so the dataset was built and not uploaded."
+      - uses: actions/setup-python@v5
+        if: env.HF_TOKEN != ''
+        with:
+          python-version: "3.12"
+      - name: Upload to Hugging Face
+        if: env.HF_TOKEN != ''
+        run: |
+          pip install --quiet huggingface_hub==2.2.0
+          python - <<'PY'
+          import json, os
+          from huggingface_hub import HfApi, hf_hub_download
+
+          repo, token = os.environ["HF_DATASET"], os.environ["HF_TOKEN"]
+          api = HfApi(token=token)
+          api.create_repo(repo, repo_type="dataset", private=False, exist_ok=True)
+          new = json.load(open("hf-out/manifest.json"))["digest"]
+          try:
+              old = json.load(open(hf_hub_download(repo, "manifest.json", repo_type="dataset", token=token)))["digest"]
+          except Exception:
+              old = None
+          if old == new:
+              print(f"unchanged ({new}); nothing uploaded")
+          else:
+              info = api.upload_folder(
+                  repo_id=repo,
+                  repo_type="dataset",
+                  folder_path="hf-out",
+                  delete_patterns=["data/*.csv"],
+                  commit_message=f"Tickerz Index {new[:12]}",
+              )
+              print(f"uploaded: {info.commit_url}")
+          PY
