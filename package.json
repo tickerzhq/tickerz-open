@@ -16,11 +16,11 @@
     "gigs": "tsx scripts/recompute-gigs-wage.ts"
   },
   "dependencies": {
-    "viem": "2.56.8"
+    "viem": "2.57.19"
   },
   "devDependencies": {
     "@types/node": "22.20.1",
-    "tsx": "4.23.13",
+    "tsx": "4.23.15",
     "typescript": "5.9.3"
   },
   "license": "MIT"
