@@ -9,15 +9,23 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+
+# One run at a time: a run started by hand while the scheduled one runs would race it to the same commit.
+concurrency:
+  group: mirror
+  cancel-in-progress: false
 
 jobs:
   mirror:
     runs-on: ubuntu-latest
+    # The only job, and it commits prints/ and daily-proofs/ to main.
+    permissions:
+      contents: write
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 24
       - name: Mirror the prints

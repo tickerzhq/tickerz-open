@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a security problem
+    url: https://github.com/tickerzhq/tickerz-open/security/policy
+    about: Email desk@tickerz.com with "security" in the subject. Please do not open a public issue for it.
+  - name: Anything else for Tickerz
+    url: https://tickerz.com/contact
+    about: Questions about an index, the API, the oracle or a listing go to desk@tickerz.com.

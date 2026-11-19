@@ -9,7 +9,7 @@ on:
     - cron: "40 16 * * *"
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 # One run at a time: two runs started together both commit and the second push is refused (Oct 9).
 concurrency:
   group: cosign
@@ -17,10 +17,13 @@ concurrency:
 jobs:
   cosign:
     runs-on: ubuntu-latest
+    # The only job, and it commits cosigns/ and disputes/ to main.
+    permissions:
+      contents: write
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
       - run: npm ci

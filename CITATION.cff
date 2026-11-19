@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software or its recounts, please cite it as below."
+title: "Tickerz Open"
+type: software
+abstract: >-
+  The public half of Tickerz: recount any signed Tickerz number from its public source, co-sign it,
+  verify the daily Bitcoin-timestamped proof, mirror the settlement files, and rerun Forecast v1.
+authors:
+  - name: "Tickerz"
+    website: "https://tickerz.com"
+    email: "desk@tickerz.com"
+license: MIT
+url: "https://tickerz.com"
+repository-code: "https://github.com/tickerzhq/tickerz-open"
+keywords:
+  - oracle
+  - public-data
+  - indexes
+  - opentimestamps
+  - bitcoin
+  - solana
+  - forecasting
+  - prediction-markets

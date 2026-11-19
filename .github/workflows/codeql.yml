@@ -1,0 +1,54 @@
+name: codeql
+
+# Static analysis of the code in this repo: the TypeScript (the counters, the recount, the scripts), the Python (the
+# forecast and the decision model) and these workflows. Findings land in the Security tab under Code scanning. Runs on
+# every pull request, on pushes to main that change code (the bots' data commits are skipped), and once a week so new
+# queries reach old code. Public repo, so the minutes are free.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "prints/**"
+      - "daily-proofs/**"
+      - "forecasts/**"
+      - "cosigns/**"
+      - "disputes/**"
+      - "floor/*.json"
+      - "**/*.md"
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      security-events: write # upload the results to code scanning
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [actions, javascript-typescript, python]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: github/codeql-action/init@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: none
+          queries: security-extended
+      - uses: github/codeql-action/analyze@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
+        with:
+          category: "/language:${{ matrix.language }}"

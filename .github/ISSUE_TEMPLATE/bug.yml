@@ -1,0 +1,39 @@
+name: Bug
+description: A script, test, workflow or display in this repo does not do what it says.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran and what it did.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce it
+      description: The exact commands, from a fresh clone if you can.
+      placeholder: |
+        npm ci
+        npm run verify -- 2026-10-03
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Output
+      description: The full output or error. Remove any key or token first.
+      render: text
+  - type: input
+    id: env
+    attributes:
+      label: Node or Python version, and OS
+      placeholder: "Node 22.23, Ubuntu 24.04"

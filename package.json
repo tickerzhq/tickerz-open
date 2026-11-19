@@ -11,6 +11,7 @@
     "test": "tsx scripts/test-all.ts",
     "typecheck": "tsc --noEmit",
     "verify": "tsx scripts/verify-proof.ts",
+    "recount": "tsx oracle/scripts/recount.ts",
     "mints": "tsx scripts/count-mints.ts",
     "gigs": "tsx scripts/recompute-gigs-wage.ts"
   },

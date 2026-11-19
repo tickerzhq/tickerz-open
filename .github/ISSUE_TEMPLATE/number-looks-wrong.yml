@@ -1,0 +1,67 @@
+name: A number looks wrong
+description: A Tickerz number, a recount or a mirrored print that does not match its source.
+title: "Number looks wrong: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. A wrong number is the most useful report there is. Before you send it, `npm run recount -- TICKER` (for JOBS, UNEMP, CPI, CORECPI, LAYOFFS and MINTS) counts the period again from the source and shows whether the signature checks; paste its output below if you ran it.
+  - type: input
+    id: ticker
+    attributes:
+      label: Ticker
+      placeholder: "$JOBS"
+    validations:
+      required: true
+  - type: input
+    id: period
+    attributes:
+      label: Period
+      description: The day, week or month, as Tickerz writes it.
+      placeholder: "2026-10-01"
+    validations:
+      required: true
+  - type: input
+    id: seen
+    attributes:
+      label: Value seen
+      description: The number Tickerz shows.
+      placeholder: "165,000"
+    validations:
+      required: true
+  - type: input
+    id: expected
+    attributes:
+      label: Value expected
+      description: The number you think is right.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source link
+      description: Where the expected value comes from, as close to the original as you can.
+      placeholder: "https://..."
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where you saw the number
+      multiple: true
+      options:
+        - A page on tickerz.com
+        - The API or the MCP server
+        - A signed report on oracle.tickerz.com
+        - A file in this repo (prints/, cosigns/, forecasts/)
+        - The output of a script in this repo
+        - Somewhere else
+    validations:
+      required: true
+  - type: textarea
+    id: how
+    attributes:
+      label: How you got the expected value
+      description: The steps, or the recount output. Paste text, not a screenshot, where you can.
+      render: text
