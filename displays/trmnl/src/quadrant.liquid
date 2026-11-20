@@ -14,7 +14,7 @@
     <span class="tz-tick tz-f14">{{ tz_close_day }}</span>
   </div>
   <div class="tz-grid2">
-    {%- for t in tz_tickers %}
+    {%- for t in tz_tickers limit: 6 %}
     <div>
       <span class="tz-tick tz-f12">${{ t }}</span>
       <span class="tz-num tz-n20">{{ tz_values[forloop.index0] }}</span>

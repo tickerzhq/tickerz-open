@@ -23,7 +23,7 @@
     <div class="description tz-gap">{{ text }}</div>
   </div>
   <div class="tz-rule">
-    {%- for t in tz_tickers %}
+    {%- for t in tz_tickers limit: 6 %}
     <div class="tz-row">
       <span class="tz-tick tz-f16">${{ t }}</span>
       <span class="tz-num tz-n28">{{ tz_values[forloop.index0] }}</span>
