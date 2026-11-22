@@ -96,4 +96,4 @@ BROKE,2026-10-03,5374,5319,true,2026-11-22,Quiet,-0.7,2026-11-13,975682,https://
 BROKE,2026-10-10,5110,5035,true,2026-11-22,Quiet,-0.8,2026-11-13,975682,https://tickerz.com/api/indices/proof?day=2026-11-13
 BROKE,2026-10-17,5368,5302,true,2026-11-22,Quiet,-0.3,2026-11-13,975682,https://tickerz.com/api/indices/proof?day=2026-11-13
 BROKE,2026-10-24,5583,5503,true,2026-11-22,Quiet,0.1,2026-11-15,975967,https://tickerz.com/api/indices/proof?day=2026-11-15
-BROKE,2026-10-31,5076,,false,,Quiet,-0.6,,,
+BROKE,2026-10-31,5076,5076,false,,Quiet,-0.6,2026-11-22,977059,https://tickerz.com/api/indices/proof?day=2026-11-22
