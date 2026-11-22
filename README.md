@@ -1,11 +1,22 @@
-# Tickerz Open
+<p align="center">
+  <a href="https://tickerz.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/brand/tickerz-mark-tape-3-bone.svg">
+      <img alt="Tickerz" src=".github/brand/tickerz-mark-tape-3-ink.svg" height="56">
+    </picture>
+  </a>
+</p>
 
-**Recount any signed Tickerz number yourself.**
+<h1 align="center">Tickerz Open</h1>
 
-[![uptime](https://github.com/tickerzhq/tickerz-open/actions/workflows/uptime.yml/badge.svg)](https://github.com/tickerzhq/tickerz-open/actions/workflows/uptime.yml)
-[![cosign](https://github.com/tickerzhq/tickerz-open/actions/workflows/cosign.yml/badge.svg)](https://github.com/tickerzhq/tickerz-open/actions/workflows/cosign.yml)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/tickerzhq/tickerz-open/badge)](https://scorecard.dev/viewer/?uri=github.com/tickerzhq/tickerz-open)
-[![License: MIT](https://img.shields.io/github/license/tickerzhq/tickerz-open)](LICENSE)
+<p align="center">Recount any signed Tickerz number yourself.</p>
+
+<p align="center">
+  <a href="https://github.com/tickerzhq/tickerz-open/actions/workflows/uptime.yml"><img alt="uptime" src="https://github.com/tickerzhq/tickerz-open/actions/workflows/uptime.yml/badge.svg"></a>
+  <a href="https://github.com/tickerzhq/tickerz-open/actions/workflows/cosign.yml"><img alt="cosign" src="https://github.com/tickerzhq/tickerz-open/actions/workflows/cosign.yml/badge.svg"></a>
+  <a href="https://scorecard.dev/viewer/?uri=github.com/tickerzhq/tickerz-open"><img alt="OpenSSF Scorecard" src="https://api.scorecard.dev/projects/github.com/tickerzhq/tickerz-open/badge"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/tickerzhq/tickerz-open"></a>
+</p>
 
 [Tickerz](https://tickerz.com) turns data into numbers that markets can be built on: everything gets a ticker. Each number is kept as first published, with a Bitcoin timestamp, and the ones a market may settle on are signed. Tickerz publishes the number; it never runs a market.
 
