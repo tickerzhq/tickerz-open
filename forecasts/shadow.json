@@ -1,6 +1,6 @@
 {
  "version": "forecast-shadow-v1",
- "generated_at": "2026-11-22T20:43:15Z",
+ "generated_at": "2026-11-22T22:08:26Z",
  "shown_on_site": false,
  "note": "Shadow forecasts from two open foundation models, logged beside Forecast v1 for comparison. Not shown on the site; the site reads latest.json.",
  "models": {
@@ -9,14 +9,14 @@
    "revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
    "licence": "Apache-2.0",
    "status": "ok",
-   "seconds": 14.5
+   "seconds": 11.9
   },
   "timesfm25": {
    "repo": "google/timesfm-2.5-200m-pytorch",
    "revision": "1d952420fba87f3c6dee4f240de0f1a0fbc790e3",
    "licence": "Apache-2.0",
    "status": "ok",
-   "seconds": 4.2
+   "seconds": 3.4
   },
   "fm_average": {
    "status": "ok"
