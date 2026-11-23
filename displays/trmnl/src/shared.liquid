@@ -1,7 +1,7 @@
 {%- comment -%}
 Tickerz for TRMNL. TRMNL puts this markup above every layout, so all the formatting happens here and the layouts only
 place it. One polling URL feeds it, no key:
-  The Close  https://tickerz.com/api/v1/indices/close     rows[], text, day
+  The Close  https://tickerz.com/api/v1/indices/close     rows[] (most unusual first), text, day
   One index  https://tickerz.com/api/v1/indices/{slug}    ticker, name, unit, step, source, latest_complete, days[], url
 The number shown is always the newest complete reading (latest_complete), never a day still being counted.
 Formats follow the site (src/lib/indices/format.ts): counts in full with commas, dollars as $584.41M, $3.55M, $0.0100,
@@ -69,10 +69,10 @@ results are kept as lists in the same order: tz_tickers, tz_values, tz_periods.
     {%- assign fv = r.value -%}
     {%- assign fp = r.period -%}
     {%- assign fs = 1 -%}
-    {%- if ft == "LAYOFFS" -%}{%- assign fs = 7 -%}{%- endif -%}
+    {%- if ft == "LAYOFFS" or ft == "TILT" or ft == "BROKE" -%}{%- assign fs = 7 -%}{%- endif -%}
     {%- assign fu = "count" -%}
     {%- case ft -%}
-      {%- when "YESNO", "TRENCHES", "WAGE" -%}{%- assign fu = "dollars" -%}
+      {%- when "YESNO", "TRENCHES", "TILT" -%}{%- assign fu = "dollars" -%}
       {%- when "UNEMP", "CPI", "CORECPI" -%}{%- assign fu = "percent" -%}{%- assign fs = "month" -%}
       {%- when "JOBS" -%}{%- assign fs = "month" -%}
     {%- endcase -%}

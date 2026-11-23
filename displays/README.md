@@ -4,10 +4,10 @@ A Tickerz number on the desk displays people already own: a plugin for TRMNL e-p
 
 Each one shows either:
 
-- **The Tickerz Close**, the day's six daily numbers ($MINTS, $GIGS, $LAYOFFS, $WAGE, $TRENCHES, $YESNO), or
-- **one index** you pick: $LAYOFFS, $MINTS, $GIGS, $WAGE, $TRENCHES, $YESNO, $JOBS, $UNEMP, $CPI or $CORECPI.
+- **The Tickerz Close**, the six most unusual of the day's daily and weekly numbers (the Close has nine rows on Nov 18 2026: $LAYOFFS, $TILT, $YESNO, $ICE, $MINTS, $DARKWEB, $BROKE, $SHELTER and $TRENCHES, listed most unusual first), or
+- **one index** you pick: $GOON, $TILT, $BROKE, $SHELTER, $EVICTED, $DARKWEB, $ICE, $LAYOFFS, $MINTS, $TRENCHES, $YESNO, $JOBS, $UNEMP, $CPI or $CORECPI. Any other of the 48 indexes can be set by hand in the polling URL (below); one with decimals, such as $PPM, shows whole numbers.
 
-The number is always the newest complete reading (`latest_complete` in the API), never a day still being counted. Numbers are written as on tickerz.com: 170,732; $584.41M; $0.0100; 4.2%. Periods too: "Oct 8", "Week to Oct 3", "Sep 2026".
+The number is always the newest complete reading (`latest_complete` in the API), never a day still being counted. Numbers are written as on tickerz.com: 170,732; $692.35M; 4.2%. Periods too: "Oct 8", "Week to Oct 3", "Sep 2026".
 
 The Close is the record of what Tickerz printed that day and does not change. One index shows its current reading, which can differ for the same day when its source revises it: on Oct 9 the Close had $YESNO for Oct 7 at $571.43M and the $YESNO index had $584.41M.
 
@@ -19,7 +19,7 @@ The Close is the record of what Tickerz printed that day and does not change. On
 |---|---|
 | ![Tickerz in a TRMNL mashup](screenshots/trmnl-mashup.png) | ![$LAYOFFS on a 64 by 32 LED panel](screenshots/pixlet-layoffs.png) ![The Close cycling on a 64 by 32 LED panel](screenshots/pixlet-close.gif) |
 
-The TRMNL images are 1-bit, as the 7.5 inch TRMNL draws them, rendered by TRMNL's own preview tool from the live API on Oct 9 2026. The LED images are Pixlet's render of the app, drawn as dots.
+The TRMNL images are 1-bit, as the 7.5 inch TRMNL draws them, rendered by TRMNL's own preview tool from the live API on Oct 9 2026, when the Close had six rows. The LED images are Pixlet's render of the app on the same day, drawn as dots, with the ticker then still in plum; it is bone now.
 
 ## What is here
 
@@ -79,7 +79,7 @@ Notes:
 
 ## Tidbyt and Tronbyt
 
-`pixlet/tickerz.star` draws the ticker in plum, the number, and its period. A line wider than the panel scrolls. With the Close it shows each of the six numbers in turn, 2.5 seconds each.
+`pixlet/tickerz.star` draws the ticker, the number and its period. A line wider than the panel scrolls. With the Close it shows the six most unusual numbers in turn, 2.5 seconds each.
 
 **On a Tronbyt server** (https://github.com/tronbyt/server): open your device, **Add app**, **Upload app**, choose `tickerz.star`. Then add it, pick an index (the Close is the default) and save.
 
@@ -101,6 +101,7 @@ writes a GIF. The app caches each answer for 15 minutes.
 
 - TRMNL: trmnlp 0.26.0 (framework 3.4.0) against the live API on Oct 9 2026: every layout for the Close and for $LAYOFFS, $MINTS, $YESNO, $WAGE, $JOBS and $UNEMP; `trmnlp lint` passes.
 - Pixlet: v0.54.0 (Tronbyt), `pixlet check` passes; rendered for the Close and seven indexes.
+- Nov 18 2026, after $GIGS and $WAGE were retired and the human indexes joined the Close: the TRMNL Liquid rendered with python-liquid against the live API for the Close and for $TILT, $SHELTER, $ICE and $GOON in the full, half and quadrant layouts; the Pixlet formatting functions run in Python against the same answers. Not yet rendered with trmnlp or Pixlet themselves.
 - Not yet run on a physical TRMNL or Tidbyt.
 
 The data and its sources: https://tickerz.com/methodology. The API: https://tickerz.com/docs. License: MIT, as the rest of this repository.

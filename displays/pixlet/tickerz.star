@@ -15,25 +15,33 @@ API = "https://tickerz.com/api/v1/indices/"
 # The Close prints once a day and an index at most once a day; the API itself is cached for a minute.
 TTL_SECONDS = 900
 
-# Design system v4: plum is the one accent, bone the text, stone the second tone (graphite is too dim on LEDs).
-PLUM = "#C77BCB"
+# Design system v4: bone the text, stone the second tone (graphite is too dim on LEDs). No accent colour: purple left
+# every Tickerz surface on Nov 6 2026.
 BONE = "#EBEBEB"
 STONE = "#A3A3A3"
 
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 # The Close's rows carry only a ticker, so its format and period come from here. One index brings its own unit and step.
-DOLLARS = ["YESNO", "TRENCHES", "WAGE"]
+DOLLARS = ["YESNO", "TRENCHES", "TILT"]
 PERCENT = ["UNEMP", "CPI", "CORECPI"]
 MONTHLY = ["JOBS", "UNEMP", "CPI", "CORECPI"]
-WEEKLY = ["LAYOFFS"]
+WEEKLY = ["LAYOFFS", "TILT", "BROKE"]
+
+# The Close lists its rows most unusual first; the panel cycles through the first six, 2.5 seconds each.
+CLOSE_ROWS = 6
 
 INDEXES = [
     ("The Tickerz Close", "close"),
+    ("$GOON: porn among the web's top 1,000 sites", "goon"),
+    ("$TILT: New York phone bets, weekly", "tilt"),
+    ("$BROKE: debt collector complaints, weekly", "broke"),
+    ("$SHELTER: New York City shelter census", "shelter"),
+    ("$EVICTED: evictions in New York City, monthly", "evicted"),
+    ("$DARKWEB: live dark web sites", "darkweb"),
+    ("$ICE: Arctic sea ice", "ice"),
     ("$LAYOFFS: US jobless claims, weekly", "layoffs"),
     ("$MINTS: memecoin launches on Solana", "mints"),
-    ("$GIGS: paid AI agent calls on Base", "gigs"),
-    ("$WAGE: median price of one of those calls", "wage"),
     ("$TRENCHES: memecoin launchpad fees", "trenches"),
     ("$YESNO: prediction market volume", "yesno"),
     ("$JOBS: US nonfarm payrolls, monthly", "jobs"),
@@ -101,14 +109,14 @@ def fetch(slug):
     return json.decode(res.body())
 
 def reading(ticker, value, period):
-    """One number: the ticker in plum, the number, its period (capitals read better in a 4 by 6 font). A line wider than the panel scrolls."""
+    """One number: the ticker, the number, its period (capitals read better in a 4 by 6 font). A line wider than the panel scrolls."""
     return render.Padding(
         pad = (1, 1, 1, 0),
         child = render.Column(
             expanded = True,
             main_align = "space_between",
             children = [
-                render.Marquee(width = 62, child = render.Text("$" + ticker, font = "tb-8", color = PLUM)),
+                render.Marquee(width = 62, child = render.Text("$" + ticker, font = "tb-8", color = BONE)),
                 render.Marquee(width = 62, child = render.Text(value, font = "terminus-12", color = BONE)),
                 render.Marquee(width = 62, child = render.Text(period.upper(), font = "tom-thumb", color = STONE)),
             ],
@@ -138,7 +146,7 @@ def main(config):
     if slug == "close":
         # The Close: each of its numbers in turn, two and a half seconds each.
         frames = []
-        for row in data.get("rows", []):
+        for row in data.get("rows", [])[:CLOSE_ROWS]:
             t = row.get("ticker", "")
             frames.append(reading(t, fmt_value(row.get("value"), kind_of(t, None)), fmt_period(row.get("period"), step_of(t))))
         if not frames:
@@ -158,7 +166,7 @@ def get_schema():
             schema.Dropdown(
                 id = "index",
                 name = "Index",
-                desc = "The Close cycles through the day's six daily numbers. Or pick one index.",
+                desc = "The Close cycles through the six most unusual of the day's numbers. Or pick one index.",
                 icon = "chartLine",
                 default = "close",
                 options = [schema.Option(display = d, value = v) for d, v in INDEXES],

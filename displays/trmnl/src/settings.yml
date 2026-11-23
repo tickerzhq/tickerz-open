@@ -20,14 +20,19 @@ custom_fields:
 - keyname: index
   field_type: select
   name: Index
-  description: "The Close is the day's six daily numbers. Or pick one index."
+  description: "The Close shows the six most unusual of the day's daily and weekly numbers. Or pick one index."
   default: close
   options:
   - The Tickerz Close: close
+  - "$GOON: porn among the web's top 1,000 sites, monthly": goon
+  - "$TILT: New York phone bets, weekly": tilt
+  - "$BROKE: debt collector complaints, weekly": broke
+  - "$SHELTER: New York City shelter census, daily": shelter
+  - "$EVICTED: evictions carried out in New York City, monthly": evicted
+  - "$DARKWEB: live dark web sites, daily": darkweb
+  - "$ICE: Arctic sea ice, daily": ice
   - "$LAYOFFS: US jobless claims, weekly": layoffs
   - "$MINTS: memecoin launches on Solana, daily": mints
-  - "$GIGS: paid AI agent calls on Base, daily": gigs
-  - "$WAGE: median price of one of those calls, daily": wage
   - "$TRENCHES: memecoin launchpad fees, daily": trenches
   - "$YESNO: prediction market volume, daily": yesno
   - "$JOBS: US nonfarm payrolls, monthly": jobs
@@ -37,6 +42,6 @@ custom_fields:
 - keyname: about
   field_type: author_bio
   name: About
-  description: "Tickerz publishes indexes of real-world activity, each counted from a named source and kept as first published. This plugin reads the free public API at tickerz.com, no key. Questions: desk@tickerz.com"
+  description: "Tickerz publishes indexes of what people actually do, each counted from a named public source and kept as first published. This plugin reads the free public API at tickerz.com, no key. Questions: desk@tickerz.com"
   github_url: https://github.com/tickerzhq/tickerz-open/tree/main/displays
   learn_more_url: https://tickerz.com
