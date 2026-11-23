@@ -151,6 +151,15 @@ export type SealCheck = { name: string; ok: boolean; detail: string };
 
 export const sha256Hex = (text: string) => createHash("sha256").update(text, "utf8").digest("hex");
 
+/** A value from the network as text for a message. JSON can hold an object whose toString is not a function. */
+const asText = (v: unknown) => {
+  try {
+    return String(v);
+  } catch {
+    return "(not text)";
+  }
+};
+
 /**
  * Every check that needs no Bitcoin node, in order. All must pass:
  *  1. sha256(canonical_json) equals digest_sha256.
@@ -177,7 +186,7 @@ export function checkSeal(proof: SealProof, ots: Uint8Array, day: string = proof
   out.push({
     name: "day",
     ok: parsed?.kind === "index_seal" && parsed?.day === day && proof.day === day,
-    detail: `kind ${String(parsed?.kind)}, day ${String(parsed?.day)}`,
+    detail: `kind ${asText(parsed?.kind)}, day ${asText(parsed?.day)}`,
   });
   let rebuilt: string | null = null;
   if (parsed && Array.isArray(parsed.rows) && (parsed.since === null || typeof parsed.since === "string")) {
