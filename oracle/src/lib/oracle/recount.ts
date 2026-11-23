@@ -50,14 +50,7 @@ export async function countSolanaDay(
       break;
     }
     raw.push(Buffer.from(text + "\n", "utf8"));
-    // An answer that is not JSON, or a page with an entry that is not an object, is refused like any bad answer.
-    let j: { result?: SigInfo[]; error?: { message?: string } };
-    try {
-      j = JSON.parse(text) ?? {};
-    } catch {
-      return { value: null, bytes: Buffer.concat(raw), rows, error: "rpc:bad_json" };
-    }
-    if (Array.isArray(j.result) && j.result.some((s) => s == null || typeof s !== "object")) return { value: null, bytes: Buffer.concat(raw), rows, error: "rpc:bad_result" };
+    const j = JSON.parse(text) as { result?: SigInfo[]; error?: { message?: string } };
     if (!Array.isArray(j.result)) return { value: null, bytes: Buffer.concat(raw), rows, error: `rpc:${String(j.error?.message ?? "no_result").slice(0, 80)}` };
     const pg = j.result;
     rows += pg.length;
@@ -83,17 +76,10 @@ export async function readBlsSeries(series: string, opts: { fetchImpl?: Fetcher;
   });
   const bytes = Buffer.from(await r.text(), "utf8");
   if (r.status !== 200) return { levels: {}, bytes, error: `http_${r.status}` };
-  // An answer that is not JSON, or not shaped like the Bureau's, reads as no months, so recount() asks the flat file and FRED.
-  let j: { status?: string; Results?: { series?: { data?: { year: string; period: string; value: string }[] }[] } };
-  try {
-    j = JSON.parse(bytes.toString("utf8")) ?? {};
-  } catch {
-    return { levels: {}, bytes, error: "bls_bad_json" };
-  }
+  const j = JSON.parse(bytes.toString("utf8")) as { status?: string; Results?: { series?: { data?: { year: string; period: string; value: string }[] }[] } };
   const levels: Record<string, number> = {};
-  const data = j.Results?.series?.[0]?.data;
-  for (const d of Array.isArray(data) ? data : []) {
-    if (!/^M(0[1-9]|1[0-2])$/.test(d?.period)) continue;
+  for (const d of j.Results?.series?.[0]?.data ?? []) {
+    if (!/^M(0[1-9]|1[0-2])$/.test(d.period)) continue;
     const v = Number(d.value);
     if (Number.isFinite(v)) levels[`${d.year}-${d.period.slice(1)}`] = v;
   }
