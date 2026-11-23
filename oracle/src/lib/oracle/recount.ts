@@ -1,7 +1,7 @@
 /**
  * Recounts from the public source, one period at a time, the same way the live readers count. Used three ways:
  *   - the print path reads each configured provider with these, so two providers can agree (agree.ts);
- *   - the independent recount job (scripts/oracle/cosign.ts, run in the public tickerz-open repo) counts again and
+ *   - the public recount job (scripts/oracle/cosign.ts, run in the public tickerz-open repo) counts again and
  *     co-signs only when it gets the signed value;
  *   - anyone can run them to check a print.
  * Every read keeps the raw response bytes, so the snapshot hash in a report can be rebuilt.
@@ -9,6 +9,7 @@
 import { createHash } from "node:crypto";
 import { pctChange1dp } from "../indices/bls";
 import { SIGS_PAGE, emptyTally, parseDolClaims, tallySigs, type SigInfo } from "../indices/fetchers";
+import { providerTurn } from "../chainRpc";
 
 export type RawRead = { value: number | null; bytes: Buffer; rows: number; error?: string };
 export type Fetcher = typeof fetch;
@@ -16,6 +17,8 @@ export type Fetcher = typeof fetch;
 export const snapshotHash = (bytes: Uint8Array) => createHash("sha256").update(bytes).digest("hex");
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+/** Tries per page before a read gives up: a refusal for speed or a dropped page waits 2, 4, 6, 8 s and asks again. */
+export const READ_ATTEMPTS = 5;
 
 /**
  * Successful transactions signed by a Solana account in one UTC day (the $MINTS rule: err null, finalized, counted on
@@ -24,7 +27,7 @@ const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
  */
 export async function countSolanaDay(
   rpcUrl: string, account: string, day: string,
-  opts: { before?: string; fetchImpl?: Fetcher; delayMs?: number; maxPages?: number; userAgent?: string; headers?: Record<string, string> } = {},
+  opts: { before?: string; fetchImpl?: Fetcher; delayMs?: number; retryMs?: number; maxPages?: number; userAgent?: string; headers?: Record<string, string> } = {},
 ): Promise<RawRead> {
   const f = opts.fetchImpl ?? fetch;
   const dayStart = Date.parse(`${day}T00:00:00Z`) / 1000;
@@ -37,20 +40,34 @@ export async function countSolanaDay(
     if (page > 0) await sleep(opts.delayMs ?? 250);
     const cfg: Record<string, unknown> = { limit: SIGS_PAGE, commitment: "finalized" };
     if (before) cfg.before = before;
+    const payload = { jsonrpc: "2.0", id: 1, method: "getSignaturesForAddress", params: [account, cfg] };
     let text = "";
-    for (let attempt = 0; attempt < 4; attempt++) {
-      const r = await f(rpcUrl, {
-        method: "POST", headers: { "content-type": "application/json", "user-agent": opts.userAgent ?? "tickerz-agent/oracle", ...opts.headers },
-        body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getSignaturesForAddress", params: [account, cfg] }),
-        signal: AbortSignal.timeout(30_000),
-      });
-      text = await r.text();
-      if (r.status === 429 || r.status >= 500) { await sleep(2_000 * (attempt + 1)); continue; }
-      if (r.status !== 200) return { value: null, bytes: Buffer.concat(raw), rows, error: `http_${r.status}` };
-      break;
+    let failure: string | null = null;
+    for (let attempt = 0; attempt < READ_ATTEMPTS; attempt++) {
+      if (attempt > 0) await sleep((opts.retryMs ?? 2_000) * attempt);
+      // Alchemy's compute units and Helius's calls a second (chainRpc.ts): unpaced, a page every 120 ms is 320 CU a
+      // second on Alchemy, over its free plan's 300, and the Oct 7 15:10 read of $MINTS failed there.
+      await providerTurn(rpcUrl, payload);
+      try {
+        const r = await f(rpcUrl, {
+          method: "POST", headers: { "content-type": "application/json", "user-agent": opts.userAgent ?? "tickerz-agent/oracle", ...opts.headers },
+          body: JSON.stringify(payload),
+          signal: AbortSignal.timeout(30_000),
+        });
+        text = await r.text();
+        if (r.status === 429 || r.status >= 500) { failure = `http_${r.status}`; continue; }
+        if (r.status !== 200) return { value: null, bytes: Buffer.concat(raw), rows, error: `http_${r.status}:${text.slice(0, 60)}` };
+        failure = null;
+        break;
+      } catch (e) {
+        // A timeout or a dropped connection on one page: that page again, never the whole day.
+        failure = `fetch:${(e instanceof Error ? e.name : "failed").slice(0, 30)}`;
+      }
     }
+    if (failure) return { value: null, bytes: Buffer.concat(raw), rows, error: `${failure} after ${READ_ATTEMPTS} tries, page ${page + 1}` };
     raw.push(Buffer.from(text + "\n", "utf8"));
-    const j = JSON.parse(text) as { result?: SigInfo[]; error?: { message?: string } };
+    let j: { result?: SigInfo[]; error?: { message?: string } };
+    try { j = JSON.parse(text); } catch { return { value: null, bytes: Buffer.concat(raw), rows, error: `not_json, page ${page + 1}` }; }
     if (!Array.isArray(j.result)) return { value: null, bytes: Buffer.concat(raw), rows, error: `rpc:${String(j.error?.message ?? "no_result").slice(0, 80)}` };
     const pg = j.result;
     rows += pg.length;
@@ -117,7 +134,9 @@ export async function readBlsMany(series: string[], opts: { fetchImpl?: Fetcher;
 export const BLS_FLAT_FILE: Record<string, string> = {
   CES0000000001: "https://download.bls.gov/pub/time.series/ce/ce.data.00a.TotalNonfarm.Employment",
   CUSR0000SA0: "https://download.bls.gov/pub/time.series/cu/cu.data.1.AllItems",
-  CUSR0000SA0L1E: "https://download.bls.gov/pub/time.series/cu/cu.data.2.Summaries",
+  // Core CPI is not in cu.data.2.Summaries (checked Oct 7 2026: every month read null there); it is in the special
+  // aggregates file, 3.6 MB.
+  CUSR0000SA0L1E: "https://download.bls.gov/pub/time.series/cu/cu.data.20.USCommoditiesServicesSpecial",
 };
 
 /** One series from its flat file: tab separated, padded; "series_id year period value footnotes". */

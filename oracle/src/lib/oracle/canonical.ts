@@ -8,27 +8,9 @@
  * This is the integer-only subset of RFC 8785 (JSON Canonicalization Scheme), where both give the same bytes.
  */
 import { createHash } from "node:crypto";
+import { canonicalJson } from "./canonicalCore";
 
-export type Canon = string | number | boolean | null | Canon[] | { [k: string]: Canon };
-
-export function canonicalJson(v: unknown): string {
-  if (v === null) return "null";
-  if (typeof v === "string" || typeof v === "boolean") return JSON.stringify(v);
-  if (typeof v === "number") {
-    if (!Number.isSafeInteger(v)) throw new Error("canonical_number_not_integer");
-    return String(v);
-  }
-  if (Array.isArray(v)) return `[${v.map(canonicalJson).join(",")}]`;
-  if (typeof v === "object") {
-    const o = v as Record<string, unknown>;
-    const keys = Object.keys(o).sort();
-    return `{${keys.map((k) => {
-      if (o[k] === undefined) throw new Error(`canonical_undefined:${k}`);
-      return `${JSON.stringify(k)}:${canonicalJson(o[k])}`;
-    }).join(",")}}`;
-  }
-  throw new Error(`canonical_type:${typeof v}`);
-}
+export { canonicalJson, type Canon } from "./canonicalCore";
 
 export const sha256Bytes = (bytes: Uint8Array | string) => createHash("sha256").update(bytes).digest();
 export const canonicalHash = (v: unknown) => sha256Bytes(Buffer.from(canonicalJson(v), "utf8")).toString("hex");

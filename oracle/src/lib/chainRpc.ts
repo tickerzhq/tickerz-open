@@ -113,6 +113,61 @@ export function bodyCu(body: unknown): number {
   return calls.reduce((s: number, c) => s + (ALCHEMY_CU[String((c as { method?: string })?.method)] ?? 20), 0);
 }
 
+// providerTurn and the pacers it uses, as in Tickerz's src/lib/chainRpc.ts, which recount.ts imports it from. The rest
+// of that file is not copied here. Each pacer keeps a provider under its published limit: Helius 10 requests a second
+// on its free plan (8 here), dRPC (30 here), mainnet.base.org 25 a second (20 here). A batch counts each call in it.
+export const isHelius = (url: string) => /^https:\/\/[a-z0-9.-]*helius-rpc\.com\//.test(url);
+export const DRPC_HOST = "lb.drpc.live";
+export const isDrpc = (url: string) => url.startsWith(`https://${DRPC_HOST}/`);
+
+export const HELIUS_PER_SEC = 8;
+export function heliusPacer(now: () => number = Date.now, sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms))) {
+  let nextFreeAt = 0;
+  return async (calls: number): Promise<void> => {
+    const t = now();
+    const start = Math.max(t, nextFreeAt);
+    nextFreeAt = start + (Math.max(1, calls) * 1000) / HELIUS_PER_SEC;
+    if (start > t) await sleep(start - t);
+  };
+}
+export const PUBLIC_BASE_PER_SEC = 20;
+export function publicBasePacer(now: () => number = Date.now, sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms))) {
+  let nextFreeAt = 0;
+  return async (calls: number): Promise<void> => {
+    const t = now();
+    const start = Math.max(t, nextFreeAt);
+    nextFreeAt = start + (Math.max(1, calls) * 1000) / PUBLIC_BASE_PER_SEC;
+    if (start > t) await sleep(start - t);
+  };
+}
+/** The one pacer every call to mainnet.base.org in this process shares. */
+export const publicBaseTurn = publicBasePacer();
+/** The one pacer every Helius call in this process shares. */
+export const heliusTurn = heliusPacer();
+/** Calls in one request body. */
+export const bodyCalls = (body: unknown) => (Array.isArray(body) ? body.length : 1);
+
+export const DRPC_PER_SEC = 30;
+export function drpcPacer(now: () => number = Date.now, sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms))) {
+  let nextFreeAt = 0;
+  return async (calls: number): Promise<void> => {
+    const t = now();
+    const start = Math.max(t, nextFreeAt);
+    nextFreeAt = start + (Math.max(1, calls) * 1000) / DRPC_PER_SEC;
+    if (start > t) await sleep(start - t);
+  };
+}
+/** The one pacer every call to dRPC in this process shares. */
+export const drpcTurn = drpcPacer();
+
+/** Waits the turn a provider's limit needs before a request: Alchemy's compute units, Helius's calls, dRPC's calls, Base's public node's requests. */
+export async function providerTurn(url: string, body: unknown): Promise<void> {
+  if (isAlchemy(url)) await alchemyTurn(bodyCu(body));
+  else if (isHelius(url)) await heliusTurn(bodyCalls(body));
+  else if (isDrpc(url)) await drpcTurn(bodyCalls(body));
+  else if (url === PUBLIC_BASE) await publicBaseTurn(bodyCalls(body));
+}
+
 /**
  * The viem transport for Base's EAS Close: BASE_RPC_URL when set; otherwise Alchemy, falling back to mainnet.base.org
  * (logged); with no key, mainnet.base.org alone, as before.

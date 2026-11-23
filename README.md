@@ -248,7 +248,7 @@ Report a security problem to desk@tickerz.com, not in an issue: [SECURITY.md](SE
 
 ```
 oracle/
-  src/lib/oracle/   The recount (cosign.ts, recount.ts), the signed report and its checks (report.ts, canonical.ts).
+  src/lib/oracle/   The recount (cosign.ts, recount.ts), the signed report and its checks (report.ts, canonical.ts, canonicalCore.ts).
   scripts/cosign.ts   The daily co-signing job. scripts/recount.ts: npm run recount, the same check with no key.
 src/
   mints.ts          $MINTS: the Solana counter. Pages getSignaturesForAddress on pump.fun's mint authority and

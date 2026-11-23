@@ -1,6 +1,6 @@
 /**
  * The signed report: one canonical JSON document per print, signed by the Tickerz publisher. It is what the Solana
- * feed's report_hash points at, what /api/indices/{ticker}/report serves, and what the independent recount co-signs.
+ * feed's report_hash points at, what /api/indices/{ticker}/report serves, and what the public recount co-signs.
  *
  * Signature (Ed25519, the publisher's Solana key, HCTmBYfjrJyenusT99huGVMVDcvhKznyb2ha18gqjVjE):
  *   message   = "tickerz-report-v1:" (18 ASCII bytes) followed by the 32 bytes of sha256(canonical JSON of the report)
@@ -99,7 +99,7 @@ export function signReport(r: Report, secret: string, prefix: string = REPORT_PR
   return { report: r, hash, signature: { by: kp.address, signature: base58Encode(signBytes(kp.privateKey, signingMessage(hash, prefix))) }, cosignatures: [] };
 }
 
-/** A co-signature over a report hash: the independent recount's key says it counted the same value. */
+/** A co-signature over a report hash: the public recount's key says it counted the same value. */
 export function cosign(hash: string, secret: string): Signed {
   const kp = keypairFromSecret(secret);
   return { by: kp.address, signature: base58Encode(signBytes(kp.privateKey, signingMessage(hash, COSIGN_PREFIX))) };
