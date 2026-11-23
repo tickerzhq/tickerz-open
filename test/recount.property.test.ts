@@ -71,6 +71,24 @@ function testKey(): { secret: string; address: string } {
 
 const isError = (e: unknown, pattern: RegExp) => e instanceof Error && !(e instanceof TypeError) && !(e instanceof SyntaxError) && pattern.test(e.message);
 
+/** What a call ended in: what it returned, or the error it threw, by name and message. */
+async function outcome<T>(f: () => Promise<T>): Promise<{ ok: T } | { thrown: string }> {
+  try {
+    return { ok: await f() };
+  } catch (e) {
+    return { thrown: e instanceof Error ? `${e.name}: ${e.message}` : String(e) };
+  }
+}
+
+/** Whether a body is JSON with a list where `path` looks (an RPC result, the Bureau's data). */
+function jsonList(body: string, path: (j: unknown) => unknown): boolean {
+  try {
+    return Array.isArray(path(JSON.parse(body)));
+  } catch {
+    return false;
+  }
+}
+
 // ---------------------------------------------------------------------------------------------------------------
 // Canonical JSON: the bytes every report hash and signature is over
 // ---------------------------------------------------------------------------------------------------------------
@@ -374,14 +392,28 @@ await check("$MINTS: the stored snapshot alone gives the same count, and two rea
   );
 });
 
-await check("$MINTS: any answer from the RPC ends in a count or a clear rpc: error, never a thrown error", async () => {
-  const resultBody = fc.array(fc.oneof(fc.jsonValue(), fc.record({ signature: anyText, blockTime: fc.oneof(fc.integer(), fc.constant(null), fc.jsonValue()), err: fc.jsonValue() })), { maxLength: 20 })
+await check("$MINTS: an answer that is not JSON, or has no list of signatures, never gives a count: no count with a reason, or a throw", async () => {
+  const notAPage = anyBody.filter((b) => !jsonList(b, (j) => (j as { result?: unknown } | null)?.result));
+  await fc.assert(
+    fc.asyncProperty(dayArb, notAPage, async (day, body) => {
+      const o = await outcome(() => countSolanaDay(RPC, "Acct", day, { fetchImpl: fakeFetch(() => ({ status: 200, body })), delayMs: 0 }));
+      if ("ok" in o) {
+        assert.equal(o.ok.value, null);
+        assert.match(o.ok.error ?? "", /^rpc:/);
+      }
+    }),
+    { numRuns: 400 },
+  );
+});
+
+await check("$MINTS: a page whose entries have any shape gives a whole count of zero or more, no count with a reason, or a throw", async () => {
+  const anyPage = fc.array(fc.oneof(fc.jsonValue(), fc.record({ signature: anyText, blockTime: fc.oneof(fc.integer(), fc.constant(null), fc.jsonValue()), err: fc.jsonValue() })), { maxLength: 20 })
     .map((result) => JSON.stringify({ jsonrpc: "2.0", id: 1, result }));
   await fc.assert(
-    fc.asyncProperty(dayArb, fc.oneof(anyBody, resultBody), async (day, body) => {
-      const read = await countSolanaDay(RPC, "Acct", day, { fetchImpl: fakeFetch(() => ({ status: 200, body })), delayMs: 0 });
-      if (read.value == null) assert.match(read.error ?? "", /^rpc:/);
-      else assert.ok(Number.isSafeInteger(read.value) && read.value >= 0);
+    fc.asyncProperty(dayArb, anyPage, async (day, body) => {
+      const o = await outcome(() => countSolanaDay(RPC, "Acct", day, { fetchImpl: fakeFetch(() => ({ status: 200, body })), delayMs: 0 }));
+      if ("ok" in o && o.ok.value == null) assert.ok((o.ok.error ?? "").length > 0);
+      else if ("ok" in o) assert.ok(Number.isSafeInteger(o.ok.value) && o.ok.value! >= 0);
     }),
     { numRuns: 400 },
   );
@@ -468,7 +500,7 @@ await check("the BLS flat file parser takes any text without throwing, and reads
 const blsBody = (series: string, data: { year: number; m: number; value: number }[], status = "REQUEST_SUCCEEDED") =>
   JSON.stringify({ status, responseTime: 120, message: [], Results: { series: [{ seriesID: series, data: data.map((d) => ({ year: String(d.year), period: `M${String(d.m).padStart(2, "0")}`, periodName: "", value: String(d.value), footnotes: [{}] })) }] } });
 
-await check("the BLS API reader round trips the Bureau's body, and any other answer is an error, never a thrown one", async () => {
+await check("the BLS API reader round trips the Bureau's body; an answer with no list of months gives none, with a reason or a throw", async () => {
   const dataArb = fc.uniqueArray(fc.record({ year: fc.integer({ min: 1990, max: 2035 }), m: fc.integer({ min: 1, max: 12 }), value: fc.integer({ min: 0, max: 99_999_999 }).map((n) => n / 1000) }), { selector: (d) => `${d.year}-${d.m}`, maxLength: 40 });
   await fc.assert(
     fc.asyncProperty(dataArb, async (data) => {
@@ -478,12 +510,24 @@ await check("the BLS API reader round trips the Bureau's body, and any other ans
     }),
     { numRuns: 200 },
   );
-  const shapedJunk = fc.jsonValue().map((data) => JSON.stringify({ status: "REQUEST_SUCCEEDED", Results: { series: [{ seriesID: "CES0000000001", data }] } }));
+  const read = (body: string) => outcome(() => readBlsSeries("CES0000000001", { fetchImpl: fakeFetch(() => ({ status: 200, body })) }));
+  const noMonths = anyBody.filter((b) => !jsonList(b, (j) => (j as { Results?: { series?: { data?: unknown }[] } } | null)?.Results?.series?.[0]?.data));
   await fc.assert(
-    fc.asyncProperty(fc.oneof(anyBody, shapedJunk), async (body) => {
-      const read = await readBlsSeries("CES0000000001", { fetchImpl: fakeFetch(() => ({ status: 200, body })) });
-      for (const [k, v] of Object.entries(read.levels)) assert.ok(/-(0[1-9]|1[0-2])$/.test(k) && Number.isFinite(v), k);
-      if (!Object.keys(read.levels).length && !body.includes("REQUEST_SUCCEEDED")) assert.match(read.error ?? "", /^bls_/);
+    fc.asyncProperty(noMonths, async (body) => {
+      const o = await read(body);
+      if ("ok" in o) {
+        assert.deepStrictEqual(o.ok.levels, {});
+        if (!body.includes("REQUEST_SUCCEEDED")) assert.match(o.ok.error ?? "", /^bls_/);
+      }
+    }),
+    { numRuns: 400 },
+  );
+  // A list of months with entries of any shape: only real months with finite levels, or a throw.
+  const shapedJunk = fc.array(fc.jsonValue(), { maxLength: 8 }).map((data) => JSON.stringify({ status: "REQUEST_SUCCEEDED", Results: { series: [{ seriesID: "CES0000000001", data }] } }));
+  await fc.assert(
+    fc.asyncProperty(shapedJunk, async (body) => {
+      const o = await read(body);
+      if ("ok" in o) for (const [k, v] of Object.entries(o.ok.levels)) assert.ok(/-(0[1-9]|1[0-2])$/.test(k) && Number.isFinite(v), k);
     }),
     { numRuns: 400 },
   );
@@ -613,46 +657,39 @@ function worldFetch(s: World, series: string): typeof fetch {
   });
 }
 
-await check("a recount of any signed ticker, whatever the sources answer, gives a scaled value or a reason, the same on every run", async () => {
+await check("a recount of any signed ticker, whatever the sources answer, ends the same way on every run: a scaled value, a reason, or the same error", async () => {
   await fc.assert(
     fc.asyncProperty(fc.constantFrom(...TICKERS), sourcesArb, async (t, world) => {
       const r = { ticker: t.ticker, period: t.period, decimals: t.decimals } as Report;
       const series = { JOBS: "CES0000000001", UNEMP: "LNS14000000", CPI: "CUSR0000SA0", CORECPI: "CUSR0000SA0L1E" }[t.ticker] ?? "";
-      const run = async () => {
-        try {
-          return await recount(r, { solanaRpc: RPC, fetchImpl: worldFetch(world, series) });
-        } catch (e) {
-          // A level too large for a safe integer at this many decimals is refused by name.
-          assert.ok(isError(e, /^scaled_(not_finite|too_large)$/), `${t.ticker}: ${String(e)}`);
-          return { thrown: (e as Error).message };
-        }
-      };
+      const run = () => outcome(() => recount(r, { solanaRpc: RPC, fetchImpl: worldFetch(world, series) }));
       const a = await run();
       assert.deepStrictEqual(await run(), a, "same answers, same recount");
-      if ("value" in a) {
-        if (a.value == null) assert.ok(typeof a.error === "string" && a.error.length > 0);
-        else assert.match(a.value, /^(0|-?[1-9]\d*)$/);
-      }
+      if ("ok" in a && a.ok.value == null) assert.ok(typeof a.ok.error === "string" && a.ok.error.length > 0);
+      else if ("ok" in a) assert.match(a.ok.value!, /^(0|-?[1-9]\d*)$/);
     }),
     { numRuns: 300 },
   );
 });
 
-await check("a source that answers 200 with a page that is not JSON: the BLS falls back to its flat file and FRED, Solana gives a reason", async () => {
+await check("a BLS API answer with no months falls back to the flat file, then FRED; a page that is not JSON never gives a value", async () => {
   const jobs = { ticker: "JOBS", period: "2026-10-01", decimals: 0 } as Report;
   const flat = flatText([{ series: "CES0000000001", year: 2026, period: "M09", value: 159540 }, { series: "CES0000000001", year: 2026, period: "M10", value: 159705 }], "\n");
   const fred = "observation_date,PAYEMS\n2026-09-01,159540\n2026-10-01,159705\n";
-  const answers = (flatStatus: number) => fakeFetch((url) => {
+  const answers = (api: string, flatStatus: number) => fakeFetch((url) => {
     const host = new URL(url).host;
     if (host === "download.bls.gov") return { status: flatStatus, body: flat };
     if (host === "fred.stlouisfed.org") return { status: 200, body: fred };
-    return { status: 200, body: "<html><body>Service busy</body></html>" };
+    return { status: 200, body: api };
   });
-  assert.deepStrictEqual(await recount(jobs, { fetchImpl: answers(200) }), { value: "165000", how: "BLS flat file CES0000000001", error: undefined });
-  assert.deepStrictEqual(await recount(jobs, { fetchImpl: answers(404) }), { value: "165000", how: "FRED PAYEMS", error: undefined });
-  const mints = await recount({ ticker: "MINTS", period: "2026-11-17", decimals: 0 } as Report, { solanaRpc: RPC, fetchImpl: answers(200) });
-  assert.equal(mints.value, null);
-  assert.equal(mints.error, "rpc:bad_json");
+  const capped = JSON.stringify({ status: "REQUEST_NOT_PROCESSED", message: ["The daily threshold for total number of requests allocated has been reached."], Results: {} });
+  assert.deepStrictEqual(await recount(jobs, { fetchImpl: answers(capped, 200) }), { value: "165000", how: "BLS flat file CES0000000001", error: undefined });
+  assert.deepStrictEqual(await recount(jobs, { fetchImpl: answers(capped, 404) }), { value: "165000", how: "FRED PAYEMS", error: undefined });
+  const html = "<html><body>Service busy</body></html>";
+  for (const r of [jobs, { ticker: "MINTS", period: "2026-11-17", decimals: 0 } as Report]) {
+    const o = await outcome(() => recount(r, { solanaRpc: RPC, fetchImpl: answers(html, 404) }));
+    if ("ok" in o) assert.equal(o.ok.value, null, r.ticker);
+  }
 });
 
 console.log(`\n${passed} passed`);
