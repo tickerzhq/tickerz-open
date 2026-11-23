@@ -142,6 +142,10 @@ const str = (v: unknown) => (v === null ? "None" : typeof v === "string" ? v : J
 
 /** A text file read the way Python's open().read() does: \r\n and \r become \n. */
 const readText = (file: string) => readFileSync(file, "utf8").replace(/\r\n?/g, "\n");
+/** The file's text, or null when it isn't there. One read with no check first, so nothing can change the file between a check and the read. */
+function readIfThere(file: string): string | null {
+  try { return readText(file); } catch (e) { if ((e as NodeJS.ErrnoException).code === "ENOENT") return null; throw e; }
+}
 
 async function main() {
   const problems: string[] = [], changed: [string, string, string][] = [], proofDays = new Set<string>();
@@ -153,7 +157,7 @@ async function main() {
     // An index that has not printed yet has nothing to mirror. Once a file is here, an empty download is a failure.
     if (!newRows.length && !existsSync(file)) { console.log(`${ticker}: nothing printed yet`); continue; }
     if (!newRows.length) fail(`${ticker}: the settlement file is empty`);
-    const oldText = existsSync(file) ? readText(file) : "";
+    const oldText = readIfThere(file) ?? "";
     const oldRows = oldText ? rowsOf(oldText) : [];
     problems.push(...check(ticker, oldRows, newRows));
     if (oldText) text = agedOut(oldText, text);
@@ -170,7 +174,8 @@ async function main() {
   }
   for (const day of [...proofDays].sort()) {
     const file = path.join(ROOT, "daily-proofs", `${day}.json`);
-    const have: unknown = existsSync(file) ? JSON.parse(readText(file)) : null;
+    const haveText = readIfThere(file);
+    const have: unknown = haveText === null ? null : JSON.parse(haveText);
     if (truthy(have) && truthy(field(have, "bitcoin_height"))) continue; // complete: a proof with its Bitcoin block is never rewritten
     const body = await get(`/api/indices/proof?day=${day}`);
     const fresh: unknown = JSON.parse(body);

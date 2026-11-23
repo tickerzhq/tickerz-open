@@ -32,7 +32,10 @@ export function alchemyUrl(chain: "base" | "solana", env: Env = process.env): st
   return `https://${chain === "base" ? "base-mainnet" : "solana-mainnet"}.g.alchemy.com/v2/${key}`;
 }
 
-export const isAlchemy = (url: string) => /\.g\.alchemy\.com\//.test(url);
+/** True when the URL's host is an Alchemy node. Checks the parsed host, so a path or query that mentions alchemy doesn't count. */
+export function isAlchemy(url: string): boolean {
+  try { return new URL(url).hostname.endsWith(".g.alchemy.com"); } catch { return false; }
+}
 
 /** A node's name for logs and errors: "alchemy", or the public host. Never the URL, which holds the key. */
 export function rpcLabel(url: string): string {
