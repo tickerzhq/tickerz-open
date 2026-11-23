@@ -16,7 +16,7 @@
     "gigs": "tsx scripts/recompute-gigs-wage.ts"
   },
   "dependencies": {
-    "viem": "2.57.19"
+    "viem": "2.57.20"
   },
   "devDependencies": {
     "@types/node": "22.20.1",
