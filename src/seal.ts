@@ -162,12 +162,15 @@ export const sha256Hex = (text: string) => createHash("sha256").update(text, "ut
  */
 export function checkSeal(proof: SealProof, ots: Uint8Array, day: string = proof.day): SealCheck[] {
   const out: SealCheck[] = [];
-  const digest = sha256Hex(proof.canonical_json);
-  out.push({ name: "digest", ok: digest === proof.digest_sha256, detail: `sha256(canonical_json) = ${digest}` });
+  // The proof comes from the network: a field of the wrong type, or a row the seal format cannot hold, fails its
+  // check. Nothing here throws.
+  const text = typeof proof.canonical_json === "string" ? proof.canonical_json : null;
+  const digest = text == null ? null : sha256Hex(text);
+  out.push({ name: "digest", ok: digest != null && digest === proof.digest_sha256, detail: digest ? `sha256(canonical_json) = ${digest}` : "canonical_json is not text" });
   type Parsed = { kind?: unknown; day?: unknown; since?: unknown; rows?: unknown };
   let parsed: Parsed | null;
   try {
-    parsed = JSON.parse(proof.canonical_json) as Parsed;
+    parsed = JSON.parse(text ?? "") as Parsed;
   } catch {
     parsed = null;
   }
@@ -176,19 +179,23 @@ export function checkSeal(proof: SealProof, ots: Uint8Array, day: string = proof
     ok: parsed?.kind === "index_seal" && parsed?.day === day && proof.day === day,
     detail: `kind ${String(parsed?.kind)}, day ${String(parsed?.day)}`,
   });
-  let rebuilt = "";
+  let rebuilt: string | null = null;
   if (parsed && Array.isArray(parsed.rows) && (parsed.since === null || typeof parsed.since === "string")) {
-    rebuilt = canonicalSealJson(String(parsed.day), parsed.since as string | null, parsed.rows as SealRow[]);
+    try {
+      rebuilt = canonicalSealJson(String(parsed.day), parsed.since as string | null, parsed.rows as SealRow[]);
+    } catch {
+      rebuilt = null;
+    }
   }
   out.push({
     name: "canonical",
-    ok: rebuilt === proof.canonical_json,
+    ok: rebuilt != null && rebuilt === text,
     detail: `${Array.isArray(parsed?.rows) ? parsed.rows.length : 0} rows rebuilt with the published key order`,
   });
   const otsDigest = otsDigestHex(ots);
   out.push({ name: "ots", ok: otsDigest === proof.digest_sha256, detail: otsDigest ? `.ots commits to ${otsDigest}` : "not an OpenTimestamps SHA-256 proof" });
   if (proof.ots_proof_base64 != null) {
-    const same = Buffer.from(proof.ots_proof_base64, "base64").equals(Buffer.from(ots));
+    const same = typeof proof.ots_proof_base64 === "string" && Buffer.from(proof.ots_proof_base64, "base64").equals(Buffer.from(ots));
     out.push({ name: "ots_same", ok: same, detail: same ? "the JSON's proof and the .ots file are the same bytes" : "the JSON's proof differs from the .ots file" });
   }
   return out;
