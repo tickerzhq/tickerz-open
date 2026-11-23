@@ -1,5 +1,6 @@
 # Weekly version updates for the three things this repo depends on: the npm packages (package.json), the Python
-# packages of Forecast v1 and its shadow models (models/requirements.txt and requirements-shadow.txt), and the actions
+# packages of Forecast v1 and its shadow models (models/requirements.in and requirements-shadow.in, which pip-compile
+# writes with hashes into the .txt files beside them), and the actions
 # in .github/workflows (pinned to commit SHAs; Dependabot moves the SHA and the version comment together).
 # Minor and patch bumps come as one pull request per ecosystem; a major bump comes on its own. A release is only
 # offered once it is 7 days old, so a bad or hijacked release has time to be pulled first.
