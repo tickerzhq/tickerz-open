@@ -1,0 +1,8 @@
+# Forecast v1's libraries. Edit the versions here, then run from models/:
+#   pip-compile --allow-unsafe --generate-hashes --output-file=requirements.txt requirements.in
+# requirements.txt pins every package these pull in, with the sha256 of each file, for pip install --require-hashes.
+numpy==2.5.5
+polars==2.1.0
+statsforecast==2.1.1
+lightgbm==4.7.0
+scikit-learn==1.9.1

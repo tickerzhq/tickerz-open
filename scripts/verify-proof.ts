@@ -41,6 +41,11 @@ if (!isCalendarDay(day)) {
   const checks = checkSeal(proof, ots, day);
   for (const c of checks) console.log(`${c.ok ? "PASS" : "FAIL"}  ${c.name.padEnd(9)} ${c.detail}`);
   const ok = checks.every((c) => c.ok);
+  // What follows reads the seal's own rows. Text that did not rebuild as a seal has none to read.
+  if (!checks.find((c) => c.name === "canonical")?.ok) {
+    console.error("\nAt least one check failed: do not rely on this seal.");
+    process.exit(1);
+  }
 
   const rows = JSON.parse(proof.canonical_json) as { since: string | null; rows: unknown[] };
   console.log(`\ndigest_sha256  ${proof.digest_sha256}`);

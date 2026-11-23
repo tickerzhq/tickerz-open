@@ -34,11 +34,12 @@ jobs:
           cache-dependency-path: |
             models/requirements.txt
             models/requirements-shadow.txt
-      - run: pip install -r models/requirements.txt
+      # Every package and its sha256 is in the file (pip-compile from requirements.in): a changed file is refused.
+      - run: pip install --require-hashes -r models/requirements.txt
       - name: Install the shadow models' libraries (CPU torch)
         continue-on-error: true
         timeout-minutes: 8
-        run: pip install -r models/requirements-shadow.txt
+        run: pip install --require-hashes -r models/requirements-shadow.txt
       - name: Cache the shadow models' weights
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
