@@ -225,11 +225,11 @@ Tested on Node 22.23 (package.json asks for Node 20 or later).
 
 ```
 npm ci
-npm test            # 7 files, 55 checks, no network
+npm test            # 9 files, 92 checks, no network
 npx tsc --noEmit    # strict type check of src, scripts and tests
 ```
 
-The tests run the $MINTS counter against a fake chain (UTC day edges, failed and untimed transactions, a read cut short and resumed, rate limits), the x402 extraction against hand-built receipts (routers, fee proxies, several payments in one transaction, payment channel deposits), the estimate against an hour Tickerz read in full (4,044 payments; the estimate's range holds it), and every check of the verifier against a real seal, plus the ways a changed seal must fail.
+The tests run the $MINTS counter against a fake chain (UTC day edges, failed and untimed transactions, a read cut short and resumed, rate limits), the x402 extraction against hand-built receipts (routers, fee proxies, several payments in one transaction, payment channel deposits), the estimate against an hour Tickerz read in full (4,044 payments; the estimate's range holds it), and every check of the verifier against a real seal, plus the ways a changed seal must fail. Two files are property tests with fast-check, each property checked on a few hundred generated inputs: `test/recount.property.test.ts` covers the recount (canonical JSON, the signed report, base58, scaled values, and each source's reader on any answer the source could send) and `test/proof.property.test.ts` covers the seal check and `npm run verify`.
 
 ## Uptime
 
@@ -239,7 +239,7 @@ The tests run the $MINTS counter against a fake chain (UTC day edges, failed and
 
 Report a security problem to desk@tickerz.com, not in an issue: [SECURITY.md](SECURITY.md) has the scope, what happens next and how to verify a signed report. In this repo:
 
-- Every action in `.github/workflows` is pinned to a full commit SHA, with its version in a comment.
+- Every action in `.github/workflows` is pinned to a full commit SHA, with its version in a comment. npm installs with `npm ci` from the lock file; the forecast installs its Python packages with `pip install --require-hashes` from files that pin every package and the sha256 of each file (`models/requirements*.txt`, written by pip-compile from the `.in` files).
 - Each workflow's token has the least it needs. Only the three jobs that commit their own folders (cosign, forecast, mirror) can push, each one run at a time; uptime can open and close its own issue; everything else only reads.
 - CodeQL scans the TypeScript, the Python and the workflows on every pull request, on code pushed to main and weekly. OpenSSF Scorecard grades the setup weekly and publishes the badge above.
 - Dependabot proposes updates to the npm and pip packages and the actions every week, grouped, once a release is 7 days old.
@@ -269,7 +269,9 @@ scripts/
   mirror.ts         The twice-daily mirror of the prints and daily proofs. node scripts/mirror.ts
   test-all.ts       npm test: runs every file in test/.
 test/               Plain-assert tests, no network. Most are copied from Tickerz's own suite.
+  *.property.test.ts   Property tests (fast-check) for the recount and the seal check.
   fixtures/seal-2026-10-03.json   The public proof for 2026-10-03, unchanged.
+  fixtures/fake-proof-api.ts      A stand-in for the proof endpoint, so the test can run npm run verify offline.
 models/             forecast.py (Tickerz Forecast v1, writes forecasts/) and bandit.py (the decision model over experiments).
 plugin/, .claude-plugin/  The Tickerz plugin for Claude Code: the tickerz.com MCP server and the tickerz-index skill.
 ```

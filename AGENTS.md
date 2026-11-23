@@ -17,7 +17,7 @@ npm run gigs -- 2026-10-03     # the retired $GIGS and $WAGE math, kept as histo
 node --import tsx test/floor.test.ts   # one test file
 ```
 
-Each test file must print `N passed` as its last line; `scripts/test-all.ts` reads that line to count checks.
+Each test file must print `N passed` as its last line; `scripts/test-all.ts` reads that line to count checks. The two `test/*.property.test.ts` files are property tests with fast-check: they run on generated inputs, and a failure prints the seed and the smallest input that fails.
 
 ```
 pip install -r models/requirements.txt
@@ -26,6 +26,8 @@ python3 models/test_bandit.py
 ```
 
 `models/requirements-shadow.txt` pulls CPU torch and about 1.3 GB of model weights. Skip it unless the work is on the shadow models.
+
+Both `.txt` files are written by pip-compile from the `.in` file beside them and pin every package with the sha256 of each file. Edit the `.in`, then run the command at the top of the `.txt` from `models/` with Python 3.12 (`pip install pip-tools`), base file first.
 
 ## What CI checks on a pull request
 
@@ -51,9 +53,9 @@ There are no releases and nothing deploys from here; only main is supported. The
 
 - Never edit by hand: `prints/`, `daily-proofs/`, `cosigns/`, `disputes/`, `forecasts/` and `floor/*.json`. Jobs write them, and a PR that changes them is closed.
 - `python3 models/forecast.py --dry` reads tickerz.com and rewrites `forecasts/latest.json` (and `shadow.json`). Discard that change before committing.
-- `oracle/` is copied from Tickerz's production code, so the public recount is exactly the code that co-signs. A change there needs an issue first and has to land in both places. `tsconfig.json` does not include `oracle/`, so `npm run typecheck` does not check it.
+- `oracle/` is copied from Tickerz's production code, so the public recount is exactly the code that co-signs. A change there needs an issue first and has to land in both places. `tsconfig.json` does not include `oracle/`, so `npm run typecheck` checks only the oracle files `test/recount.property.test.ts` imports.
 - The cosign job's key and RPC URL (`TICKERZ_COSIGNER_KEY`, `SOLANA_RPC_URL`) exist only as Actions secrets. Never print, log or commit a key, token or private address. `npm run recount` needs no key and uses the public Solana RPC unless `SOLANA_RPC_URL` is set.
-- Keep the workflow shape: actions pinned to a full commit SHA with a version comment, the least token permission per job, and the job that runs installed code never holds a write token (a separate commit job pushes). OpenSSF Scorecard grades this.
+- Keep the workflow shape: actions pinned to a full commit SHA with a version comment, `npm ci` and `pip install --require-hashes` for installs, the least token permission per job, and the job that runs installed code never holds a write token (a separate commit job pushes). OpenSSF Scorecard grades this.
 - A fix to a counter, the seal check, the recount or the mirror comes with a test that fails before it and passes after.
 - A number in the docs comes from a file here or the public API, never from memory.
 - Docs and commit messages: plain English, short sentences, numbers first, no em or en dashes, no exclamation marks, no hype words (`CONTRIBUTING.md`).
