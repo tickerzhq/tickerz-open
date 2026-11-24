@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-23T08:40:27Z",
+  "updated_utc": "2026-11-24T08:41:53Z",
   "system": "The Tickerz Floor",
   "model": "v4",
   "since": "2026-10-02",
@@ -19,10 +19,6 @@
       "change_close": 0,
       "change_7d": 14,
       "history": [
-        {
-          "date": "2026-10-25",
-          "level": 217
-        },
         {
           "date": "2026-10-26",
           "level": 217
@@ -138,6 +134,10 @@
         {
           "date": "2026-11-23",
           "level": 247
+        },
+        {
+          "date": "2026-11-24",
+          "level": 247
         }
       ],
       "own_numbers": [],
@@ -202,14 +202,10 @@
       "title": "Engineering: builds, merges, ships",
       "team": "Product",
       "model": "Claude Opus and Codex",
-      "level": 148.5,
-      "change_close": 0.0,
-      "change_7d": 14.0,
+      "level": 158.5,
+      "change_close": 5.0,
+      "change_7d": 24.0,
       "history": [
-        {
-          "date": "2026-10-25",
-          "level": 108.5
-        },
         {
           "date": "2026-10-26",
           "level": 108.5
@@ -324,16 +320,20 @@
         },
         {
           "date": "2026-11-23",
-          "level": 148.5
+          "level": 153.5
+        },
+        {
+          "date": "2026-11-24",
+          "level": 158.5
         }
       ],
       "own_numbers": [],
       "skills": {
         "Shipping": {
-          "estimate": 0.942,
-          "low": 0.928,
-          "high": 0.956,
-          "n": 410,
+          "estimate": 0.929,
+          "low": 0.913,
+          "high": 0.944,
+          "n": 432,
           "minimum": 20,
           "tier": "rated"
         },
@@ -365,7 +365,7 @@
         "last": "2026-10-09T20:23:33.153105Z"
       },
       "week": {
-        "shipped": 20,
+        "shipped": 30,
         "reverted": 0,
         "signed": 0,
         "lesson": 0,
@@ -410,10 +410,6 @@
       "change_close": 0.0,
       "change_7d": 0.0,
       "history": [
-        {
-          "date": "2026-10-25",
-          "level": 126.5
-        },
         {
           "date": "2026-10-26",
           "level": 126.5
@@ -529,6 +525,10 @@
         {
           "date": "2026-11-23",
           "level": 128.5
+        },
+        {
+          "date": "2026-11-24",
+          "level": 128.5
         }
       ],
       "own_numbers": [
@@ -542,9 +542,9 @@
       ],
       "skills": {
         "Shipping": {
-          "estimate": 0.974,
-          "low": 0.954,
-          "high": 0.993,
+          "estimate": 0.972,
+          "low": 0.952,
+          "high": 0.992,
           "n": 92,
           "minimum": 20,
           "tier": "specialist"
@@ -623,10 +623,6 @@
       "change_7d": 0,
       "history": [
         {
-          "date": "2026-10-25",
-          "level": 113
-        },
-        {
           "date": "2026-10-26",
           "level": 113
         },
@@ -741,13 +737,17 @@
         {
           "date": "2026-11-23",
           "level": 113
+        },
+        {
+          "date": "2026-11-24",
+          "level": 113
         }
       ],
       "own_numbers": [],
       "skills": {
         "Shipping": {
-          "estimate": 0.982,
-          "low": 0.958,
+          "estimate": 0.978,
+          "low": 0.952,
           "high": 1,
           "n": 32,
           "minimum": 20,
@@ -819,10 +819,6 @@
       "change_7d": 0.0,
       "history": [
         {
-          "date": "2026-10-25",
-          "level": 103.5
-        },
-        {
           "date": "2026-10-26",
           "level": 103.5
         },
@@ -937,6 +933,10 @@
         {
           "date": "2026-11-23",
           "level": 103.5
+        },
+        {
+          "date": "2026-11-24",
+          "level": 103.5
         }
       ],
       "own_numbers": [
@@ -950,8 +950,8 @@
       ],
       "skills": {
         "Shipping": {
-          "estimate": 0.958,
-          "low": 0.906,
+          "estimate": 0.949,
+          "low": 0.892,
           "high": 1,
           "n": 3,
           "minimum": 20,
@@ -1018,10 +1018,6 @@
       "change_7d": 0.0,
       "history": [
         {
-          "date": "2026-10-25",
-          "level": 102.25
-        },
-        {
           "date": "2026-10-26",
           "level": 102.25
         },
@@ -1136,6 +1132,10 @@
         {
           "date": "2026-11-23",
           "level": 102.25
+        },
+        {
+          "date": "2026-11-24",
+          "level": 102.25
         }
       ],
       "own_numbers": [
@@ -1156,8 +1156,8 @@
       ],
       "skills": {
         "Shipping": {
-          "estimate": 0.965,
-          "low": 0.92,
+          "estimate": 0.957,
+          "low": 0.908,
           "high": 1,
           "n": 7,
           "minimum": 20,
@@ -1237,10 +1237,6 @@
       "change_7d": 0.0,
       "history": [
         {
-          "date": "2026-10-25",
-          "level": 100.5
-        },
-        {
           "date": "2026-10-26",
           "level": 100.5
         },
@@ -1354,6 +1350,10 @@
         },
         {
           "date": "2026-11-23",
+          "level": 100.5
+        },
+        {
+          "date": "2026-11-24",
           "level": 100.5
         }
       ],
@@ -1412,10 +1412,6 @@
       "change_7d": 0,
       "history": [
         {
-          "date": "2026-10-25",
-          "level": 100
-        },
-        {
           "date": "2026-10-26",
           "level": 100
         },
@@ -1529,6 +1525,10 @@
         },
         {
           "date": "2026-11-23",
+          "level": 100
+        },
+        {
+          "date": "2026-11-24",
           "level": 100
         }
       ],
@@ -1581,10 +1581,6 @@
       "change_7d": 0,
       "history": [
         {
-          "date": "2026-10-25",
-          "level": 100
-        },
-        {
           "date": "2026-10-26",
           "level": 100
         },
@@ -1698,6 +1694,10 @@
         },
         {
           "date": "2026-11-23",
+          "level": 100
+        },
+        {
+          "date": "2026-11-24",
           "level": 100
         }
       ],
@@ -1742,10 +1742,6 @@
       "change_7d": 0,
       "history": [
         {
-          "date": "2026-10-25",
-          "level": 100
-        },
-        {
           "date": "2026-10-26",
           "level": 100
         },
@@ -1859,6 +1855,10 @@
         },
         {
           "date": "2026-11-23",
+          "level": 100
+        },
+        {
+          "date": "2026-11-24",
           "level": 100
         }
       ],
@@ -1903,10 +1903,6 @@
       "change_7d": 0,
       "history": [
         {
-          "date": "2026-10-25",
-          "level": 97
-        },
-        {
           "date": "2026-10-26",
           "level": 97
         },
@@ -2020,6 +2016,10 @@
         },
         {
           "date": "2026-11-23",
+          "level": 97
+        },
+        {
+          "date": "2026-11-24",
           "level": 97
         }
       ],
