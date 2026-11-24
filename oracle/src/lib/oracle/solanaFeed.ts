@@ -10,7 +10,7 @@ import { createHash } from "node:crypto";
 import { addressBytes, base58Encode, compactU16 } from "../solanaTx";
 
 /** The program's address. Devnet and local only until the mainnet deploy (a founder ask: the deploy costs SOL). */
-export const ORACLE_PROGRAM_ID = "GNwZGzSNyEyuxgDqtZxcQPag4tAwQeagJiLQzy97AjD9";
+export const ORACLE_PROGRAM_ID = "838cdWMpb2WeAT4stt7rgaBcwEcJh5ziS9P9RKLeTw7o";
 export const SYSTEM_PROGRAM = "11111111111111111111111111111111";
 export const BPF_UPGRADEABLE_LOADER = "BPFLoaderUpgradeab1e11111111111111111111111";
 

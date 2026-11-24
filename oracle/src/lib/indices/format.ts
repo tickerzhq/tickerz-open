@@ -4,7 +4,7 @@
  */
 
 /** What a formatter reads of an index definition: the same shape as Pick<IndexDef, "format" | "unit">. */
-export type LevelFormat = { format: "count" | "usd" | "percent"; unit: [string, string] };
+export type LevelFormat = { format: "count" | "usd" | "percent"; unit: [string, string]; decimals?: number };
 
 /** A level in full, for settlement: "9,782 views", "$4,434,237.23". Never abbreviated. */
 export function formatExact(def: LevelFormat, v: number | null | undefined): string {
@@ -15,7 +15,7 @@ export function formatExact(def: LevelFormat, v: number | null | undefined): str
     const n = v.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return `${n} ${Math.abs(v) === 1 ? def.unit[0] : def.unit[1]}`;
   }
-  const n = v.toLocaleString("en-US", { maximumFractionDigits: 2 });
+  const n = v.toLocaleString("en-US", { minimumFractionDigits: def.decimals ?? 0, maximumFractionDigits: def.decimals ?? 2 });
   return `${n} ${Math.abs(v) === 1 ? def.unit[0] : def.unit[1]}`;
 }
 
@@ -33,7 +33,8 @@ export function formatLevel(def: LevelFormat, v: number | null | undefined, opts
     if (opts.unit === false) return n;
     return `${n} ${Math.abs(v) === 1 ? def.unit[0] : def.unit[1]}`;
   }
-  const n = Math.round(v).toLocaleString("en-US");
+  // A count with set decimals (CO2 in parts per million to two places) keeps them; every other count is whole.
+  const n = def.decimals ? v.toLocaleString("en-US", { minimumFractionDigits: def.decimals, maximumFractionDigits: def.decimals }) : Math.round(v).toLocaleString("en-US");
   if (opts.unit === false) return n;
-  return `${n} ${Math.round(Math.abs(v)) === 1 ? def.unit[0] : def.unit[1]}`;
+  return `${n} ${!def.decimals && Math.round(Math.abs(v)) === 1 ? def.unit[0] : def.unit[1]}`;
 }

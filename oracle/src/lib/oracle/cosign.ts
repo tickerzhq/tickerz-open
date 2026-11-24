@@ -1,5 +1,5 @@
 /**
- * The independent recount. It runs outside Tickerz's servers (a GitHub Actions job in the public tickerz-open repo,
+ * The public recount, run by Tickerz with its own recount key. It runs outside Tickerz's servers (a GitHub Actions job in the public tickerz-open repo,
  * with its own key in that repo's secrets: TICKERZ_COSIGNER_KEY), fetches each new signed report, counts the period
  * again from the public source with the code in recount.ts, and co-signs the report hash only when it gets exactly the
  * signed value. A disagreement is written down as a dispute, which keeps the print provisional.
