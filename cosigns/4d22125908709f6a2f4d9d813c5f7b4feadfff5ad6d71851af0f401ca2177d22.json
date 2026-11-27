@@ -1,0 +1,10 @@
+{
+  "report_hash": "4d22125908709f6a2f4d9d813c5f7b4feadfff5ad6d71851af0f401ca2177d22",
+  "ticker": "MINTS",
+  "period": "2026-11-25",
+  "value": "40447",
+  "by": "7TYVLzDyAGspQ2FSH1H4D8kzrocuQqSRMM48frr3EjZ3",
+  "signature": "2oZG5YykoKs5sjvzNXpJLL4gU7TrvdavgfixZTWgD4sF6ZhRnu4hLj5q7dRp4UpSnr4nmuDQvJYUVqmJAkWA1kzg",
+  "how": "getSignaturesForAddress TSLvdd1pWpHVjahSpsvCXUbgwsL3JAcvokwaKt1eokM, 89000 rows",
+  "at": "2026-11-27T00:46:28.476Z"
+}
